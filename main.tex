@@ -1,0 +1,59 @@
+\documentclass[14pt, a4paper]{extreport}
+
+% Configure the page layout
+\usepackage[a4paper,right=25mm,left=25mm,top=20mm,bottom=20mm]{geometry}
+
+% Set font family
+\usepackage[T1]{fontenc}
+\usepackage{charter}
+
+% Vietnamese language support
+\usepackage[vietnamese]{babel}
+
+% Insert images
+\usepackage{graphicx}
+\graphicspath{{images/}}
+
+% Insert hyperlinks
+\usepackage{hyperref}
+
+% Define line spacing
+\usepackage{setspace}
+\onehalfspacing
+
+% Create graphic elements in LaTeX
+\usepackage{tikz}
+
+% Define commands for general information
+\newcommand{\thesisname}{hệ thống uy tín xác thực hồ sơ và đánh giá kỹ năng}
+\newcommand{\instructor}{PGS. TS. Nguyễn Đình Thúc}
+\newcommand{\studentone}{Nguyễn Hải Tuyên - 21127474}
+\newcommand{\studenttwo}{Trần Minh Đạt - 21127570}
+
+\begin{document}
+
+\include{title/title}
+
+\include{otherChapter/thanks}
+
+\tableofcontents
+
+\include{chapter1/chapter1}
+
+\include{chapter2/chapter2}
+
+\include{chapter3/chapter3}
+
+\include{chapter4/chapter4}
+
+\include{chapter5/chapter5}
+
+\chapter*{Tài liệu tham khảo}
+
+\nocite{*}
+\bibliographystyle{ieeetr}
+\bibliography{reference}
+
+\include{otherChapter/appendix}
+
+\end{document}
