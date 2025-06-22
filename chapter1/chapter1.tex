@@ -84,6 +84,13 @@ Nhìn chung, các nghiên cứu, bài báo mà chúng tôi đã tham khảo từ
 
 Từ ý tưởng rút ra từ các nghiên cứu và bài báo đã tiến hành theo hướng đề tài này, chúng tôi có hướng tiếp cận tới hệ thống này như sau:
 
+\subsection{Các thành phần công nghệ chính}
+\begin{itemize}
+  \item Blockchain: sổ cái phi tập trung, có vai trò lưu trữ dữ liệu quan trọng trên chuỗi (on-chain) như thông tin người dùng, danh sách thử thách, danh sách giải pháp, chỉ số uy tín, quyền truy cập vào dữ liệu của người dùng,\dots Dữ liệu có thể chứa các tham chiếu (CID) của các dữ liệu lưu ngoài chuỗi (off-chain).
+  \item Smart Contract: hợp đồng thông minh tương tác với blockchain để quản lý dữ liệu on-chain, đồng thời thực thi các tiến trình quan trọng như: tính toán chỉ số uy tín, cập nhật kết quả lưu trên chuỗi, thực hiện các biện pháp thưởng phạt theo quy ước.
+  \item Kho lưu trữ dữ liệu phi tập trung (dStorage): dịch vụ lưu trữ phi tập trung dùng để lưu trữ dữ liệu người dùng, nội dung của các \textit{thử thách}, các \textit{giải pháp} của nó, và các dữ liệu lớn cần lưu trữ ngoài chuỗi.
+\end{itemize}
+
 \subsection{Các chủ thể tương tác}
 \begin{itemize}
   \item \textit{Người đóng góp} (Contributor): là những người dùng tạo các thử thách, có trách nhiệm đóng góp ngân hàng thử thách của hệ thống.
@@ -91,13 +98,6 @@ Từ ý tưởng rút ra từ các nghiên cứu và bài báo đã tiến hành
   \item \textit{Người dùng} (User): là những người có nhu cầu xây dựng uy tín, có thể tìm kiếm các thử thách, tham gia và đưa ra các giải pháp cho thử thách tương ứng.
   \item \textit{Người đánh giá} (Evaluator): là những người tham gia vào quá trình đánh giá giải pháp mà người dùng đưa ra cho một thử thách.
   \item \textit{Phòng tuyển dụng của các công ty} (Companies' recruitment department): là đội ngũ tuyển dụng của các công ty có nhu cầu tuyển dụng những ứng viên phù hợp.
-\end{itemize}
-
-\subsection{Các thành phần công nghệ chính}
-\begin{itemize}
-  \item Blockchain: sổ cái phi tập trung, có vai trò lưu trữ dữ liệu quan trọng trên chuỗi (on-chain) như thông tin người dùng, danh sách thử thách, danh sách giải pháp, chỉ số uy tín, quyền truy cập vào dữ liệu của người dùng,\dots Dữ liệu có thể chứa các tham chiếu (CID) của các dữ liệu lưu ngoài chuỗi (off-chain).
-  \item Smart Contract: hợp đồng thông minh tương tác với blockchain để quản lý dữ liệu on-chain, đồng thời thực thi các tiến trình quan trọng như: tính toán chỉ số uy tín, cập nhật kết quả lưu trên chuỗi, thực hiện các biện pháp thưởng phạt theo quy ước.
-  \item Kho lưu trữ dữ liệu phi tập trung (dStorage): dịch vụ lưu trữ phi tập trung dùng để lưu trữ dữ liệu người dùng, nội dung của các \textit{thử thách}, các \textit{giải pháp} của nó, và các dữ liệu lớn cần lưu trữ ngoài chuỗi.
 \end{itemize}
 
 \subsection{Các tập dữ liệu}
@@ -165,11 +165,11 @@ Từ ý tưởng rút ra từ các nghiên cứu và bài báo đã tiến hành
 \begin{itemize}
   \item \textbf{Đề xuất một mô hình hệ thống uy tín phi tập trung} ứng dụng công nghệ blockchain để xác thực kỹ năng và hồ sơ cá nhân một cách minh bạch, khách quan và không thể thay đổi. Mô hình này hướng đến việc xây dựng một chuẩn đánh giá năng lực mới trong lĩnh vực Công nghệ thông tin.
 
-  \item \textbf{Thiết kế kiến trúc hệ thống đầy đủ} với các thành phần chính như smart contract, blockchain, dịch vụ lưu trữ phi tập trung (dStorage), cùng luồng tương tác rõ ràng giữa các chủ thể trong hệ thống như người dùng, người đóng góp, người kiểm duyệt, người đánh giá và nhà tuyển dụng.
+  \item \textbf{Thiết kế kiến trúc hệ thống đầy đủ} với các thành phần chính như Smart Contract, blockchain, dịch vụ lưu trữ phi tập trung (dStorage), cùng luồng tương tác rõ ràng giữa các chủ thể trong hệ thống như người dùng, người đóng góp, người kiểm duyệt, người đánh giá và nhà tuyển dụng.
 
   \item \textbf{Xây dựng cơ chế đánh giá dựa trên cộng đồng (community-driven assessment)} kết hợp với hệ thống tính điểm uy tín nhằm đảm bảo tính công bằng, chống gian lận và khuyến khích sự tham gia tích cực từ nhiều bên liên quan.
 
-  \item \textbf{Triển khai một hệ thống minh họa (prototype)} hoạt động được ở môi trường cục bộ, bao gồm giao diện người dùng, backend tích hợp smart contract, khả năng lưu trữ dữ liệu phi tập trung và cơ chế đánh giá thử thách.
+  \item \textbf{Triển khai một hệ thống minh họa (prototype)} hoạt động được ở môi trường cục bộ, bao gồm giao diện người dùng, backend tích hợp Smart Contract, khả năng lưu trữ dữ liệu phi tập trung và cơ chế đánh giá thử thách.
 
   \item \textbf{Đóng góp vào hướng nghiên cứu về hệ thống đánh giá phi tập trung và quản lý danh tiếng}, mở ra khả năng mở rộng mô hình cho các lĩnh vực khác ngoài Công nghệ thông tin, phù hợp với xu hướng ứng dụng công nghệ blockchain trong quản lý dữ liệu và xác thực hồ sơ.
 \end{itemize}
