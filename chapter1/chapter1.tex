@@ -1,1 +1,175 @@
 \chapter{Giới thiệu chung}
+
+\section{Đặt vấn đề}
+
+Trong quá trình tuyển dụng nguồn nhân lực hiện nay đối với các ngành nghề, đặc biệt là Công nghệ thông tin,
+việc xác thực trình độ học vấn, kỹ năng và kinh nghiệm của một cá nhân vẫn còn gặp nhiều khó khăn.
+Hiện nay, các nhà tuyển dụng và doanh nghiệp thường dựa vào chứng chỉ, bằng cấp hoặc thông tin do ứng viên cung cấp để đánh giá năng lực.
+Tuy nhiên, những thông tin này \textbf{có thể bị làm giả} hoặc không phản ánh chính xác thực lực của ứng viên.
+
+Bên cạnh đó, nhiều cá nhân có kỹ năng thực tế nhưng lại không có cách nào để chứng minh năng lực của mình ngoài những hồ sơ truyền thống.
+Điều này làm hạn chế cơ hội phát triển và nâng cao giá trị của bản thân trong lĩnh vực.
+Vì vậy, cần có một giải pháp minh bạch, khách quan và đáng tin cậy để xác thực trình độ của mỗi cá nhân,
+đồng thời hỗ trợ doanh nghiệp đánh giá năng lực của ứng viên một cách thuận lợi và chính xác hơn.
+
+Theo đó, ý tưởng về một \textbf{\thesisname} được phát triển dựa trên công nghệ blockchain,
+cung cấp một nền tảng giúp cá nhân có thể chứng minh năng lực của mình một cách minh bạch, công khai và không thể thay đổi.
+Hệ thống cho phép người dùng tham gia các thử thách để kiểm tra và chứng minh kỹ năng, đồng thời áp dụng cơ chế đánh giá phi tập trung để đảm bảo tính khách quan.
+
+Thay vì chỉ dựa vào văn bằng, chứng chỉ hay lời khai của ứng viên, hệ thống này sẽ ghi nhận kết quả đánh giá được tích lũy lên blockchain và hệ thống lưu trữ phi tập trung,
+giúp tạo ra một hồ sơ uy tín đáng tin cậy, có thể sử dụng trên nhiều nền tảng khác nhau.
+Cộng đồng chuyên gia và nhà tuyển dụng có thể tham gia vào quá trình đánh giá để đảm bảo chất lượng,
+đồng thời giúp thúc đẩy sự phát triển của một hệ sinh thái xác thực năng lực trong lĩnh vực Công nghệ thông tin.
+
+\section{Mục tiêu}
+
+Đề tài nhằm xây dựng một hệ thống uy tín phi tập trung ứng dụng công nghệ blockchain để xây dựng và xác thực kỹ năng và hồ sơ cá nhân, bước đầu giới hạn trong lĩnh vực Công nghệ thông tin.
+Hệ thống sẽ cung cấp một môi trường và phương thức đánh giá minh bạch, khách quan và không thể thay đổi, giúp cá nhân chứng minh năng lực thực tế một cách đáng tin cậy,
+đồng thời hỗ trợ tổ chức và doanh nghiệp trong việc xác thực trình độ ứng viên.
+
+Hệ thống hướng đến việc \textbf{tạo lập một môi trường đánh giá công bằng}, nơi mà năng lực của cá nhân được thể hiện thông qua kết quả thực tế,
+thay vì chỉ dựa vào chứng chỉ hoặc hồ sơ tự khai. Bên cạnh đó, việc ứng dụng blockchain giúp đảm bảo dữ liệu được bảo mật,
+minh bạch và có thể truy xuất dễ dàng, góp phần nâng cao độ tin cậy và hiệu quả trong quy trình tuyển dụng và đánh giá nhân sự.
+
+Ngoài việc giải quyết bài toán xác thực hồ sơ, hệ thống còn tạo động lực để cá nhân \textbf{phát triển kỹ năng liên tục}, khi họ có thể tham gia các thử thách
+để cải thiện năng lực và nhận được sự công nhận từ cộng đồng. Với tiềm năng mở rộng, mô hình này có thể được áp dụng cho nhiều lĩnh vực khác,
+đóng góp vào xu hướng phát triển của các giải pháp phi tập trung trong tương lai.
+
+\section{Các nghiên cứu liên quan}
+
+\subsection{Nghiên cứu trong nước}
+
+Bài nghiên cứu "Quản Lý Định Danh Phi Tập Trung" \cite{quan-ly-dinh-danh-phi-tap-trung} là xuất phát điểm quan trọng của đề tài.
+Ý tưởng chính của bài nghiên cứu là việc xây dựng một thống quản lý định danh số nơi người dùng (chủ thể định danh) có toàn quyền kiểm soát đối với thông tin định danh của mình,
+thay vì phụ thuộc vào các nhà cung cấp dịnh vụ (Service Provider).
+Bài nghiên cứu đã đề xuất việc sử dụng công nghệ blockchain để xây dựng hệ thống định danh, bao gồm hai chủ thể chính:
+người dùng (chủ thể định danh) và nhà cung cấp dịnh vụ. Dữ liệu định danh của người dùng được lưu trữ cục bộ trên chính thiết bị của người dùng dưới dạng mã hóa
+và tham chiếu đến dữ liệu được lưu trên blockchain.
+Để quản lý dữ liệu mã hóa, cả chủ thể định danh và nhà cung cấp dịch vụ cần sử dụng giao thức tương tác DataTX. Chủ thể định danh có toàn quyền đối với dữ liệu của mình,
+có thể quản lý quyền truy cập thông qua giao thức tương tác AccessTx.
+
+Bài nghiên cứu cũng đã định nghĩa về uy tín (reputation) như sau: "Uy tín được hình thành và biến đổi qua những thành công hay thất bại
+thực thể khi thực thi các nhiệm vụ cụ thể" \cite{quan-ly-dinh-danh-phi-tap-trung,a-survey-of-trust-in-internet-applications}.
+Có thể hiểu rằng, uy tín không phải là thực thể bất biến, mà luôn thay đổi theo thời gian và từng ngữ cảnh cụ thể.
+Không chỉ dừng lại ở một khái niệm lý thuyết đơn thuần, bài nghiên cứu đã đề xuất một hướng tiếp cận cụ thể để tính toán
+và số hóa khái niệm trừu tượng này bằng cách dựa vào hành vi (behavior) của các Node trong mạng, bao gồm người dùng (chủ thể định danh)
+và nhà cung cấp dịch vụ. Niềm tin của một thực thể (Node) được thiết lập là "giá trị kỳ vọng về hành vi tốt của Node trong tương lai" \cite{quan-ly-dinh-danh-phi-tap-trung}.
+Kỳ vọng này chính là xác suất \(p\) trong phân phối Bernoulli, được tính bằng cách đếm số hành động của Node để tính xấp xỉ xác suất. \cite{thong-ke-may-tinh,quan-ly-dinh-danh-phi-tap-trung}
+
+\subsection{Nghiên cứu ngoài nước}
+
+Chúng tôi đã tham khảo từ các bài báo của dự án Rebooting the Web Of Trust (RWOT) \cite{reputation-toolkit, reputation-design, reputation-interpretation}.
+Các công trình này đã đưa ra một khung khái niệm (conceptual framework) cơ bản cho một hệ thống uy tín, đặc biệt trong việc đánh giá kỹ năng của một cá nhân khi tham gia vào mạng.
+
+Bài báo \cite{reputation-toolkit} đã đề xuất một quy trình chung gồm các bước thao tác của các thực thể trong một hệ thống uy tín:
+\begin{itemize}
+  \item Mỗi cá nhân tham gia vào mạng bằng một mã định danh phi tập trung (DID - Distributed Identifier).
+  \item Chủ thể cần xây dựng uy tín sẽ tạo một tuyên bố (Assertion) và ký bằng khóa bí mật (Private Key) của mình.
+  \item Để tăng tính thuyết phục của tuyên bố, chủ thể có thể tạo một bằng chứng (Evidence) và ký bằng khóa bí mật của mình, sau đó bổ sung tuyên bố ban đầu bằng cách tham chiếu đến bằng chứng vừa tạo.
+  \item Các chủ thể khác tạo một bài đánh giá (Evaluation), ký bằng khóa bí mật của mình và tham chiếu đến tuyên bố của chủ thể cần xây dựng uy tín. Một bài đánh giá có thể ủng hộ hoặc thách thức tuyên bố gốc, có thể tham chiếu đến các bằng chứng (Evidence) để tăng tính thuyết phục.
+  \item Cộng đồng sẽ tham gia bình chọn cho các bài đánh giá. Họ có thể lựa chọn đồng tình hoặc không đồng tình với bài đánh giá.
+\end{itemize}
+Bài báo \cite{reputation-design} đã chỉ ra các yếu tố cốt lõi cần xem xét khi xây dựng một hệ thống uy tín phi tập trung, bao gồm bối cảnh (Context);
+sự tham gia của cộng đồng (Participation); sự đồng thuận của người dùng (User Consent); tính bảo mật (Confidentiality), khả năng tạo giá trị (Value Generation);
+hiệu suất hệ thống (Performance); tính bền vững của hệ thống (Sustainability); vòng đời của các tuyên bố (Claim Lifecycle); tính phục hồi sau các cuộc tấn công mạng (Resilience) và khía cạnh pháp lí (Legal).
+
+Và bài báo \cite{reputation-interpretation} đã tập trung vào việc tìm kiếm giải pháp để số hóa khái niệm trừu tượng uy tín.
+Uy tín của một chủ thể phụ thuộc vào rất nhiều yếu tố và ngữ cảnh khác nhau, vì vậy việc biến những dữ liệu thô đầu vào thành dữ liệu đầu ra nhất quán,
+có thể xử lý được (actionable output) là một phần quan trọng trong một hệ thống uy tín. Cụ thể hơn, bài báo đã đưa ra một quy trình tuần tự, bao gồm việc xác định dữ liệu đầu ra (output),
+xác định dữ liệu thô đầu vào (raw input), xác định chất lượng đầu vào và biên độ lỗi, chuẩn hóa dữ liệu để đưa về một dạng nhất quán, và cuối cùng là xử lý dữ liệu.
+
+Nhìn chung, các nghiên cứu, bài báo mà chúng tôi đã tham khảo từ trong và ngoài nước đã định hình một ý tưởng sơ khai về một hệ thống uy tín phi tập trung. Các nghiên cứu, bài báo đã đề xuất những quy trình xử lý, cách thức tương tác giữa các chủ thể trong hệ thống, kiến trúc hệ thống, cũng như các khía cạnh cần xem xét trong một hệ thống uy tín. Qua đó, đã tạo tiền đề cho bài nghiên cứu này về việc xây dựng và triển khai một hệ thống uy tín trong thực tiễn.
+
+\section{Cách tiếp cận}
+
+Từ ý tưởng rút ra từ các nghiên cứu và bài báo đã tiến hành theo hướng đề tài này, chúng tôi có hướng tiếp cận tới hệ thống này như sau:
+
+\subsection{Các chủ thể tương tác}
+\begin{itemize}
+  \item \textit{Người đóng góp} (Contributor): là những người dùng tạo các thử thách, có trách nhiệm đóng góp ngân hàng thử thách của hệ thống.
+  \item \textit{Người kiểm duyệt} (Moderator): là những người có trách nhiệm kiểm duyệt các thử thách do người đóng góp tạo ra, thực hiện phân loại, đánh giá, và kiểm định chất lượng của thử thách. Để trở thành người kiểm duyệt, người dùng phải thỏa mãn các điều kiện cụ thể được quy định bởi hệ thống.
+  \item \textit{Người dùng} (User): là những người có nhu cầu xây dựng uy tín, có thể tìm kiếm các thử thách, tham gia và đưa ra các giải pháp cho thử thách tương ứng.
+  \item \textit{Người đánh giá} (Evaluator): là những người tham gia vào quá trình đánh giá giải pháp mà người dùng đưa ra cho một thử thách.
+  \item \textit{Phòng tuyển dụng của các công ty} (Companies' recruitment department): là đội ngũ tuyển dụng của các công ty có nhu cầu tuyển dụng những ứng viên phù hợp.
+\end{itemize}
+
+\subsection{Các thành phần công nghệ chính}
+\begin{itemize}
+  \item Blockchain: sổ cái phi tập trung, có vai trò lưu trữ dữ liệu quan trọng trên chuỗi (on-chain) như thông tin người dùng, danh sách thử thách, danh sách giải pháp, chỉ số uy tín, quyền truy cập vào dữ liệu của người dùng,\dots Dữ liệu có thể chứa các tham chiếu (CID) của các dữ liệu lưu ngoài chuỗi (off-chain).
+  \item Smart Contract: hợp đồng thông minh tương tác với blockchain để quản lý dữ liệu on-chain, đồng thời thực thi các tiến trình quan trọng như: tính toán chỉ số uy tín, cập nhật kết quả lưu trên chuỗi, thực hiện các biện pháp thưởng phạt theo quy ước.
+  \item Kho lưu trữ dữ liệu phi tập trung (dStorage): dịch vụ lưu trữ phi tập trung dùng để lưu trữ dữ liệu người dùng, nội dung của các \textit{thử thách}, các \textit{giải pháp} của nó, và các dữ liệu lớn cần lưu trữ ngoài chuỗi.
+\end{itemize}
+
+\subsection{Các tập dữ liệu}
+\begin{itemize}
+  \item Ngân hàng thử thách: kho tàng các thử thách được đóng góp bởi các Contributor, mỗi thử thách sẽ có tiêu đề, mô tả, loại thử thách, lượng token treo thưởng, v.v.
+  \item Bộ kết quả kiểm duyệt: một thử thách sẽ nhận được nhiều điểm số từ nhiều Moderator khác nhau trước khi nó được công khai cho User tham gia.
+  \item Bộ danh sách giải pháp: một thử thách sẽ có nhiều giải pháp khác nhau được cung cấp bởi nhiều User khác nhau.
+  \item Bộ kết quả đánh giá: một giải pháp sẽ nhận được nhiều điểm số từ nhiều Evaluator khác nhau.
+  \item Danh sách bài tuyển dụng: các bài tuyển dụng được đăng tải bởi các đội ngũ tuyển dụng, mỗi bài tuyển dụng sẽ có tiêu đề, mô tả công việc, yêu cầu về điểm uy tín, v.v.
+  \item Bộ thông tin ứng tuyển: một bài tuyển dụng sẽ được nhiều User khác nhau ứng tuyển.
+  \item Danh sách các cuộc họp trực tuyến: những buổi gặp mặt trực tuyến được lên lịch bởi đội ngũ tuyển dụng dành cho một User cho một bài tuyển dụng nhất định.
+  \item Hồ sơ người dùng:
+  \begin{itemize}
+    \item Thông tin cá nhân, chẳng hạn như địa chỉ ví, tên, email, ảnh đại diện, v.v.
+    \item Chỉ số uy tín của người dùng trên hệ thống
+    \item Lịch sử tham gia thử thách
+  \end{itemize}
+  \item Thông tin giao dịch token: phản ánh việc đóng góp và tham gia thử thách, đánh giá giải pháp, đăng bài tuyển dụng và ứng tuyển, và sự biến động về chỉ số uy tín.
+\end{itemize}
+
+\subsection{Kịch bản tương tác giữa các chủ thể}
+\begin{itemize}
+  \item \textbf{Tạo thử thách}
+        \begin{itemize}
+          \item Người đóng góp (Contributor) tạo và đăng tải các thử thách lên hệ thống. Nội dung của thử thách được lưu trữ và chia sẻ lên dStorage.
+          \item Mỗi thử thách phải thuộc về một loại thử thách nhất định (ví dụ: Khoa học máy tính, An ninh mạng, Phát triển phần mềm, v.v. )
+          \item Hệ thống lưu nội dung của thử thách ở dStorage. Smart Contract cập nhật danh sách các thử thách trên chuỗi chứa các CID tham chiếu đến nội dung của thử thách ở dStorage.
+          \item Các thử thách vừa tạo ở trạng thái chưa kiểm duyệt, cần phải thông qua ý kiến của những người kiểm duyệt (Moderator).
+          \item Sau giai đoạn kiểm duyệt, nếu thử thách đạt mức độ và được hội đồng tán thành sẽ chuyển sang trạng thái đã kiểm duyệt. Những người cần xây dựng uy tín có thể tham gia vào thử thách.
+        \end{itemize}
+
+  \item \textbf{Kiểm duyệt thử thách}
+        \begin{itemize}
+          \item Những người kiểm duyệt (Moderator) đọc nội dung của thử thách, kiểm tra chất lượng và mức độ phù hợp của thử thách. Sau đó, những người kiểm duyệt tiến hành bỏ phiếu về các thông tin như: phân loại của thử thách, độ khó, mức độ phù hợp \dots
+          \item Smart Contract tổng hợp đánh giá của những Moderator, dựa trên một công thức tính đã quy định sẵn để tổng hợp ra kết quả cuối cùng.
+          \item Smart Contract cập nhật thông tin liên quan của thử thách đã lưu trên chuỗi.
+        \end{itemize}
+
+  \item \textbf{Tham gia thử thách và đánh giá}
+        \begin{itemize}
+          \item Người dùng (User) trả một khoản token nhất định cho Contributor để tham gia thử thách.
+          \item Hệ thống tự động tạo một không gian làm việc nơi User có thể tạo giải pháp của mình.
+          \item User thiết lập một phiên đánh giá với số lượng tối đa Người đánh giá (Evaluator) cố định có thể tham gia chấm điểm. Evaluator có thể đánh giá bằng cách tham gia vào phiên.
+          \item Sau khi hoàn thành đánh giá, mỗi Evaluator sẽ nộp số điểm.
+          \item Smart Contract thu thập tất cả điểm số từ Evaluator, áp dụng thuật toán tính điểm để xác định số điểm cuối cùng.
+          \item Những Evaluator có điểm số gần với kết quả chính xác nhất sẽ nhận thêm điểm uy tín cho bản thân. Evaluator có điểm số lệch xa với kết quả nhất (hoặc biên độ lệch vượt quá giới hạn đã quy định sẵn) sẽ bị trừ đi điểm uy tín.
+          \item Smart Contract sau đó cập nhật kết quả lên blockchain để đảm bảo tính minh bạch và không thể chỉnh sửa.
+          \item Điểm số của giải pháp sẽ làm thay đổi chỉ số uy tín của User trong một loại thử thách cụ thể.
+        \end{itemize}
+
+  \item \textbf{Đăng bài tuyển dụng và ứng tuyển}
+        \begin{itemize}
+          \item Đội ngũ tuyển dụng của các công ty tạo và đăng tải các bài tuyển dụng kèm theo yêu cầu về chỉ số uy tín của ứng viên.
+          \item Ứng viên tiến hành ứng tuyển vào các bài tuyển dụng.
+          \item Nhà tuyển dụng lúc này có thể xem được chỉ số uy tín của ứng viên và có thể truy cập lịch sử tham gia thử thách.
+          \item Smart Contract cập nhật dữ liệu quyền truy cập lưu trên chuỗi (nếu có).
+          \item Nhà tuyển dụng có thể lên lịch các cuộc họp trực tuyến để phỏng vấn ứng viên.
+          \item Đội ngũ tuyển dụng xem xét và quyết định tuyển dụng đối với User. Nếu có, công ty cần trả một khoản token cho hệ thống.
+        \end{itemize}
+\end{itemize}
+
+\section{Đóng góp của đề tài}
+Đề tài mang lại những đóng góp chính sau:
+
+\begin{itemize}
+  \item \textbf{Đề xuất một mô hình hệ thống uy tín phi tập trung} ứng dụng công nghệ blockchain để xác thực kỹ năng và hồ sơ cá nhân một cách minh bạch, khách quan và không thể thay đổi. Mô hình này hướng đến việc xây dựng một chuẩn đánh giá năng lực mới trong lĩnh vực Công nghệ thông tin.
+
+  \item \textbf{Thiết kế kiến trúc hệ thống đầy đủ} với các thành phần chính như smart contract, blockchain, dịch vụ lưu trữ phi tập trung (dStorage), cùng luồng tương tác rõ ràng giữa các chủ thể trong hệ thống như người dùng, người đóng góp, người kiểm duyệt, người đánh giá và nhà tuyển dụng.
+
+  \item \textbf{Xây dựng cơ chế đánh giá dựa trên cộng đồng (community-driven assessment)} kết hợp với hệ thống tính điểm uy tín nhằm đảm bảo tính công bằng, chống gian lận và khuyến khích sự tham gia tích cực từ nhiều bên liên quan.
+
+  \item \textbf{Triển khai một hệ thống minh họa (prototype)} hoạt động được ở môi trường cục bộ, bao gồm giao diện người dùng, backend tích hợp smart contract, khả năng lưu trữ dữ liệu phi tập trung và cơ chế đánh giá thử thách.
+
+  \item \textbf{Đóng góp vào hướng nghiên cứu về hệ thống đánh giá phi tập trung và quản lý danh tiếng}, mở ra khả năng mở rộng mô hình cho các lĩnh vực khác ngoài Công nghệ thông tin, phù hợp với xu hướng ứng dụng công nghệ blockchain trong quản lý dữ liệu và xác thực hồ sơ.
+\end{itemize}
