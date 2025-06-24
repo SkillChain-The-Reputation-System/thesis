@@ -108,10 +108,10 @@ ta có cấu trúc đồ thị bản thể như hình \ref{fig:good-seller-ontol
 Vì vậy, khi muốn tính một uy tín phức hợp theo chiều bản thể học, một tác nhân cần tính uy tín của từng khía cạnh liên quan.
 Mỗi khía cạnh này có thể lại là một nút trong một đồ thị con, nơi nó cũng được cấu thành từ các khía cạnh nhỏ hơn nữa.
 
-Đối với những nút cuối cùng trong đồ thị (các khía cạnh cơ bản nhất của hành vi, gọi là \textit{atomic aspects}),
-thì danh tiếng của chúng được tính dựa trên chiều cá nhân và chiều xã hội.
+Đối với những nút cuối cùng trong đồ thị (các khía cạnh cơ bản nhất của hành vi, gọi là \textit{atomic aspect}),
+thì uy tín của chúng được tính dựa trên chiều cá nhân và chiều xã hội.
 
-Sau khi có điểm danh tiếng cho từng nút con, điểm danh tiếng của một nút bất kỳ $i$ trong đồ thị bản thể sẽ được tính bằng cách kết hợp
+Sau khi có điểm uy tín cho từng nút con, điểm uy tín của một nút bất kỳ $i$ trong đồ thị bản thể sẽ được tính bằng cách kết hợp
 các giá trị của các nút con của nó theo một công thức:
 \[OR_{a \rightarrow b}(i) = \sum_{j \in children(i)} w_{ij} \cdot OR_{a \rightarrow b}(j)\]
 \[ORL_{a \rightarrow b}(i) = \sum_{j \in children(i)} w_{ij} \cdot ORL_{a \rightarrow b}(j)\]
