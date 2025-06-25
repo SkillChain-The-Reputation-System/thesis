@@ -206,13 +206,19 @@ Ta định nghĩa tập hợp $P$ là các peer có uy tín sẵn (pre-trusted p
 
 \textbf{Những peer không hoạt động.} Nếu peer $i$ chưa từng tương tác với ai, thì không thể tính được $c_{ij}$ (do không thể chia hết cho 0).
 Khi đó, ta sẽ sử dụng $p_j$ thay thế cho $c_{ij}$, tức là nếu peer $i$ không tương tác với ai, không tin tưởng ai thì sẽ chọn peer có uy tín sẵn.
+Ta có thể diễu diễn lại các tính $c_{ij}$ như sau:
+\[
+  c_{ij} =
+  \begin{cases}
+    \frac{max(s_{ij}, 0)}{\sum_{j} max(s_{ij}, 0)}, & \text{nếu } \sum_{j} max(s_{ij}, 0) \neq 0 \\
+    p_j,     & \text{ngược lại}
+  \end{cases}
+\]
 
 \textbf{Các peer độc hại hợp tác với nhau.} Có khả năng sẽ xuất hiện nhiều nhóm peer độc hại mà chúng biết lẫn nhau, bọn chúng sẽ đánh giá cao lẫn nhau và đánh giá thấp những peer có uy tín.
 Để ngăn chận điều này, ta trộn thêm $\vec{p}$ vào mỗi vòng lặp:
 \[\vec{t}^{(k+1)} = (1 - a)C^{T}\vec{t}^{(k)} + a\vec{p}\]
-trong đó, $a$ là một hằng số nhỏ hơn 1. Việc này giúp ``kéo'' giá trị $\vec{c_i}$ của các peer về phía nhóm peer $P$ nhằm phá vòng lặp tin tưởng nội bộ của nhóm độc hại.
-
-Cuối cùng, ta hoàn thiện thuật toán EigenTrust cơ bản như sau:
+trong đó, $a$ là một hằng số nhỏ hơn 1. Việc này giúp ``kéo'' giá trị $\vec{c_i}$ của các peer về phía nhóm $P$ nhằm phá vòng lặp tin tưởng nội bộ của nhóm độc hại. Cuối cùng, ta hoàn thiện thuật toán EigenTrust cơ bản như sau:
 
 \begin{algorithm}
   \caption{Thuật toán EigenTrust cơ bản}
@@ -258,3 +264,45 @@ có thể báo cáo.
     \State \}
   \end{algorithmic}
 \end{algorithm}
+
+\section{Slashdot}
+
+\textbf{Slashdot} \cite{slashdot-web} là một trong những nền tảng trực tuyến lâu đời, nổi bật với mô hình vận hành như một diễn đàn công cộng thực sự -- nơi người dùng không chỉ đọc tin tức mà còn có thể bình luận, 
+thảo luận và tranh luận về các chủ đề liên quan đến công nghệ, phần mềm mã nguồn mở, khoa học, và xã hội kỹ thuật số. 
+Điều làm nên sự đặc biệt của Slashdot không nằm ở bản thân nội dung, mà ở cách mà cộng đồng và hệ thống kỹ thuật cùng phối hợp để duy trì trật tự, chất lượng, và tính dân chủ của các cuộc đối thoại.
+
+\subsection{Karma}
+
+Trái tim của cơ chế tự điều chỉnh trên Slashdot là hệ thống \textbf{karma} \cite{mechanisms-of-website-slashdot} -- một công cụ định lượng uy tín và mức độ đóng góp của người dùng trong cộng đồng.
+Karma không phải là một loại điểm số đơn thuần, mà là một dạng ``vốn xã hội kỹ thuật số''. Nó phản ánh việc người dùng có đưa ra những bình luận hữu ích, đóng góp xây dựng hay không.
+
+Người dùng sẽ tăng karma nếu bình luận của họ được đánh giá cao bởi những người kiểm duyệt tạm thời (moderators); hoặc nội dung họ cung cấp có chất lượng, mang lại thông tin mới, sâu sắc hoặc hữu ích.
+
+Ngược lại karma giảm đi khi người dùng đăng bình luận gây tranh cãi, xúc phạm, thiếu nội dung hoặc không liên quan; hoặc bị nhiều người đánh giá tiêu cực hoặc báo cáo vì hành vi không phù hợp.
+
+Điểm số karma không hiển thị công khai cụ thể, nhưng nó tác động rõ rệt đến trải nghiệm và quyền hạn của người dùng:
+\begin{itemize}
+  \item Mức karma cao: người dùng có thể được lựa chọn làm moderator, có ảnh hưởng xã hội cao, bình luận thường được ưu tiên hiển thị.
+  \item Mức karma trung bình: người dùng có thể tham gia thảo luận, gửi bình luận, tương tác bình thường.
+  \item Mức karma thấp: bình luận của người dùng có thể bị ẩn, quyền đăng bài hoặc đánh giá bị giới hạn.
+\end{itemize}
+
+\subsection{Cơ chế kiểm duyệt do cộng đồng đảm nhiệm}
+
+Người dùng có karma cao sẽ được chọn ngẫu nhiên làm moderator trong một khoảng thời gian ngắn. Vai trò của họ là:
+\begin{itemize}
+  \item Đọc các bình luận mới trên bài viết
+  \item Đánh giá chất lượng mỗi bình luận bằng một thang điểm (thường từ -1 đến +5)
+  \item Gắn nhãn cho bình luận như: Insightful (sâu sắc), Offtopic (lạc đề), Funny (vui nhộn), Troll (gây rối), v.v.
+\end{itemize}
+
+Đặc biệt, người được trao quyền kiểm duyệt không phải quản trị viên cố định, mà luôn là người dùng bình thường được hệ thống chọn dựa trên mức karma --
+điều này tạo nên một cơ chế kiểm duyệt dân chủ và linh hoạt.
+
+\subsection{Phối hợp giữa cộng đồng và kỹ thuật}
+
+Cơ chế karma và moderation của Slashdot là sự phối hợp giữa hai yếu tố kỹ thuật và xã hội:
+\begin{itemize}
+  \item Về mặt kỹ thuật, hệ thống được thiết kế để tự động chọn moderator, xử lý hiển thị bình luận theo điểm đánh giá, và giới hạn quyền của người dùng có karma thấp.
+  \item Về mặt xã hội, người dùng tự điều chỉnh hành vi của mình thông qua phần thưởng và hình phạt từ cộng đồng -- dưới dạng điểm karma. Điều này không chỉ giảm thiểu gánh nặng cho quản trị hệ thống mà còn tăng cường sự tham gia và tinh thần trách nhiệm của người dùng trong việc gìn giữ môi trường thảo luận lành mạnh.
+\end{itemize}
