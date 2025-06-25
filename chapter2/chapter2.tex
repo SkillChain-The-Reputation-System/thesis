@@ -1,12 +1,5 @@
 \chapter{Các hệ thống và công nghệ liên quan}
 
-% Nhiều hệ thống danh tiếng và công nghệ liên quan đã được phát triển nhằm phục vụ các mục tiêu khác nhau như đánh giá sản phẩm, xác thực hành vi, hoặc hỗ trợ ra quyết định trong môi trường trực tuyến. 
-% Bài báo ``Reputation systems: A survey and taxonomy'' \cite{reputation-systems-survey-taxonomy} đã xây dựng một hệ thống phân loại cho các hệ thống danh tiếng.
-% Cấp độ đầu tiên trong hệ thống phân loại này dùng để phân biệt giữa các hệ thống danh tiếng được thiết kế tường minh (explicit) và các hệ thống danh tiếng ngầm định (implicit).
-% như thu thập dữ liệu (Collection), 
-% tổng hợp (Aggregation), tính ngữ cảnh (Context), hay khả năng tương tác giữa các hệ thống (Interoperability). 
-% Dưới đây là một số hệ thống và công nghệ tiêu biểu mà chúng tôi sẽ trình bày trong chương này
-
 \section{ReGreT}
 
 \textbf{ReGreT} \cite{regret-reputation-system} là một mô hình đánh giá uy tín trong xã hội nhiều tác nhân (multi-agent society), được xây dựng nhằm mô phỏng cách con người hình thành và sử dụng danh tiếng trong các tương tác xã hội.
@@ -121,6 +114,147 @@ trong đó, $OR_{a \rightarrow b}(j) = SR_{a \rightarrow b}(j)$ khi $j$ là mộ
 từ góc nhìn của $a$ bằng công thức:
 \begin{align*}
   OR_{a \rightarrow b}(good\ seller) =\  & 0.25 \cdot SR_{a \rightarrow b}(delivery\ date) + \\
-                                        & 0.15 \cdot SR_{a \rightarrow b}(product\ price) + \\
-                                        & 0.6 \cdot SR_{a \rightarrow b}(product\ quality)
+                                         & 0.15 \cdot SR_{a \rightarrow b}(product\ price) + \\
+                                         & 0.6 \cdot SR_{a \rightarrow b}(product\ quality)
 \end{align*}
+
+\section{EigenTrust}
+
+Mạng chia sẻ tập tin ngang hàng (P2P) đang ngày càng trở nên phổ biến nhờ ưu điểm không cần máy chủ trung tâm, có khả năng mở rộng tốt và cung cấp nhiều dữ liệu đa dạng.
+Tuy nhiên, đặc tính ẩn danh và mở của P2P cũng khiến hệ thống này dễ bị lạm dụng, không ai chịu trách nhiệm rõ ràng cho nội dung mà họ chia sẻ. Kết quả là
+tệp tin giả mạo, virus, hoặc nội dung bị chỉnh sửa có thể được phát tán rộng rãi, các peer độc hại có thể dễ dàng lừa người dùng tải về nội dung sai.
+
+\textbf{EigenTrust} \cite{eigentrust-algorithm-for-reputation-management-in-2p2-networks} được giới thiệu là một thuật toán giảm thiểu khả năng tải về các tập tin độc hại
+bằng cách gán mỗi peer một \textit{giá trị tin cậy toàn cục} (global trust value) duy nhất, dựa trên lịch sử tải lên của peer đó. Mỗi peer trong mạng cùng tham gia tính toán điểm tin cậy của nhau
+theo cách phân tán và đối xứng. Khi tải tập tin về, các peer sẽ ưu tiên chọn nguồn tải là những peer có điểm tin cậy cao, giúp giảm đáng kể số lượng tập tin không xác thực.
+
+\subsection{Giá trị tin cậy cục bộ}
+
+Mỗi peer trong hệ thống mạng P2P cho phép theo dõi lịch sử giao dịch của nhau và đánh giá lẫn nhau sau mỗi giao dịch. Ví dụ, mỗi khi peer $i$ tải tập tin từ
+peer $j$, nó có thể gán điểm tích cực $(tr(i, j) = 1)$ nếu hài lòng, hoặc điểm tiêu cực $(tr(i, j) = -1)$ nếu gặp vấn đề như tập tin bị hỏng, giả mạo hoặc quá trình tải thất bại.
+Từ các đánh giá này, một \textit{giá trị tin cậy cục bộ} (local trust value) có thể được tính bằng cách cộng các điểm đánh giá mà peer $i$ đã gán cho $j$, biểu diễn là $s_{ij}=\sum tr_{ij}$.
+
+Ngoài ra, có thể biểu diễn giá trị này bằng cách lưu số lượng giao dịch hài lòng $sat(i, j)$ và không hài lòng $unsat(i, j)$, rồi tính:
+\[st_{ij} = sat(i, j) - unsat(i, j)\]
+
+\subsection{Chuẩn hóa giá trị tin cậy cục bộ}
+
+Trước tiên, cần chuẩn hóa các giá trị tin cậy cục bộ $sat_{ij}$ để đảm bảo tính công bằng. Nếu không chuẩn hóa, một peer độc hại có thể đánh giá tích cực cho các peer độc hại khác và
+đánh giá tiêu cực cho các peer có uy tín cao. Để chuẩn hóa, ta chỉ xét các đánh giá tích cực, và tính xác suất chọn mỗi peer $j$ khi được peer $i$ tin tưởng như sau:
+\[c_{ij} = \frac{max(s_{ij}, 0)}{\sum_{j} max(s_{ij}, 0)}\]
+Cách làm này đảm bảo các giá trị $c_{ij}$ nằm trong khoảng $[0, 1]$ và có thể được hiểu như một xác suất trong mô hình ngẫu nhiên
+(chú ý: nếu $\sum_{j} max(s_{ij}, 0) = 0$ thì $c_{ij}$ sẽ không xác định, vấn đề này sẽ được giải quyết sau đó).
+Tuy nhiên, có một số hạn chế: nếu $c_{ij} = c_{ik}$ , ta chỉ biết peer $j$ và $k$ được $i$ đánh giá ngang nhau, chứ không biết là tốt hay trung bình.
+Dù vậy, việc chuẩn hóa theo cách này giúp quá trình tính toán hiệu quả hơn và dễ dàng áp dụng mô hình xác suất.
+
+\subsection{Tổng hợp các giá trị tin cậy cục bộ}
+
+Sau khi chuẩn hóa, mục tiêu là tổng hợp các đánh giá cục bộ để thu được cái nhìn rộng hơn về độ tin cậy của từng peer.
+Điều này được thực hiện bằng cách áp dụng \textbf{transitive trust} (tạm dịch: niềm tin chuyển tiếp)
+-- nghĩa là peer $i$ sẽ hỏi ý kiến những người mà nó tin tưởng, và kết hợp đánh giá của họ với trọng số tương ứng.
+
+Quá trình tổng hợp này dẫn đến một biểu thức dạng:
+\[t_{ik} = \sum_{j} c_{ij}c_{jk}\]
+trong đó, $t_{ik}$ thể hiện niềm tin của peer $i$ đối với $k$ sau khi hỏi bạn bè của nó ($j$), mỗi người bạn của $i$ lại đánh giá $k$ một cách riêng ($c_{jk}$).
+Ta có thể biểu diễn biểu thức trên thành ma trận: nếu ta gọi $C$ là ma trận $[c_{ij}]$ và $\vec{t_i}$ là vector chứa các giá trị $t_{ik}$, khi đó ta có
+$\vec{t_i} = C^{T}\vec{c_i}$.
+
+Ma trận trên có thể mở rộng khi peer $i$ hỏi thêm những người bạn của bạn mà $i$ đã hỏi ($(C^T)^2, (C^T)^3, ..., (C^T)^n$), và khi $n$ đủ lớn, vector $\vec{t_i}$ sẽ hội tụ về một vector
+\textit{duy nhất cho mỗi peer} $i$ -- đó chính là vector riêng chính của ma trận tin cậy chuẩn hóa $C$. Nói cách khác, $\vec{t}$ là \textit{vector tin cậy toàn cục} (global trust vector) trong mô hình này,
+và mỗi phần tử của nó, $\vec{t_j}$, định lượng mức độ tin cậy của hệ thống nói chung đặt vào peer $j$.
+
+\subsection{Giải thích về xác suất}
+
+Cách hiểu xác suất cung cấp một góc nhìn trực quan cho quá trình lan truyền uy tín trong mạng. Tưởng tượng có một tác nhân ngẫu nhiên đi lang thang trong mạng P2P
+để tìm peer đáng tin. Tại mỗi bước, khi đang đứng ở peer $i$, nó sẽ chuyển đến peer $j$ với xác suất là $c_{ij}$ -- tức là mức độ mà i tin tưởng j.
+Quá trình này tạo thành một \textbf{xích Markov} \cite{markov-chain} với ma trận chuyển xác suất là ma trận tin cậy chuẩn hóa $C$.
+Sau nhiều bước di chuyển, tác nhân sẽ thường xuyên rơi vào những peer đáng tin hơn -- và xác suất dừng lại ở mỗi peer chính là mức độ danh tiếng toàn cục.
+
+Điều này giống như mô hình ``Random Surfer'' \cite{random-suffer-model-pagerank} trong PageRank:
+dù đi lung tung, người dùng sẽ thường ghé lại các trang web đáng tin và phổ biến hơn.
+
+\subsection{Phiên bản EigenTrust cơ bản}
+
+Trong phiên bản đơn giản nhất, ta giả sử có một máy chủ trung tâm lưu trữ tất cả giá trị $c_{ij}$, mục tiêu chính là tính được giá trị tin cậy toàn cục
+$\vec{t} = C^{T}\vec{e}$, với vector khởi đầu là $\vec{e}$ thể hiện phân bố xác suất đồng đều của toàn bộ $m$ peer, tức $e_i = 1/m$.
+Chi tiết tại thuật toán \ref{alg:simple-eigentrust-algorithm}.
+
+\begin{algorithm}
+  \caption{Thuật toán EigenTrust đơn giản}
+  \label{alg:simple-eigentrust-algorithm}
+  \begin{algorithmic}
+    \State $\vec{t}^{(0)} = \vec{e}$
+    \Repeat
+    \State $\vec{t}^{(k+1)} = C^{T}\vec{t}^{(k)}$
+    \State $\delta = || \vec{t}^{(k+1)} - \vec{t}^{(k)} ||$
+    \Until{$\delta < \epsilon$}
+  \end{algorithmic}
+\end{algorithm}
+
+Tuy nhiên, có ba vấn đề thực tiễn mà thuật toán \ref{alg:simple-eigentrust-algorithm} không thể xử lý: nhóm peer có uy tín sẵn, những peer không hoạt động, và các peer độc hại hợp tác với nhau.
+
+\textbf{Nhóm peer có uy tín sẵn.} Một hệ thống mạng P2P chỉ có một vài peer là có uy tín cao, thường là những người đầu tiên tham gia hệ thống, chẳng hạn như những nhà phát triển hay những người dùng truy cập sớm.
+Ta định nghĩa tập hợp $P$ là các peer có uy tín sẵn (pre-trusted peers) và $\vec{p}$ là vector khởi đầu thay cho $\vec{e}$, với:
+\[
+  p_i =
+  \begin{cases}
+    1/|P|, & \text{nếu } i \in P \\
+    0,     & \text{ngược lại}
+  \end{cases}
+\]
+điều này giúp hội tụ nhanh hơn, cũng như loại bỏ được các peer độc hại.
+
+\textbf{Những peer không hoạt động.} Nếu peer $i$ chưa từng tương tác với ai, thì không thể tính được $c_{ij}$ (do không thể chia hết cho 0).
+Khi đó, ta sẽ sử dụng $p_j$ thay thế cho $c_{ij}$, tức là nếu peer $i$ không tương tác với ai, không tin tưởng ai thì sẽ chọn peer có uy tín sẵn.
+
+\textbf{Các peer độc hại hợp tác với nhau.} Có khả năng sẽ xuất hiện nhiều nhóm peer độc hại mà chúng biết lẫn nhau, bọn chúng sẽ đánh giá cao lẫn nhau và đánh giá thấp những peer có uy tín.
+Để ngăn chận điều này, ta trộn thêm $\vec{p}$ vào mỗi vòng lặp:
+\[\vec{t}^{(k+1)} = (1 - a)C^{T}\vec{t}^{(k)} + a\vec{p}\]
+trong đó, $a$ là một hằng số nhỏ hơn 1. Việc này giúp ``kéo'' giá trị $\vec{c_i}$ của các peer về phía nhóm peer $P$ nhằm phá vòng lặp tin tưởng nội bộ của nhóm độc hại.
+
+Cuối cùng, ta hoàn thiện thuật toán EigenTrust cơ bản như sau:
+
+\begin{algorithm}
+  \caption{Thuật toán EigenTrust cơ bản}
+  \label{alg:basic-eigentrust-algorithm}
+  \begin{algorithmic}
+    \State $\vec{t}^{(0)} = \vec{p}$
+    \Repeat
+    \State $\vec{t}^{(k+1)} = C^{T}\vec{t}^{(k)}$
+    \State $\vec{t}^{(k+1)} = (1 - a)\vec{t}^{(k+1)} + a\vec{p}$
+    \State $\delta = || \vec{t}^{(k+1)} - \vec{t}^{(k)} ||$
+    \Until{$\delta < \epsilon$}
+  \end{algorithmic}
+\end{algorithm}
+
+\subsection{EigenTrust phân tán}
+
+Ở đây, bài toán được mở rộng để không cần máy chủ trung tâm, mà mỗi peer tự tính toán uy tín của chính mình bằng thông tin từ những peer từng tương tác với nó.
+Yêu cầu đầu tiên của bài toán này là mỗi peer $i$ phải lưu trữ vector tin cậy cục bộ $\vec{c}_i$ và giá trị tin cậy toàn cục $t_i$ của chính nó.
+Mỗi peer có thể tính giá trị tin cậy toàn cục của mình như sau:
+\[t_i^{(k+1)} = (1 - a)(c_{1i}t_1^{(k)} + ... + c_{ni}t_n^{(k)}) + ap_i\]
+
+Từ đó, ta có được thuật toán EigenTrust phân tán cơ bản được thể hiện ở thuật toán \ref{alg:distributed-eigentrust-algorithm}. 
+Vì mỗi peer chỉ tương tác với một số peer nhỏ (không phải toàn mạng), việc tính toán và truyền tin cũng nhẹ nhàng và hiệu quả.
+Trong trường hợp một mạng lưới có nhiều peer hoạt động mạnh, ta có thể duy trì những lợi ích trên bằng cách giới hạn số lượng giá trị tin cậy cục bộ $c_{ij}$ mà mỗi peer
+có thể báo cáo.
+
+\begin{algorithm}
+  \caption{Thuật toán EigenTrust phân tán}
+  \label{alg:distributed-eigentrust-algorithm}
+  \begin{algorithmic}
+    \State $\textbf{Definitions}$
+    \State \hspace{1em}- $A_i$: set of peers which have downloaded files from peer $i$
+    \State \hspace{1em}- $B_i$: set of peers from which peer $i$ has downloaded files
+    \State $\textbf{Algorithm}$
+    \State Each peer $i$ do \{
+    \State Query all peers $j \in A_i$ for $t_j^{0} = p_j$;
+    \Repeat
+    \State Compute $t_i^{(k+1)} = (1 - a)(c_{1i}t_1^{(k)} + c_{2i}t_2^{(k)} + ... + c_{ni}t_n^{(k)}) + ap_i$
+    \State Send $c_{ij}t_i^{(k+1)}$ to all peers $j \in B_i$
+    \State Compute $\delta = | t^{(k+1)} - t^{(k)} |$
+    \State Wait for all peers of $j \in A_i$ to return $c_{ji}t_j^{(k+1)}$
+    \Until{$\delta < \epsilon$}
+    \State \}
+  \end{algorithmic}
+\end{algorithm}
