@@ -1,1 +1,206 @@
-\chapter{Hệ thống SkillChain}
+\chapter{Mô hình uy tín hệ thống}
+
+Trong một hệ thống phi tập trung, nơi phần lớn hoạt động xoay quanh các thử thách, \textbf{uy tín người dùng đóng vai trò then chốt} trong việc
+đánh giá mức độ đóng góp, năng lực kiểm duyệt thử thách cũng như độ tin cậy khi chấm điểm cho các giải pháp. Trên cơ sở đó,
+hệ thống xây dựng một hồ sơ uy tín cho mỗi người dùng, phản ánh vai trò và mức độ đóng góp của họ trong cộng đồng, đồng thời hỗ trợ các bên tuyển dụng trong việc đánh giá năng lực ứng viên.
+
+Hệ thống áp dụng một mô hình uy tín tích lũy, được xác lập dựa trên hành vi on-chain minh bạch, nhằm đảm bảo tính công bằng, khả năng truy xuất và chống thao túng từ người dùng.
+
+\section{Hồ sơ uy tín}
+
+\textbf{Hồ sơ uy tín} là nền tảng cho mọi hoạt động của người dùng trong hệ thống. Hồ sơ này bao gồm hai thành phần chính: \textit{uy tín chuyên môn} (Domain Reputation) và \textit{uy tín toàn cục} (Global Reputation).
+
+\begin{itemize}
+  \item \textbf{Uy tín chuyên môn} $R_{\text{domain}}$ là điểm uy tín phân theo từng lĩnh vực chuyên môn của thử thách. Mỗi người dùng có thể có mức uy tín khác nhau ở từng lĩnh vực tuỳ theo lịch sử hoạt động của họ.
+  \item \textbf{Uy tín toàn cục} $R_{\text{global}}$ phản ánh tổng mức độ hành vi của người dùng xoay quanh các thử thách trong toàn bộ hệ thống.
+\end{itemize}
+
+Hệ thống hiện tại định nghĩa 14 lĩnh vực chuyên môn, tương ứng với các loại thử thách, bao gồm:
+
+\begin{enumerate}
+  \item Khoa học máy tính cơ bản (Computer Science Fundamentals)
+  \item Phát triển phần mềm (Software Development)
+  \item Hệ thống và mạng máy tính (Systems and Networking)
+  \item An ninh mạng (Cybersecurity)
+  \item Khoa học và phân tích dữ liệu (Data Science and Analytics)
+  \item Quản trị cơ sở dữ liệu (Database Administration)
+  \item Đảm bảo và kiểm tra chất lượng (Quality Assurance and Testing)
+  \item Quản lý dự án (Project Management)
+  \item Trải nghiệm người dùng và thiết kế (User Experience and Design)
+  \item Phân tích nghiệp vụ (Business Analysis)
+  \item Trí tuệ nhân tạo (Artificial Intelligence)
+  \item Chuỗi khối và tiền mã hóa (Blockchain and Cryptocurrency)
+  \item Quản trị mạng (Network Administration)
+  \item Điện toán đám mây (Cloud Computing)
+\end{enumerate}
+
+Mỗi khi người dùng thực hiện các hành động như đóng góp thử thách, giải thử thách, hoặc tham gia đánh giá giải pháp của thử thách, hệ thống sẽ cập nhật điểm uy tín tương ứng ở cả hai cấp độ: chuyên môn và toàn cục, đối với tất cả các bên tham gia hoạt động.
+
+Ví dụ, nếu một người dùng giải thành công một thử thách thuộc lĩnh vực Cybersecurity, và một nhóm người đánh giá hoàn thành việc chấm điểm cho giải pháp đó, thì hệ thống sẽ căn cứ vào điểm số cuối cùng để điều chỉnh điểm uy tín của từng cá nhân.
+Cả người giải lẫn các người đánh giá liên quan sẽ được cập nhật điểm uy tín chuyên môn trong lĩnh vực Cybersecurity và điểm uy tín toàn cục.
+
+Các thành phần này được lưu trữ on-chain thông qua hợp đồng thông minh, đảm bảo tính minh bạch, bất biến và truy xuất được toàn bộ lịch sử hoạt động liên quan đến uy tín của từng người dùng.
+
+\section{Cơ chế cập nhật uy tín}
+
+Trong hệ thống, có bốn hoạt động chính liên quan đến thử thách có ảnh hưởng trực tiếp đến điểm uy tín của người dùng: đóng góp thử thách, kiểm duyệt chất lượng thử thách, tham gia giải thử thách và chấm điểm giải pháp.
+Mỗi khi người dùng hoàn thành một trong các hoạt động trên, hệ thống sẽ tính toán một \textit{điểm biến thiên hoạt động}, từ đó điều chỉnh điểm uy tín chuyên môn trong lĩnh vực tương ứng và điểm uy tín toàn cục của người dùng .
+
+\subsection{Đóng góp thử thách}
+
+Mỗi khi người dùng đóng góp một thử thách mới, hệ thống sẽ tính \textit{điểm đóng góp} $R_{\text{contribution}}$.
+
+\subsubsection{Độ khó của thử thách}
+
+Độ khó của một thử thách thuộc một trong ba mức dễ, trung bình và khó. Mỗi độ khó sẽ có trọng số $W_{\text{difficulty}}$ tương ứng hỗ trợ tính \textit{điểm biến thiên đóng góp} $\Delta R_{\text{contribution}}$, cụ thể:
+\[
+  W_{\text{difficulty}} =
+  \begin{cases}
+    1   & , \text{nếu độ khó là dễ}         \\
+    1.2 & , \text{nếu độ khó là trung bình} \\
+    1.4 & , \text{nếu độ khó là khó}        \\
+  \end{cases}
+\]
+
+\subsubsection{Tính điểm biến thiên}
+
+Sau khi được xác nhận và đánh giá bởi một nhóm người kiểm duyệt, mỗi thử thách sẽ có điểm chất lượng $Q_{\text{challenge}}$ và độ khó cuối cùng.
+Điểm chất lượng sẽ được so sánh với \textit{ngưỡng điểm đóng góp} $T_{\text{contribution}}$ -- một hằng số nằm trong khoảng $0$ tới $100$ nhằm xác định điểm uy tín của cá nhân sau đó tăng hay giảm --
+để tính $\Delta R_{\text{contribution}}$ theo các công thức khác nhau:
+
+\begin{itemize}
+  \item Nếu $0 \leq S_{\text{challenge}} \leq  T_{\text{contribution}}$:
+        \[\Delta R_{\text{contribution}} = L_{\text{penalty}} * \gamma * \left( \frac{Q_{\text{challenge}}}{T_{\text{contribution}}} - 1 \right)    \]
+  \item Nếu $T_{\text{contribution}} < S_{\text{challenge}} \leq 100$:
+        \[\Delta R_{\text{contribution}} = L_{\text{reward}} * \gamma * W_{\text{difficulty}} * \frac{Q_{\text{challenge}} - T_{\text{contribution}}}{100-T_{\text{contribution}}}    \]
+\end{itemize}
+trong đó, $\gamma \in [0, 1]$ là hằng số tỉ lệ toàn cục thể hiện mức độ quan trọng của hoạt động đóng góp trong hệ thống.
+
+\subsubsection{Ghi nhận điểm đóng góp mới}
+
+Sau khi có điểm biến thiên, hệ thống sẽ ghi nhận điểm đóng góp mới:
+\[R_{\text{contribution}} = R_{\text{contribution}} + \Delta R_{\text{contribution}}\]
+
+\subsection{Kiểm duyệt chất lượng thử thách}
+
+Người kiểm duyệt thử thách sẽ có \textit{điểm kiểm duyệt} $R_{\text{moderation}}$.
+
+\subsubsection{Độ lệch điểm chất lượng}
+
+Một người kiểm duyệt sẽ để lại \textit{điểm kiểm duyệt thử thách} $s_{\text{moderate}}$ cho một thử thách. Sau khi tổng hợp điểm cuối cùng từ nhóm người kiểm duyệt,
+ta sẽ có điểm chất lượng thử thách $Q_{\text{challenge}}$ và độ khó cuối cùng, từ đó xác định được độ lệch điểm chất lượng $D_{\text{moderation}}$:
+
+\[D_{\text{moderation}}=|Q_{\text{challenge}}-s_{\text{moderate}}|\]
+
+\subsubsection{Tính điểm biến thiên}
+
+Độ lệch điểm chất lượng sẽ được so sánh với \textit{ngưỡng điểm kiểm duyệt} $T_{\text{moderation}}$ -- một hằng số nằm trong khoảng $0$ tới $100$ nhằm xác định điểm uy tín của cá nhân sau đó tăng hay giảm --
+để tính $\Delta R_{\text{moderation}}$ theo các công thức khác nhau:
+
+\begin{itemize}
+  \item Nếu $0 \leq D_{\text{moderation}} \leq  T_{\text{moderation}}$:
+        \[\Delta R_{\text{\text{moderation}}} = L_{\text{reward}}*\phi * W_{\text{difficulty}} * \left(1 - \frac{D_{\text{moderation}}}{T_{\text{moderation}}}\right) \]
+  \item Nếu $T_{\text{moderation}} < D_{\text{moderation}} \leq 100$:
+        \[\Delta R_{{\text{moderation}}} = L_{\text{penalty}} * \phi * \frac{T_{\text{moderation}} - D_{\text{moderation}}}{100-T_{\text{moderation}}} \]
+\end{itemize}
+trong đó, $\phi \in [0, 1]$ là hằng số tỉ lệ toàn cục thể hiện mức độ quan trọng của hoạt động kiểm duyệt trong hệ thống.
+
+\subsubsection{Ghi nhận điểm kiểm duyệt mới}
+
+Sau khi có điểm biến thiên, hệ thống sẽ ghi lại điểm kiểm duyệt mới:
+\[R_{\text{moderation}} = R_{\text{moderation}} + \Delta R_{\text{moderation}}\]
+
+\subsection{Tham gia thử thách}
+
+Khi người dùng tham gia giải một thử thách và nộp giải pháp, hệ thống sẽ tính \textit{điểm tham gia} $R_{\text{participation}}$.
+
+\subsubsection{Tính điểm biến thiên}
+
+Khi người dùng tạo ra \textit{giải pháp} dành cho một thử thách, một nhóm người đánh giá sẽ tham gia vào phiên đánh giá giải pháp này và tính được \textit{điểm giải pháp} $S_{\text{solution}}$ cuối cùng.
+Điểm giải pháp sẽ được so sánh với \textit{ngưỡng điểm tham gia} $T_{\text{participation}}$ -- một hằng số nằm trong khoảng $0$ tới $100$ nhằm xác định điểm uy tín của cá nhân sau đó tăng hay giảm --
+để tính $\Delta R_{\text{participation}}$ theo các công thức khác nhau:
+
+\begin{itemize}
+  \item Nếu $0 \leq S_{\text{solution}} \leq  T_{\text{participation}}$:
+        \[\Delta R_{\text{participation}} = L_{\text{penalty}} * \alpha * \left( \frac{S_{\text{solution}}}{T_{\text{paticipation}}}-1 \right)\]
+  \item Nếu $T_{\text{participation}} < S_{\text{solution}} \leq 100$:
+        \[\Delta R_{{\text{participation}}} = L_{\text{reward}} * \alpha*W_{\text{difficulty}} * \frac{S_{\text{solution}} - T_{\text{paticipation}}}{100-T_{\text{paticipation}}} \]
+\end{itemize}
+trong đó, $\alpha \in [0, 1]$ là hằng số tỉ lệ toàn cục thể hiện mức độ quan trọng của hoạt động tham gia thử thách.
+
+\subsubsection{Ghi nhận điểm tham gia mới}
+
+Sau khi có điểm biến thiên, hệ thống sẽ ghi lại điểm tham gia mới:
+\[R_{\text{participation}} = R_{\text{participation}} + \Delta R_{\text{participation}}\]
+
+\subsection{Chấm điểm giải pháp}
+
+Cuối cùng, người tham gia đánh giá sẽ có \textit{điểm đánh giá} $R_{\text{participation}}$.
+
+\subsubsection{Độ lệch điểm đánh giá}
+
+Một người đánh giá sẽ để lại \textit{điểm đánh giá giải pháp} $s_{\text{evaluate}}$ cho một giải pháp. Sau khi tổng hợp điểm cuối cùng từ nhóm người đánh giá,
+ta sẽ có điểm giải pháp $S_{\text{participation}}$ cuối cùng, từ đó xác định được độ lệch điểm đánh giá $D_{\text{evaluation}}$:
+
+\[D_{\text{evaluation}}=|S_{\text{solution}}-s_{\text{evaluate}}|\]
+
+\subsubsection{Tính điểm biến thiên}
+
+Độ lệch điểm đánh giá sẽ được so sánh với \textit{ngưỡng điểm đánh giá} $T_{\text{evaluation}}$ -- một hằng số nằm trong khoảng $0$ tới $100$ nhằm xác định điểm uy tín của cá nhân sau đó tăng hay giảm --
+để tính $\Delta R_{\text{evaluation}}$ theo các công thức khác nhau:
+
+\begin{itemize}
+  \item Nếu $0 \leq D_{\text{evaluation}} \leq  T_{\text{evaluation}}$:
+        \[\Delta R_{\text{\text{evaluation}}} = L_{\text{reward}}*\beta*W_{\text{difficulty}} * \left(1 - \frac{D_{\text{evaluation}}}{T_{\text{evaluation}}}\right) \]
+  \item Nếu $T_{\text{evaluation}} < D_{\text{evaluation}} \leq 100$:
+        \[\Delta R_{{\text{evaluation}}} = L_{\text{penalty}}*\beta * \frac{T_{\text{evaluation}} - D_{\text{evaluation}}}{100-T_{\text{evaluation}}} \]
+\end{itemize}
+trong đó, $\beta \in [0, 1]$ là hằng số tỉ lệ toàn cục thể hiện mức độ quan trọng của hoạt động đánh giá trong hệ thống.
+
+\subsubsection{Ghi nhận điểm đánh giá mới}
+
+Sau khi có điểm biến thiên, hệ thống sẽ ghi lại điểm đánh giá mới:
+\[R_{\text{evaluation}} = R_{\text{evaluation}} + \Delta R_{\text{evaluation}}\]
+
+\section{Cấu thành hồ sơ uy tín}
+
+\textbf{Uy tín chuyên môn} $R_{\text{domain}}$ của người dùng trong một lĩnh vực cụ thể được tính bằng tổng điểm uy tín thu được từ bốn loại hoạt động liên quan đến thử thách,
+đã được trình bày ở Mục 3.2, bao gồm: đóng góp thử thách, kiểm duyệt chất lượng thử thách, tham gia giải thử thách và chấm điểm giải pháp. Cụ thể:
+\[R_{\text{domain}} = R_{\text{contribution}} + R_{\text{moderation}} + R_{\text{participation}} + R_{\text{evaluation}} \]
+Mỗi thành phần trong công thức trên chỉ bao gồm điểm số phát sinh từ những thử thách thuộc cùng một lĩnh vực chuyên môn (ví dụ: chỉ tính các hoạt động trong lĩnh vực Cybersecurity nếu đang xét).
+
+\textbf{Uy tín toàn cục} được tính bằng tổng điểm uy tín chuyên môn trong tất cả các lĩnh vực thử thách mà hệ thống hỗ trợ:
+\[R_{\text{global}} = R_{\text{domain}_1} + R_{\text{domain}_2} + ... + R_{\text{domain}_n}\]
+trong đó, $n$ là tổng số lĩnh vực chuyên môn được định nghĩa trong hệ thống.
+
+\section{Vai trò của hồ sơ uy tín}
+
+\subsection{Uy tín chuyên môn}
+
+Uy tín chuyên môn của người dùng trong một lĩnh vực cụ thể thể hiện mức độ hiểu biết, kinh nghiệm và mức độ đáng tin cậy của họ đối với loại thử thách tương ứng.
+Đây là một chỉ số quan trọng phản ánh mức độ đóng góp có giá trị của người dùng và đồng thời được sử dụng như một cơ sở để phân quyền thực hiện các chức năng nâng cao trong hệ thống.
+
+Cụ thể, hệ thống sử dụng chỉ số uy tín chuyên môn để kiểm soát và điều hướng hành vi người dùng như sau:
+
+\begin{itemize}
+  \item Người dùng chỉ được phép tạo thử thách trong một lĩnh vực nếu đạt mức uy tín chuyên môn tối thiểu trong lĩnh vực đó. Điều này đảm bảo rằng người đóng góp có đủ năng lực chuyên môn để thiết kế thử thách phù hợp, thực tiễn và có chất lượng.
+  \item Quyền tham gia kiểm duyệt chất lượng thử thách cũng chỉ được trao cho những người dùng có uy tín chuyên môn cao. Cơ chế này giúp ngăn chặn các đánh giá sai lệch, thiếu khách quan hoặc không đủ chuyên môn, từ đó giữ gìn chuẩn mực nội dung trên toàn hệ thống.
+  \item Trong bối cảnh tuyển dụng, các nhà tuyển dụng có thể tham khảo hồ sơ uy tín chuyên môn để đánh giá mức độ phù hợp của ứng viên đối với các vị trí yêu cầu kỹ năng cụ thể. Uy tín cao trong một lĩnh vực chuyên môn giúp ứng viên tăng khả năng được chú ý và đánh giá cao.
+  \item Tương tự, quyền tham gia đánh giá các giải pháp trong một thử thách cũng bị giới hạn cho những người dùng có đủ uy tín chuyên môn, nhằm đảm bảo công bằng, tránh thiên vị và hạn chế hành vi phá hoại trong quá trình đánh giá.
+\end{itemize}
+
+\subsection{Uy tín toàn cục}
+
+Uy tín toàn cục phản ánh mức độ đáng tin cậy tổng thể của người dùng trong toàn bộ hệ thống, không phụ thuộc vào bất kỳ lĩnh vực chuyên môn cụ thể nào.
+Chỉ số này được sử dụng để phân tầng quyền hạn thực hiện các chức năng quan trọng, từ đó đảm bảo rằng các hành vi đóng góp, đánh giá, và kiểm duyệt đến từ những cá nhân có lịch sử hoạt động minh bạch và tích cực.
+
+Quyền hạn của người dùng trong hệ thống được mở rộng theo mức độ uy tín toàn cục mà họ đạt được:
+
+\begin{itemize}
+  \item Người dùng có uy tín thấp (thường là người mới hoặc chưa có nhiều đóng góp) chỉ được phép tham gia giải thử thách, như một bước khởi đầu để xây dựng hồ sơ uy tín cá nhân.
+  \item Người dùng có mức uy tín trung bình sẽ được cấp quyền đóng góp thử thách mới vào hệ thống, với điều kiện đồng thời thỏa mãn yêu cầu về uy tín chuyên môn trong lĩnh vực tương ứng.
+  \item Người dùng đạt mức uy tín khá sẽ được phép tham gia đánh giá các giải pháp của người dùng khác, đóng vai trò phản biện tích cực trong hệ sinh thái học tập cộng tác.
+  \item Người dùng có uy tín cao sẽ được trao quyền tham gia kiểm duyệt chất lượng các thử thách do cộng đồng đóng góp, đóng vai trò như một lớp kiểm soát đảm bảo chất lượng và chuẩn hóa nội dung.
+\end{itemize}
+
+Việc áp dụng mô hình phân tầng dựa trên uy tín toàn cục không chỉ nâng cao hiệu quả quản lý người dùng mà còn tạo động lực tích cực thúc đẩy sự tham gia có trách nhiệm, hướng đến một cộng đồng học tập phi tập trung nhưng đáng tin cậy và bền vững.
