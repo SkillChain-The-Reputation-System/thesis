@@ -44,7 +44,16 @@ Các thành phần này được lưu trữ on-chain thông qua hợp đồng th
 \section{Cơ chế cập nhật uy tín}
 
 Trong hệ thống, có bốn hoạt động chính liên quan đến thử thách có ảnh hưởng trực tiếp đến điểm uy tín của người dùng: đóng góp thử thách, kiểm duyệt chất lượng thử thách, tham gia giải thử thách và chấm điểm giải pháp.
-Mỗi khi người dùng hoàn thành một trong các hoạt động trên, hệ thống sẽ tính toán một \textit{điểm biến thiên hoạt động}, từ đó điều chỉnh điểm uy tín chuyên môn trong lĩnh vực tương ứng và điểm uy tín toàn cục của người dùng .
+Mỗi khi người dùng hoàn thành một trong các hoạt động trên, hệ thống sẽ tính toán một \textit{điểm biến thiên hoạt động} $\Delta R$, từ đó điều chỉnh điểm uy tín chuyên môn trong lĩnh vực tương ứng và điểm uy tín toàn cục của người dùng.
+
+Mỗi hoạt động ảnh hưởng đến uy tín của người dùng đều đi kèm với một \textit{ngưỡng điểm hoạt động} ký hiệu là $T$, là một hằng số nằm trong khoảng từ 0 đến 100. 
+Ngưỡng này được sử dụng để phân định hai trường hợp: hoạt động của người dùng đạt yêu cầu (được thưởng điểm) hoặc không đạt yêu cầu (bị trừ điểm uy tín).
+
+Dựa trên mức độ vượt trội hoặc sai lệch so với ngưỡng, hệ thống tính toán điểm biến thiên uy tín $\Delta R$ tương ứng. Để điều chỉnh mức thưởng và phạt một cách linh hoạt, mỗi hoạt động sẽ được gán hai hằng số:
+\begin{itemize}
+  \item $L_{\text{reward}}$: Mức thưởng tối đa -- đại diện cho giá trị dương lớn nhất của $\Delta R$ nếu người dùng thực hiện tốt hoạt động.
+  \item $L_{\text{penalty}}$: Mức phạt tối đa -- đại diện cho giá trị âm lớn nhất (về độ lớn) của $\Delta R$ nếu người dùng thực hiện kém so với yêu cầu.
+\end{itemize}
 
 \subsection{Đóng góp thử thách}
 
@@ -64,15 +73,14 @@ Mỗi khi người dùng đóng góp một thử thách mới, hệ thống sẽ
 
 \subsubsection{Tính điểm biến thiên}
 
-Sau khi được xác nhận và đánh giá bởi một nhóm người kiểm duyệt, mỗi thử thách sẽ có điểm chất lượng $Q_{\text{challenge}}$ và độ khó cuối cùng.
-Điểm chất lượng sẽ được so sánh với \textit{ngưỡng điểm đóng góp} $T_{\text{contribution}}$ -- một hằng số nằm trong khoảng $0$ tới $100$ nhằm xác định điểm uy tín của cá nhân sau đó tăng hay giảm --
-để tính $\Delta R_{\text{contribution}}$ theo các công thức khác nhau:
+Sau khi được xác nhận và đánh giá bởi một nhóm người kiểm duyệt, mỗi thử thách sẽ có điểm chất lượng $S_{\text{challenge}}$ và độ khó cuối cùng.
+Điểm chất lượng sẽ được so sánh với \textit{ngưỡng điểm đóng góp} $T_{\text{contribution}}$ để tính $\Delta R_{\text{contribution}}$ theo các công thức khác nhau:
 
 \begin{itemize}
   \item Nếu $0 \leq S_{\text{challenge}} \leq  T_{\text{contribution}}$:
-        \[\Delta R_{\text{contribution}} = L_{\text{penalty}} * \gamma * \left( \frac{Q_{\text{challenge}}}{T_{\text{contribution}}} - 1 \right)    \]
+        \[\Delta R_{\text{contribution}} = L_{\text{penalty}} * \gamma * \left( \frac{S_{\text{challenge}}}{T_{\text{contribution}}} - 1 \right)    \]
   \item Nếu $T_{\text{contribution}} < S_{\text{challenge}} \leq 100$:
-        \[\Delta R_{\text{contribution}} = L_{\text{reward}} * \gamma * W_{\text{difficulty}} * \frac{Q_{\text{challenge}} - T_{\text{contribution}}}{100-T_{\text{contribution}}}    \]
+        \[\Delta R_{\text{contribution}} = L_{\text{reward}} * \gamma * W_{\text{difficulty}} * \frac{S_{\text{challenge}} - T_{\text{contribution}}}{100-T_{\text{contribution}}}    \]
 \end{itemize}
 trong đó, $\gamma \in [0, 1]$ là hằng số tỉ lệ toàn cục thể hiện mức độ quan trọng của hoạt động đóng góp trong hệ thống.
 
@@ -88,14 +96,13 @@ Người kiểm duyệt thử thách sẽ có \textit{điểm kiểm duyệt} $R
 \subsubsection{Độ lệch điểm chất lượng}
 
 Một người kiểm duyệt sẽ để lại \textit{điểm kiểm duyệt thử thách} $s_{\text{moderate}}$ cho một thử thách. Sau khi tổng hợp điểm cuối cùng từ nhóm người kiểm duyệt,
-ta sẽ có điểm chất lượng thử thách $Q_{\text{challenge}}$ và độ khó cuối cùng, từ đó xác định được độ lệch điểm chất lượng $D_{\text{moderation}}$:
+ta sẽ có điểm chất lượng thử thách $S_{\text{challenge}}$ và độ khó cuối cùng, từ đó xác định được độ lệch điểm chất lượng $D_{\text{moderation}}$:
 
-\[D_{\text{moderation}}=|Q_{\text{challenge}}-s_{\text{moderate}}|\]
+\[D_{\text{moderation}}=|S_{\text{challenge}}-s_{\text{moderate}}|\]
 
 \subsubsection{Tính điểm biến thiên}
 
-Độ lệch điểm chất lượng sẽ được so sánh với \textit{ngưỡng điểm kiểm duyệt} $T_{\text{moderation}}$ -- một hằng số nằm trong khoảng $0$ tới $100$ nhằm xác định điểm uy tín của cá nhân sau đó tăng hay giảm --
-để tính $\Delta R_{\text{moderation}}$ theo các công thức khác nhau:
+Độ lệch điểm chất lượng sẽ được so sánh với \textit{ngưỡng điểm kiểm duyệt} $T_{\text{moderation}}$ để tính $\Delta R_{\text{moderation}}$ theo các công thức khác nhau:
 
 \begin{itemize}
   \item Nếu $0 \leq D_{\text{moderation}} \leq  T_{\text{moderation}}$:
@@ -117,8 +124,7 @@ Khi người dùng tham gia giải một thử thách và nộp giải pháp, h�
 \subsubsection{Tính điểm biến thiên}
 
 Khi người dùng tạo ra \textit{giải pháp} dành cho một thử thách, một nhóm người đánh giá sẽ tham gia vào phiên đánh giá giải pháp này và tính được \textit{điểm giải pháp} $S_{\text{solution}}$ cuối cùng.
-Điểm giải pháp sẽ được so sánh với \textit{ngưỡng điểm tham gia} $T_{\text{participation}}$ -- một hằng số nằm trong khoảng $0$ tới $100$ nhằm xác định điểm uy tín của cá nhân sau đó tăng hay giảm --
-để tính $\Delta R_{\text{participation}}$ theo các công thức khác nhau:
+Điểm giải pháp sẽ được so sánh với \textit{ngưỡng điểm tham gia} $T_{\text{participation}}$ để tính $\Delta R_{\text{participation}}$ theo các công thức khác nhau:
 
 \begin{itemize}
   \item Nếu $0 \leq S_{\text{solution}} \leq  T_{\text{participation}}$:
@@ -135,19 +141,18 @@ Sau khi có điểm biến thiên, hệ thống sẽ ghi lại điểm tham gia 
 
 \subsection{Chấm điểm giải pháp}
 
-Cuối cùng, người tham gia đánh giá sẽ có \textit{điểm đánh giá} $R_{\text{participation}}$.
+Cuối cùng, người tham gia đánh giá sẽ có \textit{điểm đánh giá} $R_{\text{evaluation}}$.
 
 \subsubsection{Độ lệch điểm đánh giá}
 
 Một người đánh giá sẽ để lại \textit{điểm đánh giá giải pháp} $s_{\text{evaluate}}$ cho một giải pháp. Sau khi tổng hợp điểm cuối cùng từ nhóm người đánh giá,
-ta sẽ có điểm giải pháp $S_{\text{participation}}$ cuối cùng, từ đó xác định được độ lệch điểm đánh giá $D_{\text{evaluation}}$:
+ta sẽ có điểm giải pháp $S_{\text{solution}}$ cuối cùng, từ đó xác định được độ lệch điểm đánh giá $D_{\text{evaluation}}$:
 
 \[D_{\text{evaluation}}=|S_{\text{solution}}-s_{\text{evaluate}}|\]
 
 \subsubsection{Tính điểm biến thiên}
 
-Độ lệch điểm đánh giá sẽ được so sánh với \textit{ngưỡng điểm đánh giá} $T_{\text{evaluation}}$ -- một hằng số nằm trong khoảng $0$ tới $100$ nhằm xác định điểm uy tín của cá nhân sau đó tăng hay giảm --
-để tính $\Delta R_{\text{evaluation}}$ theo các công thức khác nhau:
+Độ lệch điểm đánh giá sẽ được so sánh với \textit{ngưỡng điểm đánh giá} $T_{\text{evaluation}}$ để tính $\Delta R_{\text{evaluation}}$ theo các công thức khác nhau:
 
 \begin{itemize}
   \item Nếu $0 \leq D_{\text{evaluation}} \leq  T_{\text{evaluation}}$:
