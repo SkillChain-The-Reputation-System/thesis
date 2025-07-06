@@ -123,14 +123,13 @@ Hình~\ref{fig:system-architecture} minh họa kiến trúc tổng quát của h
     \tikzset{
       pics/cylinder/.style={
           code={
-              % top ellipse
               \draw[thick] (0,0) ellipse (1.3 and 0.3);
-              % body
+
               \draw[thick] (-1.3,0) -- (-1.3,-1.2);
               \draw[thick] (1.3,0) -- (1.3,-1.2);
-              % bottom ellipse
+
               \draw[thick] (-1.3,-1.2) arc (180:360:1.3 and 0.3);
-              % text
+
               \node at (0,-0.85) {\footnotesize Vercel Hosting};
             }
         }
@@ -199,7 +198,7 @@ Các chức năng chính của smart contract bao gồm: quản lý thử thách
 Một số loại dữ liệu không phù hợp để lưu trực tiếp trên chuỗi như nội dung thử thách hoặc giải pháp sẽ được lưu trữ trên \textbf{Irys}, với CID được lưu lại trên blockchain để dễ dàng tham chiếu.
 Ngoài ra, hệ thống còn tích hợp \textbf{Jitsi Meet} để phục vụ việc tổ chức các buổi phỏng vấn trực tuyến giữa nhà tuyển dụng và ứng viên, đảm bảo tính riêng tư và tiện lợi.
 
-% TODO: Ghi nội dung sau khi có sơ đồ
+% // TODO: Ghi nội dung sau khi có sơ đồ
 \section{Mô hình dữ liệu}
 
 \section{Chi tiết các hợp đồng thông minh}
@@ -253,7 +252,7 @@ Hợp đồng \textbf{ReputationManager} chịu trách nhiệm duy trì, cập n
   \item \textbf{SolutionManager}: Cập nhật uy tín sau khi phiên đánh giá giải pháp kết thúc
 \end{itemize}
 
-% TODO: Giải thích về RoleManager nếu cần thiết
+% // TODO: Giải thích về RoleManager nếu cần thiết
 
 \subsection{ChallengeManager}
 
@@ -302,7 +301,7 @@ Hợp đồng này chịu trách nhiệm cho toàn bộ vòng đời của một
   \item \texttt{userCompleteChallenge}: Cập nhật số người hoàn thành
 \end{itemize}
 
-% TODO: Giải thích cách tổng hợp
+% // TODO: Giải thích cách tổng hợp kết quả kiểm duyệt
 \subsubsection{Cơ chế hợp nhất kết quả kiểm duyệt}
 
 Giả sử $D$ là tập hợp mức độ khó của thử thách (dễ, trung bình, khó), $M$ là tập hợp các người kiểm duyệt đánh giá một thử thách. Với mỗi người kiểm duyệt $m \in M$, ta có:
@@ -356,7 +355,7 @@ Sau khi thử thách được kiểm duyệt và hợp nhất kết quả, hợp
   \item \texttt{finalizeChallengePot}: Thực hiện phân phối token sau khi thử thách được duyệt xong
 \end{itemize}
 
-% TODO: Giải thích cách phân phối
+% // TODO: Giải thích cách phân phối token
 \subsubsection{Cơ chế phân phối token}
 
 \subsubsection{Tương tác với hợp đồng khác}
@@ -386,7 +385,7 @@ Nó giúp đảm bảo sự khuyến khích kinh tế rõ ràng cho người t�
   \item \texttt{addTalentPayment}: gửi token từ người tham gia cho người đóng góp và ghi nhận người tham gia đối với thử thách này
 \end{itemize}
 
-% TODO: Giải thích cách tính phí
+% // TODO: Giải thích cách tính phí tham gia
 \subsubsection{Công thức tính phí}
 
 \subsubsection{Tương tác với hợp đồng khác}
@@ -439,7 +438,7 @@ Hợp đồng \textbf{SolutionManager} chịu trách nhiệm ghi nhận toàn b�
   \item \texttt{finalizeEvaluation}: Khi ghi nhận đủ điểm đánh giá, tính toán điểm giáp pháp cuối cùng và cập nhật uy tín cho người giải và những người đánh giá
 \end{itemize}
 
-% TODO: Giải thích cách tính điểm đánh giá
+% // TODO: Giải thích cách tính điểm đánh giá
 \subsubsection{Cơ chế tổng hợp điểm đánh giá}
 
 \subsubsection{Tương tác với hợp đồng khác}
@@ -450,5 +449,5 @@ Hợp đồng \textbf{SolutionManager} chịu trách nhiệm ghi nhận toàn b�
   \item \textbf{RoleManager}: Kiểm soát quyền gọi hàm
 \end{itemize}
 
-% TODO: Giải thích về hợp đồng nếu cần thiết
+% // TODO: Giải thích về hợp đồng nếu cần thiết
 \subsection{RecruiterSubscription}
