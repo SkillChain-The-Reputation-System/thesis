@@ -113,8 +113,8 @@ Bên cạnh các chức năng chính, hệ thống SkillChain cần đáp ứng 
 
 \section{Kiến trúc hệ thống}
 
-Hệ thống SkillChain được xây dựng theo mô hình ứng dụng phi tập trung, kết hợp giữa các công nghệ frontend hiện đại, hợp đồng thông minh trên blockchain và các dịch vụ tương tác ngoài chuỗi.  
-Kiến trúc tổng thể bao gồm bốn thành phần chính: giao diện người dùng, tương tác ví và blockchain, hệ thống hợp đồng thông minh và các dịch vụ bên ngoài.  
+Hệ thống SkillChain được xây dựng theo mô hình ứng dụng phi tập trung, kết hợp giữa các công nghệ frontend hiện đại, hợp đồng thông minh trên blockchain và các dịch vụ tương tác ngoài chuỗi.
+Kiến trúc tổng thể bao gồm bốn thành phần chính: giao diện người dùng, tương tác ví và blockchain, hệ thống hợp đồng thông minh và các dịch vụ bên ngoài.
 Hình~\ref{fig:system-architecture} minh họa kiến trúc tổng quát của hệ thống.
 
 \begin{figure}[H]
@@ -157,7 +157,7 @@ Hình~\ref{fig:system-architecture} minh họa kiến trúc tổng quát của h
     \node[font=\footnotesize] at ([yshift=-0.4cm]network.north) {Blockchain Networks};
     \node[draw, thick, rectangle, minimum width=2.7cm, minimum height=1cm, font=\footnotesize] (amoytestnet) at ([xshift=1.65cm, yshift=-0.2cm]network.west) {Polygon Amoy};
     \node[draw, thick, rectangle, minimum width=2.5cm, minimum height=1cm, font=\footnotesize] (localhost) at ([xshift=-1.65cm, yshift=-0.2cm]network.east) {Local Host};
-    
+
     \node[draw, thick, rectangle, minimum width=3.5cm, minimum height=1cm, font=\footnotesize] (smartcontracts) at (-5, -9) {Smart Contracts};
     \node[draw, thick, rectangle, minimum width=2cm, minimum height=1cm, font=\footnotesize] (wagmi) at (0, -9) {Wagmi};
     \node[draw, thick, rectangle, minimum width=2.7cm, minimum height=1cm, font=\footnotesize] (connectkit) at (1.2, -12) {ConnectKit};
@@ -181,20 +181,274 @@ Hình~\ref{fig:system-architecture} minh họa kiến trúc tổng quát của h
 
 \subsection{Thành phần giao diện người dùng}
 
-Giao diện người dùng được phát triển bằng framework \textbf{NextJS} và triển khai trên nền tảng \textbf{Vercel}, hỗ trợ hiệu năng cao và dễ dàng mở rộng. 
+Giao diện người dùng được phát triển bằng framework \textbf{NextJS} và triển khai trên nền tảng \textbf{Vercel}, hỗ trợ hiệu năng cao và dễ dàng mở rộng.
 Giao diện sử dụng \textbf{Tailwind CSS} để xây dựng UI hiện đại, tối ưu cho trải nghiệm người dùng. Toàn bộ tương tác của người dùng với hệ thống (tham gia thử thách, gửi giải pháp, truy xuất hồ sơ uy tín...) đều diễn ra thông qua lớp này.
 
 \subsection{Tương tác với blockchain}
 
-Để frontend tương tác với blockchain, hệ thống sử dụng thư viện \textbf{Wagmi} kết hợp với \textbf{ConnectKit} giúp tích hợp ví điện tử như MetaMask hoặc CoinBase.  
+Để frontend tương tác với blockchain, hệ thống sử dụng thư viện \textbf{Wagmi} kết hợp với \textbf{ConnectKit} giúp tích hợp ví điện tử như MetaMask hoặc CoinBase.
 Các chức năng như xác thực người dùng qua ví, gửi giao dịch on-chain, theo dõi sự kiện blockchain đều được xử lý tại đây.
 
 \subsection{Hợp đồng thông minh và hạ tầng blockchain}
 
-Các hợp đồng thông minh được phát triển bằng \textbf{Solidity}, biên dịch và triển khai thông qua \textbf{Hardhat}. Trong quá trình phát triển và thử nghiệm, hệ thống hỗ trợ triển khai trên mạng cục bộ và mạng thử nghiệm \textbf{Polygon Amoy}.  
+Các hợp đồng thông minh được phát triển bằng \textbf{Solidity}, biên dịch và triển khai thông qua \textbf{Hardhat}. Trong quá trình phát triển và thử nghiệm, hệ thống hỗ trợ triển khai trên mạng cục bộ và mạng thử nghiệm \textbf{Polygon Amoy}.
 Các chức năng chính của smart contract bao gồm: quản lý thử thách, giải pháp và thông tin tuyển dụng, quản lý thông tin cá nhân và hồ sơ uy tín của người dùng và nhà tuyển dụng, kiểm soát truy cập.
 
 \subsection{Các dịch vụ bên ngoài}
 
-Một số loại dữ liệu không phù hợp để lưu trực tiếp trên chuỗi như nội dung thử thách hoặc giải pháp sẽ được lưu trữ trên \textbf{Irys}, với CID được lưu lại trên blockchain để dễ dàng tham chiếu.  
+Một số loại dữ liệu không phù hợp để lưu trực tiếp trên chuỗi như nội dung thử thách hoặc giải pháp sẽ được lưu trữ trên \textbf{Irys}, với CID được lưu lại trên blockchain để dễ dàng tham chiếu.
 Ngoài ra, hệ thống còn tích hợp \textbf{Jitsi Meet} để phục vụ việc tổ chức các buổi phỏng vấn trực tuyến giữa nhà tuyển dụng và ứng viên, đảm bảo tính riêng tư và tiện lợi.
+
+% TODO: Ghi nội dung sau khi có sơ đồ
+\section{Mô hình dữ liệu}
+
+\section{Chi tiết các hợp đồng thông minh}
+
+\subsection{Danh sách các hợp đồng chính}
+
+Hệ thống SkillChain được tổ chức thành nhiều hợp đồng thông minh độc lập theo nguyên tắc phân tách trách nhiệm. Mỗi hợp đồng đảm nhiệm một vai trò riêng trong hệ thống và được triển khai độc lập để tăng khả năng bảo trì, tái sử dụng và kiểm soát truy cập. Dưới đây là danh sách các hợp đồng chính trong hệ thống:
+
+\begin{itemize}
+  \item \textbf{UserDataManager}: Quản lý thông tin cá nhân và định danh người dùng.
+  \item \textbf{ReputationManager}: Lưu trữ và cập nhật hồ sơ uy tín của người dùng, bao gồm điểm uy tín toàn cục và điểm uy tín chuyên môn theo từng lĩnh vực. Hợp đồng này là trung tâm của hệ thống uy tín.
+  \item \textbf{ChallengeManager}: Quản lý vòng đời của thử thách, từ khởi tạo, kiểm duyệt đến cho phép người dùng tham gia.
+  \item \textbf{ModerationEscrow}: Điều phối việc phân phối phần thưởng token cho những người kiểm duyệt thử thách sau khi quá trình kiểm duyệt hoàn tất.
+  \item \textbf{ChallengeCostManager}: Tính toán mức phí mà người dùng cần chi trả để tham gia vào một thử thách cụ thể.
+  \item \textbf{SolutionManager}: Quản lý quá trình người dùng thực hiện và gửi giải pháp cho thử thách, ghi nhận hành vi nộp bài, và xử lý luồng đánh giá bởi các người đánh giá.
+  \item \textbf{RecruiterDataManager}: Quản lý thông tin tài khoản nhà tuyển dụng.
+  \item \textbf{RecruiterSubscription}: Kiểm soát việc thanh toán phí đăng ký theo chu kỳ từ phía nhà tuyển dụng để có quyền đăng bài tuyển dụng trên hệ thống.
+  \item \textbf{JobManager}: Lưu trữ và quản lý các bài đăng tuyển dụng.
+  \item \textbf{JobApplicationManager}: Ghi nhận và quản lý thông tin ứng tuyển của người dùng cho từng bài đăng cụ thể.
+  \item \textbf{MeetingManager}: Tổ chức và lưu trữ lịch họp trực tuyến giữa nhà tuyển dụng và ứng viên.
+  \item \textbf{RoleManager}: Phân quyền hệ thống, kiểm soát ai được phép gọi các chức năng đặc biệt. Hợp đồng này đảm bảo an toàn và tách biệt vai trò trong hệ thống.
+\end{itemize}
+
+\subsection{ReputationManager}
+
+Hợp đồng \textbf{ReputationManager} chịu trách nhiệm duy trì, cập nhật và điều chỉnh các chỉ số uy tín của người dùng theo từng lĩnh vực chuyên môn cũng như tổng điểm uy tín toàn cục.
+Đây là thành phần cốt lõi để xác định vai trò, quyền truy cập và độ tin cậy của người tham gia trên nền tảng SkillChain.
+
+\subsubsection{Chức năng chính}
+
+\begin{itemize}
+  \item Ghi nhận và duy trì điểm uy tín theo từng lĩnh vực chuyên môn và tổng uy tín toàn cục.
+  \item Tính toán và cập nhật sự thay đổi uy tín dựa trên hành vi của người dùng trong các vai trò người giải thử thách, người đóng góp, người kiểm duyệt và người đánh giá giải pháp. Cơ chế cập nhật đã được giải thích chi tiết tại mục 3.2.
+  \item Tự động cấp hoặc thu hồi vai trò tùy theo mức uy tín đạt được.
+\end{itemize}
+
+\subsubsection{Các hàm chức năng chính}
+
+\begin{itemize}
+  \item \texttt{updateSolvingProblemReputation}: cập nhật uy tín người giải thử thách sau khi giải pháp đã được đánh giá
+  \item \texttt{updateEvaluateSolutionReputation}: cập nhật uy tín người đánh giá giải pháp sau khi phiên đánh giá kết thúc
+  \item \texttt{updateContributionReputation}: cập nhật uy tín người đóng góp sau khi thử thách đã được duyệt xong
+  \item \texttt{updateModerationReputation}: cập nhật uy tín người kiểm duyệt sau khi phiên kiểm duyệt hoàn tất
+\end{itemize}
+
+\subsubsection{Tương tác với hợp đồng khác}
+
+\begin{itemize}
+  \item \textbf{RoleManager}: Cấp hoặc thu hồi vai trò sau khi uy tín thay đổi
+  \item \textbf{ChallengeManager}: Cập nhật uy tín sau khi phiên kiểm duyệt thử thách hoàn tất
+  \item \textbf{SolutionManager}: Cập nhật uy tín sau khi phiên đánh giá giải pháp kết thúc
+\end{itemize}
+
+% TODO: Giải thích về RoleManager nếu cần thiết
+
+\subsection{ChallengeManager}
+
+Hợp đồng \textbf{ChallengeManager} đóng vai trò trung tâm trong quá trình quản lý các thử thách kỹ năng trong hệ thống SkillChain.
+Hợp đồng này chịu trách nhiệm cho toàn bộ vòng đời của một thử thách -- từ khởi tạo, đóng góp, kiểm duyệt cho đến tham gia thử thách và cập nhật dữ liệu uy tín.
+
+\subsubsection{Chức năng chính}
+
+\begin{itemize}
+  \item Cho phép người đóng góp tạo và gửi thử thách cho bên kiểm duyệt
+  \item Cho phép người kiểm duyệt tham gia kiểm duyệt và đánh giá chất lượng thử thách
+  \item Hợp nhất kết quả kiểm duyệt theo mô hình có trọng số dựa trên uy tín, từ đó phân phối token cho bên kiểm duyệt và cập nhật uy tín cho người đóng góp và từng người kiểm duyệt
+  \item Cho phép người dùng tham gia thử thách, hỗ trợ tính toán lượng token cần phải trả cho người đóng góp để tham gia
+\end{itemize}
+
+\subsubsection{Cấu trúc dữ liệu chính}
+
+\begin{itemize}
+  \item \texttt{Challenge}: chứa thông tin đầy đủ của một thử thách
+  \item \texttt{ModeratorReview}: ghi nhận đánh giá của từng người kiểm duyệt đối với một thử thách
+  \item \texttt{ReviewPool}: tập hợp những người kiểm duyệt tham gia vào một thử thách và trạng thái kiểm duyệt
+  \item \texttt{JoinedChallenges}: ghi nhận thử thách mà người dùng đã và đang tham gia giải
+\end{itemize}
+
+\subsubsection{Các hàm chức năng chính}
+
+\paragraph{Quản lý thử thách}
+
+\begin{itemize}
+  \item \texttt{createChallenge}: Người dùng có đủ quyền đóng góp trong một lĩnh vực chuyên môn có thể khởi tạo thử thách nháp
+  \item \texttt{contributeChallenge}: Người đóng góp chính thức gửi thử thách cho bên kiểm duyệt, đính kèm mức token treo thưởng.
+\end{itemize}
+
+\paragraph{Kiểm duyệt thử thách}
+
+\begin{itemize}
+  \item \texttt{joinReviewPool}: Cho phép người kiểm duyệt hợp lệ tham gia vào phiên kiểm duyệt
+  \item \texttt{submitModeratorReview}: Gửi đánh giá chất lượng thử thách, tính điểm theo các yếu tố chất lượng
+  \item \texttt{finalizeChallenge}: Khi đủ số lượng đánh giá, hợp nhất kết quả yếu tố chất lượng, xác định mức độ khó, tính thời gian giải ước tính, tính điểm chất lượng, cập nhật uy tín và phân phối token.
+\end{itemize}
+
+\paragraph{Người dùng tham gia thử thách}
+
+\begin{itemize}
+  \item \texttt{userJoinChallenge}: Người dùng trả phí token, tham gia thử thách và khởi tạo không gian giải pháp
+  \item \texttt{userCompleteChallenge}: Cập nhật số người hoàn thành
+\end{itemize}
+
+% TODO: Giải thích cách tổng hợp
+\subsubsection{Cơ chế hợp nhất kết quả kiểm duyệt}
+
+Giả sử $D$ là tập hợp mức độ khó của thử thách (dễ, trung bình, khó), $M$ là tập hợp các người kiểm duyệt đánh giá một thử thách. Với mỗi người kiểm duyệt $m \in M$, ta có:
+\begin{itemize}
+  \item $d_m$ là độ khó đã đề xuất
+  \item $t_m$ là thời gian giải ước tính đã đề xuất
+  \item $w_m$ là điểm uy tín chuyên môn trong lĩnh vực tương ứng của thử thách
+\end{itemize}
+
+\paragraph{Xác định mức độ khó}
+
+\paragraph{Tính thời gian giải ước tính}
+
+\paragraph{Tính điểm chất lượng}
+
+\subsubsection{Tương tác với hợp đồng khác}
+
+\begin{itemize}
+  \item \textbf{ReputationManager}: Cập nhật uy tín sau khi phiên kiểm duyệt chất lượng thử thách kết thúc
+  \item \textbf{RoleManager}: Kiểm soát quyền gọi hàm dựa trên chỉ số uy tín của người gọi
+  \item \textbf{SolutionManager}: Phối hợp để quản lý thử thách mà người dùng tham gia
+  \item \textbf{ChallengeCostManager}: Tính toán khoản token để tham gia thử thách
+\end{itemize}
+
+\subsection{ModeratorEscrow}
+
+Hợp đồng \textbf{ModerationEscrow} đóng vai trò như một ``kho quỹ ký gửi'' để tạm giữ khoản token thưởng do người đóng góp nạp vào khi tạo thử thách.
+Sau khi thử thách được kiểm duyệt và hợp nhất kết quả, hợp đồng này sẽ tính toán và phân phối phần thưởng cho các người kiểm duyệt phù hợp, dựa trên mức độ chính xác của kết quả kiểm duyệt và uy tín chuyên môn.
+
+\subsubsection{Chức năng chính}
+
+\begin{itemize}
+  \item Nhận và lưu trữ token bounty từ người đóng góp
+  \item Ghi nhận danh sách người kiểm duyệt tham gia
+  \item Đánh giá độ lệch giữa điểm số của từng người kiểm duyệt với điểm số trung bình cuối cùng
+  \item Tính trọng số và phân phối phần thưởng công bằng dựa trên uy tín và mức độ chính xác
+\end{itemize}
+
+\subsubsection{Các hàm chức năng chính}
+
+\paragraph{Giao tiếp với người đóng góp}
+
+\begin{itemize}
+  \item \texttt{depositBounty}: Được gọi bởi \textbf{ChallengeManager} để lưu mức treo thưởng do người đóng góp cung cấp khi gửi thử thách.
+\end{itemize}
+
+\paragraph{Giao tiếp với người kiểm duyệt}
+
+\begin{itemize}
+  \item \texttt{syncModeratorsFromReviewPool}: Đồng bộ danh sách kiểm duyệt từ \textbf{ChallengeManager} vào \textbf{ModerationEscrow}
+  \item \texttt{finalizeChallengePot}: Thực hiện phân phối token sau khi thử thách được duyệt xong
+\end{itemize}
+
+% TODO: Giải thích cách phân phối
+\subsubsection{Cơ chế phân phối token}
+
+\subsubsection{Tương tác với hợp đồng khác}
+
+\begin{itemize}
+  \item \textbf{ReputationManager}: Truy xuất thông tin uy tín của kiểm duyệt viên
+  \item \textbf{ChallengeManager}: Hỗ trợ phân phối thưởng khi phiên kiểm duyệt hoàn tất
+\end{itemize}
+
+\subsection{ChallengeCostManager}
+
+Hợp đồng \textbf{ChallengeCostManager} đảm nhiệm việc tính toán, thu thập và chuyển giao token phí từ người tham gia thử thách đến người đóng góp thử thách. 
+Nó giúp đảm bảo sự khuyến khích kinh tế rõ ràng cho người tạo nội dung và điều chỉnh giá trị tham gia dựa trên độ khó và chất lượng.
+
+\subsubsection{Chức năng chính}
+
+\begin{itemize}
+  \item Tính phí tham gia thử thách
+  \item Xử lý thanh toán từ người tham gia đến contributor khi đăng ký tham gia thử thách
+  \item Ghi nhận tổng doanh thu và thông tin thanh toán theo từng thử thách
+\end{itemize}
+
+\subsubsection{Các hàm chức năng chính}
+
+\begin{itemize}
+  \item \texttt{\_computeCost}: tính lượng token để tham gia thử thách
+  \item \texttt{addTalentPayment}: gửi token từ người tham gia cho người đóng góp và ghi nhận người tham gia đối với thử thách này
+\end{itemize}
+
+% TODO: Giải thích cách tính phí
+\subsubsection{Công thức tính phí}
+
+\subsubsection{Tương tác với hợp đồng khác}
+
+\begin{itemize}
+  \item \textbf{ChallengeManager}: Hỗ trợ tính phí tham gia thử thách
+  \item \textbf{ModeratorEscrow}: Dùng để lấy mức treo thưởng, phục vụ cho tính phí động
+\end{itemize}
+
+\subsection{SolutionManager}
+
+Hợp đồng \textbf{SolutionManager} chịu trách nhiệm ghi nhận toàn bộ quy trình người dùng tham gia thử thách, nộp giải pháp, đưa vào hệ thống đánh giá, cũng như tổng hợp kết quả đánh giá và cập nhật điểm uy tín.
+
+\subsubsection{Chức năng chính}
+
+\begin{itemize}
+  \item Quản lý thông tin giải pháp của người dùng đối với mỗi thử thách
+  \item Điều phối quá trình đánh giá giải pháp bằng cách tổ chức một phiên đánh giá gồm các người đánh giá
+  \item Tính điểm trung bình có trọng số cho giải pháp, cập nhật tiến độ, lưu trữ điểm số và cập nhật điểm uy tín cho người giải và những người đánh giá
+\end{itemize}
+
+\subsubsection{Cấu trúc dữ liệu chính}
+
+\begin{itemize}
+  \item \texttt{Solution}: Chứa thông tin đầy đủ của một giải pháp
+  \item \texttt{Evaluation}: Ghi nhận điểm số của người đánh giá đối với một giải pháp
+  \item \texttt{EvaluationPool}: Tập hợp những người đánh giá tham gia vào một giải pháp và trạng thái đánh giá
+\end{itemize}
+
+\subsubsection{Các hàm chức năng chính}
+
+\paragraph{Người dùng tham gia thử thách}
+
+\begin{itemize}
+  \item \texttt{createSolutionBase}: Ghi nhận hành vi tham gia thử thách và khởi tạo không gian giải pháp
+\end{itemize}
+
+\paragraph{Nộp và chuyển trạng thái giải pháp}
+
+\begin{itemize}
+  \item \texttt{submitSolution}: Người dùng nộp bài (không chỉnh sửa được nữa).
+  \item \texttt{putSolutionUnderReview}: Chuyển giải pháp sang trạng thái chờ đánh giá và khởi tạo một phiên đánh giá.
+\end{itemize}
+
+\paragraph{Quản lý phiên đánh giá}
+
+\begin{itemize}
+  \item \texttt{evaluatorJoinSolution}: Cho phép người đánh giá tham gia đánh giá giải pháp
+  \item \texttt{evaluatorSubmitScore}: Gửi điểm đánh giá
+  \item \texttt{finalizeEvaluation}: Khi ghi nhận đủ điểm đánh giá, tính toán điểm giáp pháp cuối cùng và cập nhật uy tín cho người giải và những người đánh giá
+\end{itemize}
+
+% TODO: Giải thích cách tính điểm đánh giá
+\subsubsection{Cơ chế tổng hợp điểm đánh giá}
+
+\subsubsection{Tương tác với hợp đồng khác}
+
+\begin{itemize}
+  \item \textbf{ReputationManager}: Cập nhật uy tín sau khi phiên đánh giá giải pháp kết thúc
+  \item \textbf{ChallengeManager}: Phối hợp để quản lý thử thách mà người dùng đã tham gia
+  \item \textbf{RoleManager}: Kiểm soát quyền gọi hàm
+\end{itemize}
+
+% TODO: Giải thích về hợp đồng nếu cần thiết
+\subsection{RecruiterSubscription}
