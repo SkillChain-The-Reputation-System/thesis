@@ -102,10 +102,10 @@ Bên cạnh các chức năng chính, hệ thống SkillChain cần đáp ứng 
 
 \begin{itemize}
   \item \textbf{Tính minh bạch và bất biến}: Mọi hành vi quan trọng của người dùng như đóng góp thử thách, tham gia giải thử thách, đánh giá giải pháp hay kiểm duyệt chất lượng thử thách đều phải được ghi nhận on-chain nhằm đảm bảo tính minh bạch, công khai và không thể chỉnh sửa sau khi ghi nhận.
-  \item \textbf{Tính bảo mật}: Thông tin tài khoản người dùng và dữ liệu nhạy cảm (ví dụ: dữ liệu giải pháp lưu trên nền tảng off-chain) cần được bảo vệ khỏi truy cập trái phép. Hệ thống phải xác thực danh tính người dùng thông qua ví điện tử và chỉ cấp quyền tương ứng nếu có yêu cầu truy cập.
+  \item \textbf{Tính bảo mật}: Thông tin tài khoản người dùng và dữ liệu nhạy cảm (ví dụ: dữ liệu giải pháp lưu trên nền tảng off-chain) cần được bảo vệ khỏi truy cập trái phép. Hệ thống phải xác thực danh tính người dùng thông qua ví tiền điện tử và chỉ cấp quyền tương ứng nếu có yêu cầu truy cập.
   \item \textbf{Tính khả dụng}: Hệ thống phải đảm bảo hoạt động liên tục, sẵn sàng phục vụ người dùng 24/7. Trong trường hợp một số dịch vụ off-chain bị gián đoạn, hệ thống vẫn cần đảm bảo dữ liệu on-chain có thể được truy xuất độc lập.
   \item \textbf{Khả năng mở rộng}: Hệ thống cần thiết kế để có thể mở rộng số lượng và số loại thử thách, người dùng và bài tuyển dụng trong tương lai mà không ảnh hưởng đến hiệu năng hoặc trải nghiệm người dùng.
-  \item \textbf{Khả năng tương thích}: Ứng dụng cần tương thích với các trình duyệt phổ biến (Chrome, Firefox, Safari), ví điện tử (MetaMask, CoinBase) và nhiều loại thiết bị điện tử (máy tính, máy tính bảng, điện thoại thông minh).
+  \item \textbf{Khả năng tương thích}: Ứng dụng cần tương thích với các trình duyệt phổ biến (Chrome, Firefox, Safari), ví tiền điện tử (MetaMask, CoinBase) và nhiều loại thiết bị điện tử (máy tính, máy tính bảng, điện thoại thông minh).
   \item \textbf{Khả năng sử dụng}: Giao diện người dùng cần trực quan, rõ ràng và dễ sử dụng đối với người dùng mới, đồng thời hỗ trợ đa vai trò với trải nghiệm nhất quán.
   \item \textbf{Hiệu suất hệ thống}: Thời gian phản hồi cho các thao tác phổ biến như truy xuất danh sách thử thách, nộp giải pháp, hay đánh giá thử thách không được vượt quá 3 giây trong điều kiện bình thường. Hệ thống cần tối ưu hóa việc đồng bộ dữ liệu giữa blockchain và phần giao diện.
   \item \textbf{Khả năng kiểm thử và bảo trì}: Hệ thống cần được xây dựng theo hướng mô-đun, dễ dàng kiểm thử và nâng cấp. Các thành phần frontend, backend, smart contract và dữ liệu lưu trữ cần được tách biệt rõ ràng.
@@ -185,7 +185,7 @@ Giao diện sử dụng \textbf{Tailwind CSS} để xây dựng UI hiện đại
 
 \subsection{Tương tác với blockchain}
 
-Để frontend tương tác với blockchain, hệ thống sử dụng thư viện \textbf{Wagmi} kết hợp với \textbf{ConnectKit} giúp tích hợp ví điện tử như MetaMask hoặc CoinBase.
+Để frontend tương tác với blockchain, hệ thống sử dụng thư viện \textbf{Wagmi} kết hợp với \textbf{ConnectKit} giúp tích hợp ví tiền điện tử như MetaMask hoặc CoinBase.
 Các chức năng như xác thực người dùng qua ví, gửi giao dịch on-chain, theo dõi sự kiện blockchain đều được xử lý tại đây.
 
 \subsection{Hợp đồng thông minh và hạ tầng blockchain}
@@ -367,7 +367,7 @@ Sau khi thử thách được kiểm duyệt và hợp nhất kết quả, hợp
 
 \subsection{ChallengeCostManager}
 
-Hợp đồng \textbf{ChallengeCostManager} đảm nhiệm việc tính toán, thu thập và chuyển giao token phí từ người tham gia thử thách đến người đóng góp thử thách. 
+Hợp đồng \textbf{ChallengeCostManager} đảm nhiệm việc tính toán, thu thập và chuyển giao token phí từ người tham gia thử thách đến người đóng góp thử thách.
 Nó giúp đảm bảo sự khuyến khích kinh tế rõ ràng cho người tạo nội dung và điều chỉnh giá trị tham gia dựa trên độ khó và chất lượng.
 
 \subsubsection{Chức năng chính}
@@ -451,3 +451,325 @@ Hợp đồng \textbf{SolutionManager} chịu trách nhiệm ghi nhận toàn b�
 
 % // TODO: Giải thích về hợp đồng nếu cần thiết
 \subsection{RecruiterSubscription}
+
+\section{Giao diện người dùng}
+
+\subsection{Trang kết nối tài khoản}
+
+Trước khi sử dụng hệ thống SkillChain, người dùng sẽ được yêu cầu kết nối với ví của mình.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/login.png}
+  \caption{Trang kết nối tài khoản}
+  \label{fig:login-page}
+\end{figure}
+
+Tại trang này, người dùng có thể nhấn nút ``Connect'' để chọn ví muốn kết nối.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/login-wallets-page.png}
+  \caption{Hộp thoại chọn ví kết nối}
+  \label{fig:login-wallets-page}
+\end{figure}
+
+Sau khi kết nối thành công, hệ thống sẽ điều hướng người dùng đến trang chủ.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/home-page.png}
+  \caption{Trang chủ}
+  \label{fig:home-page}
+\end{figure}
+
+\subsection{Trang quản lý tài khoản}
+
+\subsubsection{Trang thông tin cá nhân}
+
+Để xem thông tin cá nhân, người dùng cần chọn \textbf{Account} $\rightarrow$ \textbf{Profile}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/unregistered-account-page.png}
+  \caption{Trang thông tin tài khoản khi chưa đăng ký}
+  \label{fig:unregistered-account-page}
+\end{figure}
+
+Ở góc dưới bên trái, hệ thống hiển thị quyền của người dùng đối với từng lĩnh vực chuyên môn, bao gồm khả năng đóng góp, kiểm duyệt và đánh giá.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/domain-roles-page.png}
+  \caption{Bảng vai trò của người dùng theo lĩnh vực chuyên môn}
+  \label{fig:domain-roles-page}
+\end{figure}
+
+Hồ sơ uy tín được hiển thị ở góc dưới bên phải, bao gồm chỉ số uy tín toàn cục và uy tín theo từng lĩnh vực chuyên môn.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth, frame]{ui/reputation-profile.png}
+  \caption{Hồ sơ uy tín}
+  \label{fig:reputation-profile}
+\end{figure}
+
+\subsubsection{Trang cài đặt tài khoản}
+
+Để chỉnh sửa thông tin cá nhân hoặc đăng ký tài khoản (nếu là lần kết nối đầu tiên), người dùng cần chọn \textbf{Account} $\rightarrow$ \textbf{Settings} và chuyển đến tab \textbf{Profile}.
+Tại đây, người dùng có thể chọn ảnh đại diện, điền họ tên, địa chỉ email, nơi cư trú và tiểu sử để chỉnh sửa hoặc đăng ký thông tin cá nhân.  
+Đối với lần đăng ký đầu tiên, hệ thống sẽ yêu cầu người dùng xác nhận giao dịch thông qua ví tiền điện tử để hoàn tất quá trình.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/register-account.png}
+  \caption{Trang đăng ký thông tin cá nhân}
+  \label{fig:register-account}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/registered-account-page.png}
+  \caption{Trang thông tin cá nhân sau khi đã đăng ký}
+  \label{fig:registered-account-page}
+\end{figure}
+
+Ngoài ra, người dùng cũng có thể truy cập tab \textbf{Account} để xem và cấu hình thông tin tài khoản liên quan đến hệ thống.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/account-settings-page.png}
+  \caption{Trang thiết lập tài khoản}
+  \label{fig:account-settings-page}
+\end{figure}
+
+\subsection{Trang đóng góp thử thách}
+
+Để khởi tạo, quản lý và theo dõi các thử thách, người dùng cần truy cập tab \textbf{Contribution}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/contribution-page.png}
+  \caption{Trang đóng góp thử thách}
+  \label{fig:contribution-page}
+\end{figure}
+
+Tại đây, người dùng có thể xem danh sách các thử thách đã đóng góp, cùng với thông tin về loại thử thách, trạng thái và mức treo thưởng.  
+Người dùng có thể xem chi tiết một thử thách bằng cách nhấn vào liên kết tên thử thách hoặc chọn ``View challenge'' từ nút ``Actions``.
+
+\subsubsection{Tạo thử thách mới}
+
+Để tạo một thử thách mới, người dùng nhấn nút ``Create Challenge'' ở góc trên bên phải.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/create-challenge-page.png}
+  \caption{Trang tạo thử thách mới}
+  \label{fig:create-challenge-page}
+\end{figure}
+
+Tại trang này, người dùng nhập các thông tin quan trọng của thử thách, sau đó nhấn nút ``Create challenge''.  
+Hệ thống sẽ yêu cầu xác thực giao dịch thông qua ví tiền điện tử để chính thức tạo thử thách ở trạng thái nháp.
+Nếu người dùng không đủ chỉ số uy tín chuyên môn tương ứng với loại thử thách đang tạo, hệ thống sẽ hiển thị thông báo lỗi và không cho phép tạo thử thách.
+
+\subsubsection{Chỉnh sửa thử thách}
+
+Để chỉnh sửa một thử thách đang ở trạng thái nháp, người dùng cần truy cập trang chi tiết của thử thách và nhấn nút ``Edit''.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/contribution-challenge-detail-page.png}
+  \caption{Trang chi tiết thử thách đã tạo}
+  \label{fig:contribution-challenge-detail-page}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/contribution-challenge-edit-page.png}
+  \caption{Trang chỉnh sửa thử thách}
+  \label{fig:contribution-challenge-edit-page}
+\end{figure}
+
+Người dùng có thể chỉnh sửa nội dung thử thách tại đây và nhấn ``Save changes'' để lưu thay đổi.
+
+\subsubsection{Gửi thử thách cho kiểm duyệt}
+
+Để gửi thử thách đến bên kiểm duyệt, người dùng truy cập trang chi tiết của thử thách và nhấn nút ``Contribute''.  
+Hệ thống sẽ yêu cầu xác thực giao dịch thông qua ví tiền điện tử để chính thức chuyển thử thách sang trạng thái chờ kiểm duyệt.  
+Sau khi gửi đi, thử thách sẽ bị khóa và không còn có thể chỉnh sửa được nữa.
+
+\subsection{Trang kiểm duyệt thử thách}
+
+\subsubsection{Xem thử thách chờ kiểm duyệt}
+
+Để xem danh sách các thử thách đang chờ kiểm duyệt, người dùng truy cập \textbf{Moderation} $\rightarrow$ \textbf{Pending Challenge}.  
+Tại đây, người dùng có thể xem thông tin chi tiết từng thử thách, bao gồm số lượng người đã tham gia kiểm duyệt.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/moderation-pending-challenges-page.png}
+  \caption{Trang danh sách thử thách chờ kiểm duyệt}
+  \label{fig:moderation-pending-challenges-page}
+\end{figure}
+
+\subsubsection{Tham gia kiểm duyệt thử thách}
+
+Để tham gia kiểm duyệt một thử thách, người dùng nhấn nút ``Join Review Pool'' tại thử thách mong muốn.  
+Hệ thống sẽ yêu cầu xác thực giao dịch thông qua ví tiền điện tử để hoàn tất việc tham gia kiểm duyệt.
+Nếu người dùng không đủ chỉ số uy tín chuyên môn tương ứng với loại thử thách, hệ thống sẽ hiển thị thông báo lỗi và không cho phép tham gia.
+
+\subsubsection{Thực hiện kiểm duyệt}
+
+Để bắt đầu kiểm duyệt, người dùng truy cập \textbf{Moderation} $\rightarrow$ \textbf{My Reviews} để xem danh sách các thử thách mà mình đã tham gia kiểm duyệt.  
+Sau đó, chọn thử thách tương ứng và nhấn nút ``Edit review''.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/moderation-my-reviews-page.png}
+  \caption{Trang danh sách thử thách đã và đang kiểm duyệt}
+  \label{fig:moderation-my-reviews-page}
+\end{figure}
+
+Tại trang này, người dùng có thể xem chi tiết phiên kiểm duyệt.  
+Để thực hiện đánh giá, chuyển sang tab \textbf{Review Form}.
+
+Trong biểu mẫu kiểm duyệt, người dùng cần:
+\begin{itemize}
+  \item Chọn \textbf{Yes/No} cho từng tiêu chí đánh giá chất lượng.
+  \item Đề xuất độ khó và thời gian giải ước tính.
+  \item Có thể lưu tạm nội dung đánh giá hoặc gửi luôn.
+\end{itemize}
+
+Sau khi hoàn tất, nhấn nút ``Submit Review'' để nộp đánh giá.  
+Giao dịch sẽ cần được xác thực qua ví tiền điện tử, và sau khi gửi, nội dung đánh giá sẽ không thể chỉnh sửa.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/moderation-review-form.png}
+  \caption{Biểu mẫu kiểm duyệt chất lượng thử thách}
+  \label{fig:moderation-review-form}
+\end{figure}
+
+\subsubsection{Xem thông tin phiên kiểm duyệt}
+
+Khi phiên kiểm duyệt kết thúc, thông tin chi tiết về phiên sẽ được hiển thị cho người đóng góp và các kiểm duyệt viên.  
+Thông tin này bao gồm danh sách người kiểm duyệt, số điểm đánh giá, và phần token thưởng tương ứng.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/challenge-moderation-pot-info.png}
+  \caption{Thông tin chi tiết của một phiên kiểm duyệt}
+  \label{fig:challenge-moderation-pot-info}
+\end{figure}
+
+\subsection{Trang tham gia thử thách}
+
+\subsubsection{Xem thử thách đang hiện hành}
+
+Để xem danh sách các thử thách đang mở, người dùng truy cập \textbf{Participation} $\rightarrow$ \textbf{Explore}.  
+Tại đây, người dùng có thể xem chi tiết nội dung từng thử thách bằng cách nhấn vào thẻ tương ứng.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/explore-challenges-page.png}
+  \caption{Trang danh sách thử thách đang hiện hành}
+  \label{fig:explore-challenges-page}
+\end{figure}
+
+\subsubsection{Thực hiện thử thách}
+
+Khi xem chi tiết nội dung một thử thách, người dùng có thể nhấn nút ``Join Challenge'' (ở góc trên hoặc góc dưới bên phải) để tham gia.  
+Hệ thống sẽ yêu cầu người dùng xác nhận trả một khoản phí và xác thực giao dịch qua ví tiền điện tử.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/join-challenge-payment-dialog.png}
+  \caption{Xác nhận trả phí tham gia thử thách}
+  \label{fig:join-challenge-payment-dialog}
+\end{figure}
+
+Sau khi tham gia thành công, người dùng truy cập \textbf{Participation} $\rightarrow$ \textbf{Workspace} để xem các thử thách đã và đang tham gia.  
+Tại đây, người dùng có thể bắt đầu xây dựng giải pháp. Hệ thống cho phép lưu tạm giải pháp nhiều lần trước khi nộp chính thức.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/workspace-challenge-page.png}
+  \caption{Trang danh sách thử thách đã tham gia}
+  \label{fig:workspace-challenge-page}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/solution-workspace-page.png}
+  \caption{Không gian soạn thảo giải pháp}
+  \label{fig:solution-workspace-page}
+\end{figure}
+
+Sau khi hoàn thiện giải pháp, người dùng nhấn nút ``Submit'' để nộp bài. Kể từ thời điểm này, nội dung giải pháp sẽ bị khóa và không thể chỉnh sửa.
+Khi đã sẵn sàng gửi bài để chấm điểm, người dùng nhấn ``Put Under Review''. Mỗi hành động nộp bài hoặc gửi đánh giá đều yêu cầu xác thực giao dịch thông qua ví tiền điện tử.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/submitted-solution-page.png}
+  \caption{Giải pháp đã được nộp}
+  \label{fig:submitted-solution-page}
+\end{figure}
+
+\subsection{Trang đánh giá giải pháp}
+
+\subsubsection{Xem giải pháp đang chờ đánh giá}
+
+Để xem danh sách các giải pháp đang chờ đánh giá, người dùng truy cập \textbf{Evaluation} $\rightarrow$ \textbf{Pending Solution}.  
+Tại đây, hệ thống hiển thị các giải pháp đang chờ đánh giá, bao gồm tên người nộp giải, số lượng người đánh giá đã tham gia.  
+Tuy nhiên, nội dung chi tiết của giải pháp sẽ chưa được hiển thị ở giai đoạn này.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/pending-solution-page.png}
+  \caption{Trang danh sách giải pháp đang chờ đánh giá}
+  \label{fig:pending-solution-page}
+\end{figure}
+
+\subsubsection{Tham gia đánh giá giải pháp}
+
+Khi xem thông tin chi tiết của một giải pháp, người dùng có thể nhấn nút ``Evaluate Solution'' để đăng ký tham gia đánh giá.  
+Hệ thống sẽ yêu cầu xác thực giao dịch thông qua ví tiền điện tử để xác nhận quyền đánh giá.
+Nếu người dùng không đủ chỉ số uy tín chuyên môn phù hợp với loại thử thách, hệ thống sẽ hiển thị thông báo lỗi và không cho phép tiếp tục.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/pending-solution-info-page.png}
+  \caption{Thông tin cơ bản của giải pháp đang chờ đánh giá}
+  \label{fig:pending-solution-info-page}
+\end{figure}
+
+\subsubsection{Thực hiện đánh giá giải pháp}
+
+Sau khi tham gia đánh giá, người dùng truy cập \textbf{Evaluation} $\rightarrow$ \textbf{Evaluated By Me} để xem danh sách các giải pháp mà mình đã hoặc đang đánh giá.  
+Tại đây, người đánh giá có thể xem nội dung chi tiết của giải pháp và tiến hành chấm điểm.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/evaluated-by-me-page.png}
+  \caption{Trang danh sách giải pháp đã và đang đánh giá}
+  \label{fig:evaluated-by-me-page}
+\end{figure}
+
+Người dùng thực hiện đánh giá bằng cách điền nội dung nhận xét, chấm điểm theo thang điểm quy định và nhấn ``Submit'' để nộp kết quả.  
+Sau khi gửi đi, kết quả đánh giá sẽ được khóa và không thể chỉnh sửa.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/evaluate-solution-page.png}
+  \caption{Trang thực hiện đánh giá giải pháp}
+  \label{fig:evaluate-solution-page}
+\end{figure}
+
+Sau khi quá trình đánh giá hoàn tất, hệ thống sẽ công khai kết quả phiên đánh giá cho cả người giải và các người đánh giá.  
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/evaluated-solution-page.png}
+  \caption{Giải pháp đã được đánh giá hoàn tất}
+  \label{fig:evaluated-solution-page}
+\end{figure}
