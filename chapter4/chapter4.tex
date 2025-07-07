@@ -301,21 +301,49 @@ Hợp đồng này chịu trách nhiệm cho toàn bộ vòng đời của một
   \item \texttt{userCompleteChallenge}: Cập nhật số người hoàn thành
 \end{itemize}
 
-% // TODO: Giải thích cách tổng hợp kết quả kiểm duyệt
+% // TODO: ☑️ Giải thích cách tổng hợp kết quả kiểm duyệt
 \subsubsection{Cơ chế hợp nhất kết quả kiểm duyệt}
 
-Giả sử $D$ là tập hợp mức độ khó của thử thách (dễ, trung bình, khó), $M$ là tập hợp các người kiểm duyệt đánh giá một thử thách. Với mỗi người kiểm duyệt $m \in M$, ta có:
+Giả sử $D$ là tập hợp mức độ khó của thử thách (dễ, trung bình, khó), $F$ là tổng số lượng các yếu tổ chất lượng dùng để đánh giá thử thách, $M$ là tập hợp những người kiểm duyệt đánh giá một thử thách. Với mỗi người kiểm duyệt $m \in M$, ta có:
 \begin{itemize}
   \item $d_m$ là độ khó đã đề xuất
   \item $t_m$ là thời gian giải ước tính đã đề xuất
-  \item $w_m$ là điểm uy tín chuyên môn trong lĩnh vực tương ứng của thử thách
+  \item $q_{mf}$ là đánh giá của người kiếm duyệt đối với một yếu tố chất lượng, mang một trong hai ý nghĩa: Đúng hoặc Sai, $q_{mf} \in \{0,1\}$
+  \item $w_m$ là trọng số uy tín của người kiểm duyệt dựa trên điểm uy tín chuyên môn $R_{i}$ của họ trong lĩnh vực của thử thách
+  \[w_m = R_{i}\]
 \end{itemize}
 
 \paragraph{Xác định mức độ khó}
+\begin{itemize}
+  \item Để xác định mức độ khó của thử thách, hệ thống sử dụng cơ chế biểu quyết theo số đông dựa trên trọng số. Hệ thống lần lượt tính tổng trọng số $W(d)$ của từng mức độ khó $d \in D$ theo công thức:
+    \[W(d) \;=\; \sum_{m \in M} w_m \cdot \mathbf{1}\big(d_m = d\big)\]
+  \item Sau cùng, mức độ khó nào có tổng trọng số cao nhất sẽ là mức độ khó của thử thách:
+    \[d_{\text{final}} \;=\; \underset{d \in D}{\operatorname{arg\,max}}\; W(d)\]
+\end{itemize}
 
 \paragraph{Tính thời gian giải ước tính}
+\begin{itemize}
+  \item Thời gian giải ước tính của thử thách là trung bình có trọng số của thời gian giải ước tính đã đề xuất $t_{m}$ và trọng số uy tín $w_m$ của người kiểm duyệt tương ứng:
+    \[T_{\text{final}}= \frac{\displaystyle\sum_{m=1}^{M} (w_{m}*t_{m})}{\displaystyle\sum_{m=1}^{M} w_{m}}\]
+\end{itemize}
 
 \paragraph{Tính điểm chất lượng}
+\begin{itemize}
+  \item Điểm chất lượng của thử thách được tổng hợp dựa trên tổng các yếu tố chất lượng của từng bài đánh giá của những người kiểm duyệt tham gia vào phiên đánh giá:
+    \[Q_{\text{challenge}}=\frac{100}{F}\frac{\sum_{m=1}^{M} w_m \Bigl(\sum_{f=1}^{F} q_{mf}\Bigr)}{\sum_{m=1}^{M}w_m} \in[0,100]\]
+  \item Điểm chất lượng là yếu tố then chốt để quyết định thử thách đạt hay không đạt, dựa trên ngưỡng đạt $Q_{\text{threshold}}$ :
+    \[
+    \text{Kết quả} =
+    \begin{cases}
+    \text{Thử thách đạt}, & \text{nếu } Q_{\text{challenge}} \geq Q_{\text{threshold}} \\
+    \text{Thử thách không đạt}, & \text{nếu } Q_{\text{challenge}} < Q_{\text{threshold}}
+    \end{cases}
+    \]
+  \item Theo thống nhất của nhóm phát triển. ngưỡng đạt ở mức sau là phù hợp với yêu cầu hiện tại của hệ thống, vừa đảm bảo các thử thách có chất lượng tốt, vừa không quá khắt khe để khuyến khích việc đóng góp thử thách vào hệ thống:
+    \[Q_{\text{threshold}} = 80 \]
+  
+\end{itemize}
+
 
 \subsubsection{Tương tác với hợp đồng khác}
 
