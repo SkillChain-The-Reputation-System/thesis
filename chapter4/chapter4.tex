@@ -329,8 +329,10 @@ Giả sử $D$ là tập hợp mức độ khó của thử thách (dễ, trung 
 
 \paragraph{Tính điểm chất lượng}
 \begin{itemize}
-  \item Điểm chất lượng của thử thách được tổng hợp dựa trên tổng các yếu tố chất lượng của từng bài đánh giá của những người kiểm duyệt tham gia vào phiên đánh giá:
-    \[Q_{\text{challenge}}=\frac{100}{F}\frac{\sum_{m=1}^{M} w_m \Bigl(\sum_{f=1}^{F} q_{mf}\Bigr)}{\sum_{m=1}^{M}w_m} \in[0,100]\]
+  \item Người kiểm duyệt đánh giá thử thách bằng cách trả lời $F$ yếu tố chất lượng đã được hệ thống quy định sẵn. Sau khi nộp bài đánh giá, hệ thống tính điểm chất lượng đề xuất của từng người kiểm duyệt theo công thức: 
+    \[q_{\text{m}}=\frac{100}{F} \sum_{f=1}^{F} q_{mf} \in[0,100]\]
+  \item Điểm chất lượng của thử thách được tổng hợp dựa trên điểm chất lượng đề xuất của những người kiểm duyệt tham gia vào phiên kiểm duyệt:
+    \[Q_{\text{challenge}}=\frac{\sum_{m=1}^{M} w_m q_{\text{m}}}{\sum_{m=1}^{M}w_m} \in[0,100]\]
   \item Điểm chất lượng là yếu tố then chốt để quyết định thử thách đạt hay không đạt, dựa trên ngưỡng đạt $Q_{\text{threshold}}$ :
     \[
     \text{Kết quả} =
@@ -339,7 +341,7 @@ Giả sử $D$ là tập hợp mức độ khó của thử thách (dễ, trung 
     \text{Thử thách không đạt}, & \text{nếu } Q_{\text{challenge}} < Q_{\text{threshold}}
     \end{cases}
     \]
-  \item Theo thống nhất của nhóm phát triển. ngưỡng đạt ở mức sau là phù hợp với yêu cầu hiện tại của hệ thống, vừa đảm bảo các thử thách có chất lượng tốt, vừa không quá khắt khe để khuyến khích việc đóng góp thử thách vào hệ thống:
+  \item Theo thống nhất của nhóm phát triển, ngưỡng đạt ở mức sau là phù hợp với yêu cầu hiện tại của hệ thống, vừa đảm bảo các thử thách có chất lượng tốt, vừa không quá khắt khe để khuyến khích việc đóng góp thử thách vào hệ thống:
     \[Q_{\text{threshold}} = 80 \]
   
 \end{itemize}
@@ -383,8 +385,59 @@ Sau khi thử thách được kiểm duyệt và hợp nhất kết quả, hợp
   \item \texttt{finalizeChallengePot}: Thực hiện phân phối token sau khi thử thách được duyệt xong
 \end{itemize}
 
-% // TODO: Giải thích cách phân phối token
+% // TODO: ☑️ Giải thích cách phân phối token
 \subsubsection{Cơ chế phân phối token}
+
+Khi người đóng góp tạo một thử thách, họ cần chi một khoảng token $B$ để thưởng cho những người kiểm duyệt. Sau quá trình tổng hợp kết quả kiểm duyệt đã trình bày ở phần trước, hệ thống đã tính được điểm chất lượng $Q_{\text{challenge}}$ của thử thách. 
+Giả sử $M$ là tập hợp những người kiểm duyệt đánh giá một thử thách. Với mỗi người kiểm duyệt $m \in M$, ta có:
+\begin{itemize}
+  \item $q_{\text{m}}$ là điểm chất lượng đề xuất của người kiểm duyệt 
+  \item $\Delta q_{\text{m}}$ là chênh lệch điểm số giữa điểm chất lượng $Q_{\text{challenge}}$ của thử thách sau kiểm duyệt và điểm chất lượng đề xuất của người kiểm duyệt: 
+    \[\Delta q_{\text{m}} = |q_{m}-Q|\]
+  \item $R_{m}$ là điểm uy tín chuyên môn của người kiểm duyệt
+  \item $B_{m}$ là số token mà người kiểm duyệt được thưởng (nếu đạt yêu cầu)
+\end{itemize}
+
+\paragraph{Phân loại dựa trên chênh lệch điểm chất lượng}
+\begin{itemize}
+  \item Dựa vào chênh lệch điểm chất lượng $\Delta q_{\text{m}}$ của từng người kiếm duyệt và ngưỡng lệch điểm chất lượng $q_{\text{threshold}}$, hệ thống phân loại họ thành hai nhóm: những người kiểm duyệt được thưởng và những người kiểm duyệt không được thưởng. 
+    \[
+    \text{Người kiếm duyệt} =
+    \begin{cases}
+      \text{Được thưởng} & \text{nếu } \Delta q_{\text{m}} \leq q_{\text{threshold}} \\
+      \text{Không được thưởng} & \text{nếu } \Delta q_{\text{m}} > q_{\text{threshold}}
+    \end{cases}
+    \]
+  \item Theo thống nhất của nhóm phát triển, ngưỡng lệch điểm chất lượng sẽ ở mức sau:
+    \[q_{\text{threshold}} = 40 \]
+
+\end{itemize}
+
+\paragraph{Tính trọng số thưởng cho những người kiểm duyệt được thưởng}
+\begin{itemize}
+  \item Giả sử $\beta$ là hệ số phản ánh mức độ ảnh hưởng của điểm uy tín chuyên môn đối với trọng số thường ($\beta \in [0,1]$), $\alpha$ là hệ số phản ánh mức độ giảm giá trị thưởng theo chênh lệch điểm chất lượng, ($\alpha \in (0, +\infty)$). Trọng số thưởng của người kiểm duyệt $m$ được tính theo công thức: 
+    \[w_m = R_m^{\beta}\;\cdot\;e^{-\alpha\,\Delta q_{\text{m}}} \]
+
+  \item Công thức trọng số thưởng là một hàm kết hợp dựa trên hai yếu tố: điểm uy tín chuyên môn và chênh lệch điểm chất lượng của người kiểm duyệt (độ chính xác).
+  \item Tham số $\beta \in [0, 1]$ điều chỉnh mức độ ảnh hưởng của uy tín tới trọng số thưởng. 
+  \begin{itemize}
+    \item Nếu $\beta$ lớn ($\beta$ gần 1), điểm uy tín chuyên môn sẽ có ảnh hưởng nhiều hơn đến trọng số thưởng. Từ đó, người kiểm duyệt có điểm uy tín cao sẽ được nhận thưởng nhiều hơn.
+    \item Nếu $\beta$ nhỏ ($\beta$ gần 0), điểm uy tín chuyên môn sẽ có ảnh hưởng không đáng kể đến trọng số, nghĩa là yếu tố chính xác (thể hiện qua chênh lệch điểm chất lượng $\Delta q_{\text{m}}$) sẽ chiếm vai trò chủ đạo.
+  \end{itemize}
+  \item Tham số $\alpha$ có tác dụng kiểm soát tốc độ giảm của trọng số thưởng dựa trên chênh lệch điểm chất lượng:
+    \begin{itemize}
+      \item Nếu $\alpha$ lớn, trọng số thưởng sẽ giảm rất nhanh khi chênh lệch điểm chất lượng tăng lên, nghĩa là phần lớn token thưởng được phát cho những người đánh giá chính xác nhất.
+      \item Nếu $\alpha$ nhỏ, trọng số thưởng giảm chậm hơn khi chênh lệch điểm chất lượng tăng lên, nghĩa là số token thưởng sẽ được phân phát đều hơn cho những người kiểm duyệt.
+    \end{itemize}
+\end{itemize}
+
+
+\paragraph{Phân phối phần thưởng}
+\begin{itemize}
+  \item Quỹ thưởng chính là số token thưởng $B$ mà người đóng góp chi ra để thưởng cho những người kiểm duyệt
+  \item Giả sử $M_{\text{reward}}$ là tập hợp những người kiểm duyệt được thưởng. Phần thưởng mà mỗi người kiểm duyệt nhận được là:
+    \[B_m = \frac{w_m}{\sum_{m}^{M_{\text{reward}}}w_m} B\] 
+\end{itemize}
 
 \subsubsection{Tương tác với hợp đồng khác}
 
