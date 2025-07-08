@@ -466,8 +466,75 @@ Nó giúp đảm bảo sự khuyến khích kinh tế rõ ràng cho người t�
   \item \texttt{addTalentPayment}: gửi token từ người tham gia cho người đóng góp và ghi nhận người tham gia đối với thử thách này
 \end{itemize}
 
-% // TODO: Giải thích cách tính phí tham gia
+% // TODO: ☑️ Giải thích cách tính phí tham gia
 \subsubsection{Công thức tính phí}
+
+Giả sử: 
+\begin{itemize}
+  \item $F_{\min}$, $F_{\max}$ là phí sàn và phí trần (native token - POL)
+  \item $\alpha$ là hằng số phản ánh mức độ ảnh hưởng của độ mức độ khó đối với phí tham gia ($0<\alpha<1$) 
+  \item $\beta$ là hằng số phản ánh mức độ ảnh hưởng của chất lượng đối với phí tham gia ($0<\beta<1$)
+  \item $W_{\text{difficulty}}$ là trọng số độ khó
+    \[
+      W_{\text{difficulty}} =
+      \begin{cases}
+        1   & , \text{nếu độ khó là dễ}         \\
+        2   & , \text{nếu độ khó là trung bình} \\
+        3   & , \text{nếu độ khó là khó}        \\
+      \end{cases}
+    \]
+  \item $Q_{\text{challenge}}$ là điểm chất lượng của thử thách sau kiểm duyệt, được chuẩn hoá $[0,1]$
+  \item $\gamma$ là hằng số phản ánh tỷ lệ hoàn vốn ($0 < \gamma \le 1$)
+  \item $B$ là số lượng token người đóng góp chi ra để thưởng cho những người kiếm duyệt 
+  \item $E$ là số lượt người dùng tham gia vào thử thách kỳ vọng
+  \item $n_i$ là số lượt người dùng đã tham gia vào thử thách trước người chơi thứ $i$
+  \item $\beta$ là tham số phản ảnh tốc độ suy giảm chi phí tham gia thử thách khi số lượng người chơi tăng lên
+\end{itemize}
+
+\paragraph{Tính phí tham gia thử thách}
+\begin{itemize}
+  \item Phí tham gia thử gồm hai thành phần: phí cơ sở và phí hoàn vốn
+  \item Phí cơ sở được tình bằng một hàm tuyến tính dựa trên phí sàn, độ khó của thử thách và điểm chất lượng của thử thách: 
+    \[F_{\text{base}}= F_{\min}+ \alpha\,W_d + \beta\,Q\]
+  \item Phí hoàn vốn là mức phí tính thêm cho những người đầu tiên tham gia vào thử thách, giảm dần về 0 khi càng nhiều người tham gia vào thử thách. Mức phí này hỗ trợ người đóng góp hoàn lại số vốn đã chi khi đóng góp thử thách: 
+    \[F_{\mathrm{bonus}}= \gamma\,\frac{B}E\;e^{-\beta\,n_i}\]
+  \item Phí tham gia thử thách của người tham gia thứ $i$ được tính bằng công thức sau, phụ thuộc vào phí cơ sở và phí hoàn vốn. Tuy nhiên, mức phí này bị ràng buộc giới hạn trên $F_{\max}$ và giới hạn dưới $F_{\min}$ để đảm bảo quyền lợi của người dùng khi tham gia thử thách:
+    \[F_{i} =
+    \begin{cases}
+      F_{\min}, 
+      & \text{nếu } F_{\mathrm{base}} + F_{\mathrm{bonus}} < F_{\min}, \\[6pt]
+      F_{\mathrm{base}} + F_{\mathrm{bonus}}, 
+      & \text{nếu } F_{\min} \le F_{\mathrm{base}} + F_{\mathrm{bonus}} \le F_{\max}, \\[6pt]
+      F_{\max}, 
+      & \text{nếu } F_{\mathrm{base}} + F_{\mathrm{bonus}} > F_{\max}.
+    \end{cases}
+    \] 
+\end{itemize}
+
+\paragraph{Các giá trị hằng số đề xuất} 
+
+Bảng sau đây liệt kê các giá trị hằng số được đề xuất cho công thức tính phí tham gia thử thách:
+
+\begin{table}[H]
+\centering
+  \begin{tabular}{|c|c|}
+  \hline
+  \textbf{Ký hiệu} & \textbf{Giá trị đề xuất} \\
+  \hline 
+  $F_{\text{base}}$ & 0.01 POL \\
+  \hline
+  $F_{\max}$ & 0.05 POL \\
+  \hline
+  $\alpha$ & 0.6 \\
+  \hline
+  $\beta$ & 0.8 \\
+  \hline
+  $\gamma$ & 0.3 \\
+  \hline
+  $E$ & 30 \\
+  \hline
+  \end{tabular}
+\end{table}
 
 \subsubsection{Tương tác với hợp đồng khác}
 
