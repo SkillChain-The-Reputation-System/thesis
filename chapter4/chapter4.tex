@@ -198,8 +198,122 @@ Các chức năng chính của smart contract bao gồm: quản lý thử thách
 Một số loại dữ liệu không phù hợp để lưu trực tiếp trên chuỗi như nội dung thử thách hoặc giải pháp sẽ được lưu trữ trên \textbf{Irys}, với CID được lưu lại trên blockchain để dễ dàng tham chiếu.
 Ngoài ra, hệ thống còn tích hợp \textbf{Jitsi Meet} để phục vụ việc tổ chức các buổi phỏng vấn trực tuyến giữa nhà tuyển dụng và ứng viên, đảm bảo tính riêng tư và tiện lợi.
 
-% // TODO: Ghi nội dung sau khi có sơ đồ
+% // TODO: ☑️ Ghi nội dung sau khi có sơ đồ
 \section{Mô hình dữ liệu}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{../images/ERD.png}
+  \caption{Sơ đồ mô hình dữ liệu (ERD) của hệ thống SkillChain}
+  \label{fig:erd}
+\end{figure}
+
+\subsection{Quan hệ giữa User, Challenge, ModeratorReview, ReviewPool, Pot và ChallengeRevenue}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{../images/ERD-sub1.png}
+    \caption{Mô hình dữ liệu (ERD) giữa các thực thể User, Challenge, ModeratorReview, ReviewPool, Pot và ChallengeRevenue}
+    \label{fig:erd-sub1}
+  \end{figure}
+
+  \paragraph{Mô tả các thực thể}
+
+    \begin{itemize}
+      \item \textbf{User}: Đại diện cho tài khoản người dùng trên hệ thống, với \texttt{address} làm khóa chính và \texttt{data\_id} là biến tham chiếu dữ liệu off-chain.
+      \item \textbf{Challenge}: Mỗi thử thách được xác định bởi \texttt{id} theo kiểu dữ liệu \texttt{bytes32}, bao gồm các trường thông tin: tham chiếu đến dữ liệu off-chain, lĩnh vực, thời điểm đóng góp, số lượng người đã tham gia, điểm chất lượng, độ khó thời gian giải ước tính và trạng thái. Khóa ngoại \texttt{contributor} liên kết đến \texttt{User.address}.
+      \item \textbf{ModeratorReview}: Lưu trữ lượt đánh giá của moderator với khoá chính ghép (\texttt{moderator}, \texttt{challenge\_id}),bao gồm thời gian, tham chiếu đến dữ liệu off-chain, các câu trả lời về yếu tố chất lượng, đề xuất siêu dữ liệu (metadata) mới và điểm chất lượng đề xuất.
+      \item \textbf{ReviewPool}: Quản lý các bài đánh giá cho mỗi thử thách. Sử dụng \texttt{challenge\_id} làm khóa chính và cờ \texttt{is\_finalized} để đánh dấu khi đối tượng này (pool) đã trải qua quá trình tổng hợp các bài đánh giá hay chưa.
+      \item \textbf{Pot}: Quản lý quỹ thưởng của thử thách, bao gồm số token người đóng góp chi, tổng quỹ thưởng và cờ đánh dấu quỹ đã phân phát đến những người kiểm duyệt hay chưa. Khóa chính là \texttt{challenge\_id}.
+      \item \textbf{ChallengeRevenue}: Theo dõi tổng doanh thu của mỗi thử thách, với \texttt{challenge\_id} làm khóa chính.
+    \end{itemize}
+
+  \paragraph{Mối quan hệ chính}
+
+    \begin{itemize}
+      \item Một \textbf{User} có thể đóng góp nhiều \textbf{Challenge}.
+      \item Mỗi \textbf{Challenge} tạo ra một \textbf{ReviewPool} duy nhất và có thể có nhiều lượt \textbf{ModeratorReview}.
+      \item Một \textbf{ModeratorReview} luôn liên kết với một \textbf{ReviewPool} và một \textbf{Challenge}.
+      \item Một \textbf{User} (với vai trò moderator) có thể thực hiện nhiều \textbf{ModeratorReview}.
+      \item Mỗi \textbf{Challenge} có một \textbf{Pot} thưởng và một \textbf{ChallengeRevenue}.
+    \end{itemize}
+
+
+\subsection{Quan hệ giữa User, Challenge, Solution, EvaluationPool và Evaluation}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{../images/ERD-sub2.png}
+    \caption{Mô hình dữ liệu (ERD) giữa các thực thể User, Challenge, Solution, EvaluationPool và Evaluation}
+    \label{fig:erd-sub2}
+  \end{figure}
+
+  \paragraph{Mô tả các thực thể}
+
+    \begin{itemize}
+      \item \textbf{Solution}: Giải pháp mà người dùng gửi cho một thử thách, với \texttt{id} làm khóa chính. Các thuộc tính bao gồm \texttt{user} (khóa ngoại đến \texttt{User.address}), \texttt{challenge\_id} (khóa ngoại đến \texttt{Challenge.id}), tham chiếu đến dữ liệu off-chain \texttt{solution\_txid}, thời gian tạo (\texttt{created\_at}), thời gian nộp (\texttt{submitted\_at}), tiến độ (\texttt{progress}) và điểm đánh giá trung bình (\texttt{score}).
+      \item \textbf{EvaluationPool}: Quản lý những người đánh giá tham gia vào phiên đánh giá của một giải pháp và các bài đánh giá tương ứng, bao gồm các thuộc tính \texttt{solution\_id} làm khóa chính, tổng số lượng người đánh giá, số lượng bài đánh giá và thời điểm hoàn thành quá trình tổng hợp đánh giá (\texttt{completed\_at}).
+      \item \textbf{Evaluation}: Mỗi lượt đánh giá của một người đánh giá đối với một giải pháp, khóa chính ghép là (\texttt{solution\_id}, \texttt{evaluator}). Các thuộc tính bao gồm điểm đánh giá đề xuất cho giải pháp và thời gian nộp.
+    \end{itemize}
+
+  \paragraph{Mối quan hệ chính}
+    \begin{itemize}
+      \item Một \textbf{User} có thể giải nhiều \textbf{Solution} (solves).
+      \item Một \textbf{Challenge} có thể chứa nhiều \textbf{Solution} (contains).
+      \item Mỗi \textbf{Solution} gắn với đúng một \textbf{EvaluationPool} (has).
+      \item \textbf{EvaluationPool} có thể chứa nhiều lượt \textbf{Evaluation} (contains).
+      \item Một \textbf{User} trong vai trò người  có thể thực hiện nhiều bài đánh giá \textbf{Evaluation} (evaluates).
+    \end{itemize}
+
+
+\subsection{Quan hệ giữa User, RecruiterProfile, Job, Application và Meeting}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{../images/ERD-sub3.png}
+    \caption{Mô hình dữ liệu (ERD) giữa các thực thể User, RecruiterProfile, Job, Application và Meeting}
+    \label{fig:erd-sub3}
+  \end{figure}
+
+  \paragraph{Mô tả các thực thể}
+
+    \begin{itemize}
+      \item \textbf{RecruiterProfile}: Hồ sơ nhà tuyển dụng, với \texttt{recruiter\_address} là khóa chính và \texttt{data\_id} là biến tham chiếu nội dung chi tiết được trữ off-chain.
+      \item \textbf{Job}: Công việc do nhà tuyển dụng đăng, xác định bởi \texttt{id} kiểu \texttt{bytes32}. Thuộc tính bao gồm \texttt{recruiter}, \texttt{content\_id} (tham chiếu nội dung mô tả công việc được lưu trữ off-chain), thời gian tạo (\texttt{created\_at}) và trạng thái (\texttt{status}).
+      \item \textbf{Application}: Đơn ứng tuyển cho một công việc, với \texttt{id} làm khóa chính. Gồm \texttt{job\_id} (khóa ngoại đến \texttt{Job.id}), \texttt{applicant} (khóa ngoại đến \texttt{User.address}), thời gian nộp (\texttt{applied\_at}) và trạng thái (\texttt{status}).
+      \item \textbf{Meeting}: Cuộc hẹn phỏng vấn cho một đơn ứng tuyển, với \texttt{id} làm khóa chính. Các thuộc tính gồm \texttt{application\_id} (khóa ngoại đến \texttt{Application.id}), tham chiếu đến dữ liệu off-chain (\texttt{txid}), trạng thái (\texttt{status}), thời điểm bắt đầu (\texttt{created\_at}) và kết thúc (\texttt{ended\_at}).
+    \end{itemize}
+
+  \paragraph{Mối quan hệ chính}
+    \begin{itemize} 
+      \item Một \textbf{RecruiterProfile} có thể đăng nhiều \textbf{Job} (\emph{posts}).
+      \item Một \textbf{Job} có thể nhận nhiều \textbf{Application} (\emph{receives}).
+      \item Một \textbf{User} có thể nộp nhiều \textbf{Application} (\emph{applies}).
+      \item Mỗi \textbf{Application} có thể lên lịch nhiều \textbf{Meeting} (\emph{schedules}).
+    \end{itemize}
+
+
+\subsection{Quan hệ giữa RecruiterProfile, User, PaymentRecord và Reputation}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{../images/ERD-sub4.png}
+    \caption{Mô hình dữ liệu (ERD) giữa các thực thể RecruiterProfile, User, PaymentRecord và Reputation}
+    \label{fig:erd-sub4}
+  \end{figure}
+
+  \paragraph{Mô tả các thực thể}
+
+    \begin{itemize}
+      \item \textbf{PaymentRecord}: Bản ghi thanh toán phí tuyển dụng mỗi khi nhà tuyển dụng tuyển một ứng cử viên, xác định bởi \texttt{recordId} kiểu \texttt{bytes32}. Các thuộc tính bao gồm \texttt{recruiter} là khóa ngoại đến \texttt{RecruiterProfile.recruiter\_address}, \texttt{applicant} là khóa ngoại đến \texttt{User.address}, \texttt{amount} (số tiền) và \texttt{timestamp} (thời gian giao dịch).
+      \item \textbf{Reputation}: Điểm uy tín của người dùng theo từng lĩnh vực, với khóa chính tổng hợp (\texttt{user}, \texttt{domain}). Thuộc tính bao gồm điểm uy tín chuyên môn \texttt{domain\_reputation} và điểm uy tín toàn cục \texttt{global\_reputation}.
+    \end{itemize}
+
+  \paragraph{Mối quan hệ chính}
+    \begin{itemize}
+      \item Một \textbf{RecruiterProfile} có thể tạo nhiều \textbf{PaymentRecord} (\emph{makes}).
+      \item Một \textbf{User} có thể xuất hiện trong nhiều \textbf{PaymentRecord} với vai trò ứng viên (\emph{contains}).
+      \item Một \textbf{User} có thể có nhiều \textbf{Reputation} theo các lĩnh vực khác nhau (\emph{has}).
+    \end{itemize}
 
 
 \section{Chi tiết các hợp đồng thông minh}
