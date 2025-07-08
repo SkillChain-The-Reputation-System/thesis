@@ -452,7 +452,7 @@ Hợp đồng \textbf{SolutionManager} chịu trách nhiệm ghi nhận toàn b�
 % // TODO: Giải thích về hợp đồng nếu cần thiết
 \subsection{RecruiterSubscription}
 
-\section{Giao diện ngữ cảnh xây dựng uy tín}
+\section{Giao diện xây dựng uy tín}
 
 \subsection{Trang kết nối tài khoản}
 
@@ -773,3 +773,351 @@ Sau khi quá trình đánh giá hoàn tất, hệ thống sẽ công khai kết 
   \caption{Giải pháp đã được đánh giá hoàn tất}
   \label{fig:evaluated-solution-page}
 \end{figure}
+
+\section{Giao diện tuyển dụng nhân sự}
+
+\subsection{Truy cập không gian nhà tuyển dụng}
+
+Để chuyển sang không gian nhà tuyển dụng, người dùng kết nối ví như thông thường.  
+Tại thanh thông tin cá nhân (góc trái bên dưới giao diện), nhấn vào biểu tượng tài khoản và chọn tùy chọn ``Switch to Recruiter''.  
+Hệ thống sẽ tự động điều hướng sang không gian làm việc dành riêng cho nhà tuyển dụng.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/access-recruiter-space.png}
+  \caption{Truy cập không gian nhà tuyển dụng}
+  \label{fig:access-recruiter-space}
+\end{figure}
+
+\subsection{Trang tài khoản nhà tuyển dụng}
+
+Tại không gian nhà tuyển dụng, người dùng truy cập tab \textbf{Account} để quản lý hồ sơ cá nhân, thông tin công ty, cũng như thiết lập cấu hình liên quan đến quá trình tuyển dụng.
+
+\subsubsection{Đăng ký trở thành nhà tuyển dụng}
+
+Để sử dụng tính năng tuyển dụng, hệ thống yêu cầu người dùng ký gửi tối thiểu \textbf{1 ETH}.  
+Để thực hiện, nhà tuyển dụng truy cập tab \textbf{Account Settings}, nhập số ETH muốn gửi tại mục ``Recruiter Budget'' và nhấn nút ``Deposit''.  
+Sau đó, xác nhận giao dịch thông qua ví tiền điện tử.  
+Các chi phí phát sinh trong quá trình tuyển dụng sẽ tự động được khấu trừ từ khoản ký gửi này.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/recruiter-account-settings-page.png}
+  \caption{Trang thiết lập tài khoản nhà tuyển dụng}
+  \label{fig:recruiter-account-settings-page}
+\end{figure}
+
+\subsubsection{Quản lý hồ sơ nhà tuyển dụng}
+
+Tại tab \textbf{Profile \& Company}, nhà tuyển dụng có thể đăng ký hoặc cập nhật hồ sơ cá nhân và thông tin công ty.  
+Trong lần truy cập đầu tiên, hệ thống yêu cầu xác thực giao dịch qua ví điện tử để hoàn tất đăng ký.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/recruiter-personal-profile.png}
+  \caption{Hồ sơ cá nhân nhà tuyển dụng}
+  \label{fig:recruiter-personal-profile}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/recruiter-company-profile.png}
+  \caption{Thông tin công ty của nhà tuyển dụng}
+  \label{fig:recruiter-company-profile}
+\end{figure}
+
+\subsection{Trang quản lý bài đăng}
+
+\subsubsection{Xem danh sách các bài đăng tuyển dụng}
+
+Để xem danh sách các bài đăng tuyển dụng, nhà tuyển dụng truy cập tab \textbf{Jobs}.  
+Tại đây, hệ thống hiển thị danh sách các bài đăng đã tạo cùng với thông tin trạng thái, số lượng ứng viên đã ứng tuyển và các hành động có thể thực hiện.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/jobs-page.png}
+  \caption{Trang danh sách các bài đăng tuyển dụng}
+  \label{fig:jobs-page}
+\end{figure}
+
+Để xem chi tiết một bài đăng, nhà tuyển dụng nhấn ``View job'' tại nút ``Actions'' tương ứng.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/job-detail-page.png}
+  \caption{Trang chi tiết một bài đăng tuyển dụng}
+  \label{fig:job-detail-page}
+\end{figure}
+
+\subsubsection{Tạo bài đăng tuyển dụng mới}
+
+Để tạo bài đăng mới, nhà tuyển dụng nhấn nút ``Create New Job'' ở góc trên bên phải.  
+Tại giao diện tạo bài đăng, nhà tuyển dụng nhập thông tin vị trí công việc, thời hạn đăng bài, cùng với các yêu cầu về uy tín đối với ứng viên.  
+Sau khi hoàn tất, nhấn nút ``Create Job'' và xác nhận giao dịch qua ví điện tử để tạo bài đăng ở trạng thái nháp.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/job-position-info.png}
+  \caption{Thông tin về vị trí công việc}
+  \label{fig:job-position-info}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/job-reputation-requirement.png}
+  \caption{Yêu cầu uy tín đối với ứng viên}
+  \label{fig:job-reputation-requirement}
+\end{figure}
+
+\subsubsection{Chỉnh sửa nội dung bài đăng}
+
+Để chỉnh sửa nội dung bài đăng, nhà tuyển dụng có thể thực hiện theo hai cách:
+\begin{itemize}
+  \item Từ trang chi tiết bài đăng, nhấn ``Edit Job'' ở góc trên bên phải.
+  \item Từ danh sách bài đăng, chọn ``Edit job'' tại mục ``Actions''.
+\end{itemize}
+
+Hệ thống cho phép chỉnh sửa nội dung trong mọi trạng thái bài đăng mà không phát sinh giao dịch.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/edit-job-page.png}
+  \caption{Trang chỉnh sửa bài đăng tuyển dụng}
+  \label{fig:edit-job-page}
+\end{figure}
+
+\subsubsection{Chuyển đổi trạng thái bài đăng}
+
+Tại trang chi tiết bài đăng, để thay đổi trạng thái (ví dụ: từ ``nháp'' sang ``đang mở''), nhà tuyển dụng nhấn biểu tượng ba chấm bên cạnh thông tin trạng thái trong phần ``Job Details'' và chọn trạng thái mong muốn.  
+Thao tác này yêu cầu xác nhận giao dịch qua ví điện tử.
+
+\subsection{Trang quản lý thông tin ứng tuyển}
+
+\subsubsection{Xem thông tin ứng tuyển}
+
+Để xem danh sách ứng viên đã ứng tuyển cho một bài đăng, nhà tuyển dụng có thể thực hiện theo hai cách:
+\begin{itemize}
+  \item Từ trang chi tiết bài đăng, nhấn nút ``View Applicants'' trong phần ``Job Overview''.
+  \item Từ danh sách bài đăng, chọn ``View applicants'' tại mục ``Actions'' hoặc nhấn vào liên kết tại cột ``Applicants''.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/job-applicants-list-page.png}
+  \caption{Danh sách ứng viên ứng tuyển cho một bài đăng}
+  \label{fig:job-applicants-list-page}
+\end{figure}
+
+Để xem chi tiết hồ sơ một ứng viên, nhà tuyển dụng nhấn ``View application'' tại mục ``Actions'' tương ứng trong danh sách.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/job-applicant-detail-page.png}
+  \caption{Trang chi tiết hồ sơ ứng viên}
+  \label{fig:job-applicant-detail-page}
+\end{figure}
+
+\subsubsection{Chuyển đổi trạng thái ứng viên}
+
+Tại trang chi tiết hồ sơ ứng viên, để thay đổi trạng thái (ví dụ: từ ``đã đánh giá'' sang ``được rút gọn''), nhà tuyển dụng nhấn biểu tượng ba chấm kế bên thông tin trạng thái trong phần ``Job \& Application Details'' và chọn trạng thái mong muốn.
+Hành vi này cần được xác nhận giao dịch thông qua ví tiền điện tử.
+
+\subsection{Trang quản lý lịch họp trực tuyến}
+
+\subsubsection{Xem danh sách cuộc họp}
+
+Để xem danh sách các cuộc họp đã được lên lịch, nhà tuyển dụng truy cập tab \textbf{Meetings}.  
+Tại đây, hệ thống hiển thị danh sách các cuộc họp trực tuyến cùng với các thông tin như trạng thái, vị trí công việc, ứng viên liên quan và thời gian diễn ra.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/meeting-list-page.png}
+  \caption{Trang danh sách các cuộc họp trực tuyến}
+  \label{fig:meeting-list-page}
+\end{figure}
+
+Để xem chi tiết một cuộc họp, nhà tuyển dụng nhấn ``View meeting'' tại mục ``Actions'' tương ứng.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/meeting-detail-page.png}
+  \caption{Trang chi tiết một cuộc họp trực tuyến}
+  \label{fig:meeting-detail-page}
+\end{figure}
+
+Tại trang chi tiết cuộc họp, nhà tuyển dụng có thể đánh dấu trạng thái cuộc họp là \textit{Completed} (Đã hoàn thành) hoặc \textit{Cancelled} (Đã huỷ) bằng cách chọn biểu tượng ba chấm ở góc trên bên phải và thực hiện lựa chọn tương ứng.  
+Hành động này yêu cầu xác nhận giao dịch qua ví điện tử.
+
+\subsubsection{Lên lịch một cuộc họp mới}
+
+Để lên lịch một cuộc họp mới, nhà tuyển dụng nhấn nút ``Schedule Meeting'' ở góc trên bên phải trang danh sách cuộc họp.
+
+Tại biểu mẫu lên lịch, nhà tuyển dụng thực hiện các bước:
+\begin{enumerate}
+  \item Chọn vị trí công việc tương ứng.
+  \item Chọn ứng viên thuộc \textbf{danh sách rút gọn} của vị trí đó.
+  \item Chọn thời gian diễn ra cuộc họp.
+  \item (Tuỳ chọn) Ghi chú gửi đến ứng viên.
+\end{enumerate}
+
+Sau khi hoàn tất, nhấn nút ``Schedule'' và xác nhận giao dịch qua ví điện tử để hoàn tất việc lên lịch.
+
+\textbf{Lưu ý:} Nhà tuyển dụng không thể lên lịch một cuộc họp mới cho cùng một ứng viên nếu đã có cuộc họp đang chờ với ứng viên đó.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/schedule-meeting-form.png}
+  \caption{Biểu mẫu lên lịch cuộc họp}
+  \label{fig:schedule-meeting-form}
+\end{figure}
+
+\subsubsection{Đổi lịch một cuộc họp}
+
+Đối với các cuộc họp ở trạng thái \textbf{đang chờ}, nhà tuyển dụng có thể thay đổi thời gian họp hoặc ghi chú bằng một trong hai cách:
+\begin{itemize}
+  \item Từ danh sách cuộc họp, chọn ``Reschedule'' tại mục ``Actions''.
+  \item Từ trang chi tiết cuộc họp, nhấn ``Reschedule'' tại biểu tượng ba chấm ở góc trên bên phải.
+\end{itemize}
+
+\textbf{Lưu ý:} Không thể thay đổi vị trí công việc hoặc ứng viên đã được chọn.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/reschedule-meeting-form.png}
+  \caption{Biểu mẫu thay đổi lịch họp}
+  \label{fig:reschedule-meeting-form}
+\end{figure}
+
+\subsubsection{Triển khai cuộc họp}
+
+Khi đến thời điểm họp, tại trang chi tiết cuộc họp, nhà tuyển dụng nhấn nút ``Start Meeting'' để tạo và khởi chạy phòng họp trực tuyến.  
+Hệ thống sẽ tạo liên kết tham gia và gửi đến ứng viên tương ứng.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/meeting-hosting.png}
+  \caption{Khởi chạy phòng họp trực tuyến}
+  \label{fig:meeting-hosting}
+\end{figure}
+
+\subsection{Trang số liệu thống kê}
+
+Để xem các số liệu thống kê liên quan đến quá trình tuyển dụng, nhà tuyển dụng truy cập tab \textbf{Insights}.  
+Tại đây, hệ thống hiển thị các chỉ số tổng quan giúp đánh giá hiệu quả hoạt động tuyển dụng.
+Bốn chỉ số mặc định được hiển thị gồm:
+\begin{itemize}
+  \item \textbf{Active Jobs}: Số lượng bài đăng tuyển dụng đang hoạt động.
+  \item \textbf{Total Applicants}: Tổng số lượng ứng viên đã ứng tuyển.
+  \item \textbf{Conversion Rate}: Tỷ lệ chuyển đổi từ ứng tuyển sang đã tuyển.
+  \item \textbf{Pending Meetings}: Số lượng cuộc họp đang chờ diễn ra.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/recruiment-insight-page.png}
+  \caption{Trang thống kê quá trình tuyển dụng}
+  \label{fig:recruiment-insight-page}
+\end{figure}
+
+\subsubsection{Tab tổng quan (Overview)}
+
+Tab \textbf{Overview} hiển thị hai biểu đồ trực quan:
+\begin{itemize}
+  \item \textbf{Job Status Distribution}: Biểu đồ tròn thể hiện số lượng các trạng thái bài đăng tuyển dụng (đang mở, đã đóng, nháp, v.v.).
+  \item \textbf{Application Funnel}: Biểu đồ hình phễu mô tả tỷ lệ và số lượng ứng viên ở một số giai đoạn trong quy trình tuyển dụng.
+\end{itemize}
+
+\subsubsection{Tab ứng tuyển (Applications)}
+
+Tab \textbf{Applications} hiển thị danh sách \textbf{Top 5 công việc có hiệu suất tốt nhất}, dựa trên:
+\begin{itemize}
+  \item Số lượng ứng viên ứng tuyển.
+  \item Tỷ lệ chuyển đổi từ ứng viên sang đã tuyển dụng.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/top-performing-jobs.png}
+  \caption{Năm công việc có hiệu suất tuyển dụng cao nhất}
+  \label{fig:top-performing-jobs}
+\end{figure}
+
+\subsubsection{Tab ứng viên (Applicants)}
+
+Tab \textbf{Applicants} hiển thị \textbf{Top 5 ứng viên tương tác nhiều nhất}, được đánh giá dựa trên số lượng bài đăng từ nhà tuyển dụng mà họ đã ứng tuyển.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/top-returning-applicants.png}
+  \caption{Năm ứng viên tương tác nhiều nhất với nhà tuyển dụng}
+  \label{fig:top-returning-applicants}
+\end{figure}
+
+\subsubsection{Tab cuộc họp (Meetings)}
+
+Tab \textbf{Meetings} cung cấp:
+\begin{itemize}
+  \item \textbf{Meeting Status Distribution}: Biểu đồ phân bố trạng thái các cuộc họp (đã hoàn thành, đang chờ, đã huỷ).
+  \item \textbf{Upcoming Meetings}: Danh sách những cuộc họp sắp diễn ra, giúp nhà tuyển dụng chủ động chuẩn bị.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/insight-meetings-tab.png}
+  \caption{Thống kê về các cuộc họp phỏng vấn}
+  \label{fig:insight-meetings-tab}
+\end{figure}
+
+\subsection{Trang người dùng tham gia ứng tuyển}
+
+\subsubsection{Xem danh sách công việc đang mở}
+
+Để xem danh sách các công việc đang tuyển dụng, người dùng truy cập \textbf{Career} $\rightarrow$ \textbf{Available Jobs} trong không gian xây dựng uy tín.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/available-jobs-page.png}
+  \caption{Trang các công việc đang mở}
+  \label{fig:available-jobs-page}
+\end{figure}
+
+Tại đây, người dùng có thể xem thông tin cơ bản của từng công việc như vị trí tuyển dụng, yêu cầu uy tín hay thời gian làm việc. 
+Để xem chi tiết, nhấn nút ``View job'' tại mục ``Actions'' tương ứng.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/available-job-detail-page.png}
+  \caption{Trang chi tiết một công việc}
+  \label{fig:available-job-detail-page}
+\end{figure}
+
+\subsubsection{Tham gia ứng tuyển}
+
+Khi truy cập trang chi tiết công việc, hệ thống sẽ tự động kiểm tra mức độ uy tín của người dùng. Nếu không đáp ứng yêu cầu, hệ thống sẽ hiển thị thông báo và vô hiệu hóa nút ứng tuyển. 
+Nếu đủ điều kiện, người dùng có thể nhấn nút ``Apply'' ở góc trên bên phải để nộp đơn ứng tuyển. Hành vi này yêu cầu xác nhận giao dịch thông qua ví tiền điện tử.
+
+\subsubsection{Xem các công việc đã ứng tuyển}
+
+Để theo dõi các công việc đã ứng tuyển, người dùng truy cập \textbf{Career} $\rightarrow$ \textbf{My Applications}. Tại đây, hệ thống hiển thị danh sách các công việc mà người dùng đã nộp đơn cùng với trạng thái tương ứng.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/my-applications-page.png}
+  \caption{Trang công việc đã ứng tuyển}
+  \label{fig:my-applications-page}
+\end{figure}
+
+Để xem thông tin chi tiết của một đơn ứng tuyển, nhấn ``View application'' tại nút ``Actions'' của công việc tương ứng. 
+Trong trường hợp người dùng được đưa vào danh sách rút gọn, hệ thống sẽ hiển thị thêm thông tin lịch họp và liên kết tham gia phòng họp trực tuyến (nếu nhà tuyển dụng đã lên lịch).
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/my-application-detail-page.png}
+  \caption{Trang chi tiết của một đơn ứng tuyển}
+  \label{fig:my-application-detail-page}
+\end{figure}
+
+\subsubsection{Rút đơn ứng tuyển}
+
+Nếu người dùng muốn hủy ứng tuyển, có thể nhấn nút ``Withdraw Application'' ở góc trên bên phải tại trang chi tiết ứng tuyển. Hành vi này yêu cầu xác nhận giao dịch thông qua ví tiền điện tử.
+Người dùng sau đó sẽ không thể ứng tuyển lại cho vị trí này nữa.
