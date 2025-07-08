@@ -201,6 +201,7 @@ Ngoài ra, hệ thống còn tích hợp \textbf{Jitsi Meet} để phục vụ v
 % // TODO: Ghi nội dung sau khi có sơ đồ
 \section{Mô hình dữ liệu}
 
+
 \section{Chi tiết các hợp đồng thông minh}
 
 \subsection{Danh sách các hợp đồng chính}
@@ -586,8 +587,29 @@ Hợp đồng \textbf{SolutionManager} chịu trách nhiệm ghi nhận toàn b�
   \item \texttt{finalizeEvaluation}: Khi ghi nhận đủ điểm đánh giá, tính toán điểm giáp pháp cuối cùng và cập nhật uy tín cho người giải và những người đánh giá
 \end{itemize}
 
-% // TODO: Giải thích cách tính điểm đánh giá
+% // TODO: ☑️ Giải thích cách tính điểm đánh giá
 \subsubsection{Cơ chế tổng hợp điểm đánh giá}
+
+Sau khi người dùng nộp bài giải cho một thử thách, một phiên đánh giá sẽ được kích hoạt. Một số chuyên gia đánh giá sẽ tham gia phiên này và đưa ra điểm số cho bài giải. Điểm số cuối cùng của bài giải được tính theo công thức sau:
+
+\[
+S_{\text{solution}}= \frac{\displaystyle\sum_{i=1}^{n} (W_{i} \cdot s_{i})}{\displaystyle\sum_{i=1}^{n} W_{i}}
+\]
+
+Trong đó:
+
+\begin{itemize}
+  \item $S_{\text{solution}}$: Là điểm số cuối cùng của bài giải, với giá trị nằm trong khoảng $[0, 100]$.
+  \item $s_{i}$: Là điểm số mà người đánh giá thứ $i$ chấm cho bài giải, với giá trị nằm trong khoảng $[0, 100]$.
+  \item $n$: Là tổng số người đánh giá tham gia phiên đánh giá.
+  \item $W_{i}$: Là trọng số thể hiện uy tín của người đánh giá thứ $i$ trong \textbf{lĩnh vực của thử thách}, được xác định theo công thức:
+  \[
+  W_{i} = R_{i}
+  \]
+  Trong đó $R_{i}$ là điểm uy tín chuyên môn của người đánh giá thứ $i$ trong lĩnh vực của thử thách.
+\end{itemize}
+
+
 
 \subsubsection{Tương tác với hợp đồng khác}
 
