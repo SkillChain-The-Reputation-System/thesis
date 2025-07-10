@@ -809,8 +809,89 @@ Trong đó:
   \item \textbf{RoleManager}: Kiểm soát quyền gọi hàm
 \end{itemize}
 
-% // TODO: Giải thích về hợp đồng nếu cần thiết
+% // TODO: ☑️ Giải thích về hợp đồng nếu cần thiết
 \subsection{RecruiterSubscription}
+
+Hợp đồng \textbf{RecruiterSubscription} quản lý việc đăng ký và thanh toán của nhà tuyển dụng trong hệ thống SkillChain.
+Hợp đồng này xử lý ngân sách của nhà tuyển dụng, tính toán và thu phí tuyển dụng dựa trên uy tín của ứng viên, và duy trì lịch sử thanh toán.
+
+\subsubsection{Chức năng chính}
+
+\begin{itemize}
+  \item Cho phép nhà tuyển dụng nạp tiền vào ngân sách của họ.
+  \item Tự động cấp và thu hồi vai trò \texttt{RECRUITER\_ROLE} dựa trên số dư ngân sách.
+  \item Tính toán phí tuyển dụng dựa trên uy tín toàn cục của ứng viên.
+  \item Xử lý thanh toán phí tuyển dụng từ ngân sách của nhà tuyển dụng đến ví quản trị.
+  \item Ghi lại và cung cấp lịch sử các giao dịch thanh toán.
+\end{itemize}
+
+\subsubsection{Cấu trúc dữ liệu chính}
+
+\begin{itemize}
+  \item \texttt{budgets}: Lưu trữ số dư ngân sách của mỗi nhà tuyển dụng.
+  \item \texttt{recruiterPaymentHistory}: Ghi lại danh sách ID của các bản ghi thanh toán cho mỗi nhà tuyển dụng.
+  \item \texttt{paymentRecords}: Ánh xạ từ ID bản ghi đến thông tin chi tiết của thanh toán.
+  \item \texttt{PaymentRecord}: Một cấu trúc chứa thông tin chi tiết về một lần thanh toán, bao gồm người tuyển dụng, ứng viên, số tiền và dấu thời gian.
+\end{itemize}
+
+\subsubsection{Các hàm chức năng chính}
+
+\paragraph{Quản lý ngân sách và vai trò}
+
+\begin{itemize}
+  \item \texttt{deposit}: Cho phép nhà tuyển dụng nạp tiền (POL) vào ngân sách của mình.
+  \item \texttt{\_updateBudget}: Hàm nội bộ để cập nhật ngân sách và tự động cấp/thu hồi vai trò \texttt{RECRUITER\_ROLE} nếu ngân sách đạt hoặc giảm xuống dưới ngưỡng tối thiểu.
+\end{itemize}
+
+\paragraph{Thanh toán phí tuyển dụng}
+
+\begin{itemize}
+  \item \texttt{payHiringFee}: Được gọi bởi \texttt{JobApplicationManager}, hàm này tính toán phí tuyển dụng dựa trên uy tín của ứng viên, trừ tiền từ ngân sách của nhà tuyển dụng và chuyển vào ví quản trị.
+  \item \texttt{\_recordPayment}: Ghi lại thông tin chi tiết của mỗi giao dịch thanh toán.
+\end{itemize}
+
+\paragraph{Quản trị}
+
+\begin{itemize}
+  \item \texttt{setReputationManagerAddress}: Cài đặt địa chỉ của hợp đồng thông minh \texttt{ReputationManager}.
+  \item \texttt{grantJobApplicationManagerRole}: Cấp vai trò của hợp đồng thông minh \texttt{JobApplicationManager} cho một tài khoản.
+\end{itemize}
+
+\paragraph{Truy vấn thông tin}
+
+\begin{itemize}
+  \item \texttt{isRecruiter}: Kiểm tra một tài khoản có phải là nhà tuyển dụng hợp lệ hay không.
+  \item \texttt{getBudget}: Lấy số dư ngân sách hiện tại của một nhà tuyển dụng.
+  \item \texttt{getPaymentHistory}: Truy xuất lịch sử thanh toán của một nhà tuyển dụng.
+\end{itemize}
+
+\subsubsection{Cơ chế tính phí tuyển dụng}
+
+Phí tuyển dụng là nguồn phí mà nhà tuyển dụng phải trả cho việc sử dụng hệ thống để tìm ứng viên phù hợp với nhu cầu của doanh nghiệp, mức phí này góp phần bù đắp vào khoảng chi phí vận hành hệ thống. Cơ chế tính mức phí này hoạt động như sau:
+
+\begin{itemize}
+  \item Khi một nhà tuyển dụng quyết định thuê một ứng viên, hợp đồng \texttt{JobApplicationManager} sẽ gọi hàm \texttt{payHiringFee}.
+  \item Hợp đồng \texttt{RecruiterSubscription} sẽ truy vấn điểm uy tín toàn cục ($R_{\text{global}}$) của ứng viên từ \texttt{ReputationManager}.
+  \item Phí tuyển dụng được tính bằng cách sử dụng công thức từ thư viện \texttt{RecruitmentFeeFormulas}, phụ thuộc trực tiếp vào điểm uy tín toàn cục của ứng viên.
+    \[ \Delta T = F_{\mathrm{base}}\Bigl(1 + k_r \ln\bigl(1 + R_{\text{global}}) \Bigr) \]
+    Trong đó: 
+    \begin{itemize}
+      \item $\Delta T$ là lượng token bị trừ khi nhà tuyển dụng thuê ứng viên
+      \item $F_{\mathrm{base}}$ là phí nền tảng tối thiểu cho mỗi lần tuyển (token)
+      \item $R_{\text{global}}$ là điểm uy tín toàn cục của ứng viên ($R_{\text{global}}\ge0$)
+      \item $k_r$ là hằng số điều chỉnh mức độ ảnh hưởng của reputation ($k_r>0$)
+    \end{itemize}
+  \item Phí sau đó được trừ vào ngân sách của nhà tuyển dụng và chuyển cho hệ thống.
+\end{itemize}
+
+\subsubsection{Tương tác với hợp đồng khác}
+
+\begin{itemize}
+  \item \textbf{ReputationManager}: Truy vấn uy tín toàn cục của ứng viên để tính phí tuyển dụng.
+  \item \textbf{JobApplicationManager}: Gọi hàm \texttt{payHiringFee} khi một ứng viên được tuyển dụng.
+  \item \textbf{AccessControl (OpenZeppelin)}: Kế thừa để quản lý các vai trò như \texttt{RECRUITER\_ROLE} và \texttt{JOB\_APPLICATION\_MANAGER\_ROLE}.
+\end{itemize}
+
 
 \section{Giao diện xây dựng uy tín}
 
