@@ -36,17 +36,17 @@ Hệ thống hiện tại định nghĩa 14 lĩnh vực chuyên môn, tương �
 
 Mỗi khi người dùng thực hiện các hành động như đóng góp thử thách, giải thử thách, hoặc tham gia đánh giá giải pháp của thử thách, hệ thống sẽ cập nhật điểm uy tín tương ứng ở cả hai cấp độ: chuyên môn và toàn cục, đối với tất cả các bên tham gia hoạt động.
 
-Ví dụ, nếu một người dùng giải thành công một thử thách thuộc lĩnh vực Cybersecurity, và một nhóm người đánh giá hoàn thành việc chấm điểm cho giải pháp đó, thì hệ thống sẽ căn cứ vào điểm số cuối cùng để điều chỉnh điểm uy tín của từng cá nhân.
-Cả người giải lẫn các người đánh giá liên quan sẽ được cập nhật điểm uy tín chuyên môn trong lĩnh vực Cybersecurity và điểm uy tín toàn cục.
+Ví dụ, nếu một người dùng giải thành công một thử thách thuộc lĩnh vực An ninh mạng, và một nhóm người đánh giá hoàn thành việc chấm điểm cho giải pháp đó, thì hệ thống sẽ căn cứ vào điểm số cuối cùng để điều chỉnh điểm uy tín của từng cá nhân.
+Cả người giải lẫn các người đánh giá liên quan sẽ được cập nhật điểm uy tín chuyên môn trong lĩnh vực An ninh mạng và điểm uy tín toàn cục.
 
 Các thành phần này được lưu trữ on-chain thông qua hợp đồng thông minh, đảm bảo tính minh bạch, bất biến và truy xuất được toàn bộ lịch sử hoạt động liên quan đến uy tín của từng người dùng.
 
 \section{Cơ chế cập nhật uy tín}
 
 Trong hệ thống, có bốn hoạt động chính liên quan đến thử thách có ảnh hưởng trực tiếp đến điểm uy tín của người dùng: đóng góp thử thách, kiểm duyệt chất lượng thử thách, tham gia giải thử thách và chấm điểm giải pháp.
-Mỗi khi người dùng hoàn thành một trong các hoạt động trên, hệ thống sẽ tính toán một \textit{điểm biến thiên hoạt động} $\Delta R$, từ đó điều chỉnh điểm uy tín chuyên môn trong lĩnh vực tương ứng và điểm uy tín toàn cục của người dùng.
+Mỗi khi người dùng hoàn thành một trong các hoạt động trên, hệ thống sẽ tính toán một \textit{điểm biến thiên uy tín} $\Delta R$, từ đó điều chỉnh điểm uy tín chuyên môn trong lĩnh vực tương ứng và điểm uy tín toàn cục của người dùng.
 
-Mỗi hoạt động ảnh hưởng đến uy tín của người dùng đều đi kèm với một \textit{ngưỡng điểm hoạt động} ký hiệu là $T$, là một hằng số nằm trong khoảng từ 0 đến 100. 
+Mỗi hoạt động ảnh hưởng đến uy tín của người dùng đều đi kèm với một \textit{ngưỡng điểm uy tín} ký hiệu là $T$, là một hằng số nằm trong khoảng từ 0 đến 100.
 Ngưỡng này được sử dụng để phân định hai trường hợp: hoạt động của người dùng đạt yêu cầu (được thưởng điểm) hoặc không đạt yêu cầu (bị trừ điểm uy tín).
 
 Dựa trên mức độ vượt trội hoặc sai lệch so với ngưỡng, hệ thống tính toán điểm biến thiên uy tín $\Delta R$ tương ứng. Để điều chỉnh mức thưởng và phạt một cách linh hoạt, mỗi hoạt động sẽ được gán hai hằng số:
@@ -57,11 +57,11 @@ Dựa trên mức độ vượt trội hoặc sai lệch so với ngưỡng, h�
 
 \subsection{Đóng góp thử thách}
 
-Mỗi khi người dùng đóng góp một thử thách mới, hệ thống sẽ tính \textit{điểm đóng góp} $R_{\text{contribution}}$.
+Mỗi khi người dùng đóng góp một thử thách mới, hệ thống sẽ tính \textit{điểm uy tín đóng góp} $R_{\text{contribution}}$.
 
 \subsubsection{Độ khó của thử thách}
 
-Độ khó của một thử thách thuộc một trong ba mức dễ, trung bình và khó. Mỗi độ khó sẽ có trọng số $W_{\text{difficulty}}$ tương ứng hỗ trợ tính \textit{điểm biến thiên đóng góp} $\Delta R_{\text{contribution}}$, cụ thể:
+Độ khó của một thử thách thuộc một trong ba mức dễ, trung bình và khó. Mỗi độ khó sẽ có trọng số $W_{\text{difficulty}}$ tương ứng hỗ trợ tính \textit{điểm biến thiên uy tín đóng góp} $\Delta R_{\text{contribution}}$, cụ thể:
 \[
   W_{\text{difficulty}} =
   \begin{cases}
@@ -73,25 +73,41 @@ Mỗi khi người dùng đóng góp một thử thách mới, hệ thống sẽ
 
 \subsubsection{Tính điểm biến thiên}
 
-Sau khi được xác nhận và đánh giá bởi một nhóm người kiểm duyệt, mỗi thử thách sẽ có điểm chất lượng $S_{\text{challenge}}$ và độ khó cuối cùng.
-Điểm chất lượng sẽ được so sánh với \textit{ngưỡng điểm đóng góp} $T_{\text{contribution}}$ để tính $\Delta R_{\text{contribution}}$ theo các công thức khác nhau:
+Sau khi được xác nhận và đánh giá bởi một nhóm người kiểm duyệt, mỗi thử thách sẽ có điểm chất lượng $Q_{\text{challenge}}$ và độ khó cuối cùng.
+Điểm chất lượng sẽ được so sánh với \textit{ngưỡng điểm uy tín đóng góp} $T_{\text{contribution}}$ để tính $\Delta R_{\text{contribution}}$ theo các công thức khác nhau:
 
 \begin{itemize}
-  \item Nếu $0 \leq S_{\text{challenge}} \leq  T_{\text{contribution}}$:
-        \[\Delta R_{\text{contribution}} = L_{\text{penalty}} * \gamma * \left( \frac{S_{\text{challenge}}}{T_{\text{contribution}}} - 1 \right)    \]
-  \item Nếu $T_{\text{contribution}} < S_{\text{challenge}} \leq 100$:
-        \[\Delta R_{\text{contribution}} = L_{\text{reward}} * \gamma * W_{\text{difficulty}} * \frac{S_{\text{challenge}} - T_{\text{contribution}}}{100-T_{\text{contribution}}}    \]
+  \item Nếu $0 \leq Q_{\text{challenge}} \leq  T_{\text{contribution}}$:
+        \[\Delta R_{\text{contribution}} = L_{\text{penalty}} * \gamma * \left( \frac{Q_{\text{challenge}}}{T_{\text{contribution}}} - 1 \right)    \]
+  \item Nếu $T_{\text{contribution}} < Q_{\text{challenge}} \leq 100$:
+        \[\Delta R_{\text{contribution}} = L_{\text{reward}} * \gamma * W_{\text{difficulty}} * \frac{Q_{\text{challenge}} - T_{\text{contribution}}}{100-T_{\text{contribution}}}    \]
 \end{itemize}
 trong đó, $\gamma \in [0, 1]$ là hằng số tỉ lệ toàn cục thể hiện mức độ quan trọng của hoạt động đóng góp trong hệ thống.
 
 \subsubsection{Ghi nhận điểm đóng góp mới}
 
-Sau khi có điểm biến thiên, hệ thống sẽ ghi nhận điểm đóng góp mới:
+Sau khi có điểm biến thiên, hệ thống sẽ ghi nhận điểm uy tín đóng góp mới:
 \[R_{\text{contribution}} = R_{\text{contribution}} + \Delta R_{\text{contribution}}\]
+
+\subsubsection{Bảng giá trị hằng số đề xuất}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Ký hiệu}          & \textbf{Giá trị đề xuất} \\ \hline
+    $T_{\text{contribution}}$ & 80                       \\ \hline
+    $L_{\text{reward}}$       & 30                       \\ \hline
+    $L_{\text{penalty}}$      & 15                       \\ \hline
+    $\gamma$                  & 1                        \\ \hline
+  \end{tabular}
+  \caption{Bảng giá trị hằng số cho hoạt động đóng góp}
+  \label{tab:suggested-constant-values-for-contribution}
+\end{table}
 
 \subsection{Kiểm duyệt chất lượng thử thách}
 
-Người kiểm duyệt thử thách sẽ có \textit{điểm kiểm duyệt} $R_{\text{moderation}}$.
+Người kiểm duyệt thử thách sẽ có \textit{điểm uy tín kiểm duyệt} $R_{\text{moderation}}$.
 
 \subsubsection{Độ lệch điểm chất lượng}
 
@@ -102,7 +118,7 @@ ta sẽ có điểm chất lượng thử thách $S_{\text{challenge}}$ và đ�
 
 \subsubsection{Tính điểm biến thiên}
 
-Độ lệch điểm chất lượng sẽ được so sánh với \textit{ngưỡng điểm kiểm duyệt} $T_{\text{moderation}}$ để tính $\Delta R_{\text{moderation}}$ theo các công thức khác nhau:
+Độ lệch điểm chất lượng sẽ được so sánh với \textit{ngưỡng điểm uy tín kiểm duyệt} $T_{\text{moderation}}$ để tính $\Delta R_{\text{moderation}}$ theo các công thức khác nhau:
 
 \begin{itemize}
   \item Nếu $0 \leq D_{\text{moderation}} \leq  T_{\text{moderation}}$:
@@ -114,17 +130,33 @@ trong đó, $\phi \in [0, 1]$ là hằng số tỉ lệ toàn cục thể hiện
 
 \subsubsection{Ghi nhận điểm kiểm duyệt mới}
 
-Sau khi có điểm biến thiên, hệ thống sẽ ghi lại điểm kiểm duyệt mới:
+Sau khi có điểm biến thiên, hệ thống sẽ ghi lại điểm uy tín kiểm duyệt mới:
 \[R_{\text{moderation}} = R_{\text{moderation}} + \Delta R_{\text{moderation}}\]
+
+\subsubsection{Bảng giá trị hằng số đề xuất}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Ký hiệu}        & \textbf{Giá trị đề xuất} \\ \hline
+    $T_{\text{moderation}}$ & 60                       \\ \hline
+    $L_{\text{reward}}$     & 40                       \\ \hline
+    $L_{\text{penalty}}$    & 40                       \\ \hline
+    $\phi$                  & 1                        \\ \hline
+  \end{tabular}
+  \caption{Bảng giá trị hằng số cho hoạt động kiểm duyệt}
+  \label{tab:suggested-constant-values-for-moderation}
+\end{table}
 
 \subsection{Tham gia thử thách}
 
-Khi người dùng tham gia giải một thử thách và nộp giải pháp, hệ thống sẽ tính \textit{điểm tham gia} $R_{\text{participation}}$.
+Khi người dùng tham gia giải một thử thách và nộp giải pháp, hệ thống sẽ tính \textit{điểm uy tín tham gia} $R_{\text{participation}}$.
 
 \subsubsection{Tính điểm biến thiên}
 
 Khi người dùng tạo ra \textit{giải pháp} dành cho một thử thách, một nhóm người đánh giá sẽ tham gia vào phiên đánh giá giải pháp này và tính được \textit{điểm giải pháp} $S_{\text{solution}}$ cuối cùng.
-Điểm giải pháp sẽ được so sánh với \textit{ngưỡng điểm tham gia} $T_{\text{participation}}$ để tính $\Delta R_{\text{participation}}$ theo các công thức khác nhau:
+Điểm giải pháp sẽ được so sánh với \textit{ngưỡng điểm uy tín tham gia} $T_{\text{participation}}$ để tính $\Delta R_{\text{participation}}$ theo các công thức khác nhau:
 
 \begin{itemize}
   \item Nếu $0 \leq S_{\text{solution}} \leq  T_{\text{participation}}$:
@@ -136,12 +168,28 @@ trong đó, $\alpha \in [0, 1]$ là hằng số tỉ lệ toàn cục thể hi�
 
 \subsubsection{Ghi nhận điểm tham gia mới}
 
-Sau khi có điểm biến thiên, hệ thống sẽ ghi lại điểm tham gia mới:
+Sau khi có điểm biến thiên, hệ thống sẽ ghi lại điểm uy tín tham gia mới:
 \[R_{\text{participation}} = R_{\text{participation}} + \Delta R_{\text{participation}}\]
 
-\subsection{Chấm điểm giải pháp}
+\subsubsection{Bảng giá trị hằng số đề xuất}
 
-Cuối cùng, người tham gia đánh giá sẽ có \textit{điểm đánh giá} $R_{\text{evaluation}}$.
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Ký hiệu}           & \textbf{Giá trị đề xuất} \\ \hline
+    $T_{\text{participation}}$ & 30                       \\ \hline
+    $L_{\text{reward}}$        & 10                       \\ \hline
+    $L_{\text{penalty}}$       & 5                        \\ \hline
+    $\alpha$                   & 1                        \\ \hline
+  \end{tabular}
+  \caption{Bảng giá trị hằng số cho hoạt động tham gia thử thách}
+  \label{tab:suggested-constant-values-for-participation}
+\end{table}
+
+\subsection{Đánh giá giải pháp}
+
+Cuối cùng, người tham gia đánh giá sẽ có \textit{điểm uy tín đánh giá} $R_{\text{evaluation}}$.
 
 \subsubsection{Độ lệch điểm đánh giá}
 
@@ -152,7 +200,7 @@ ta sẽ có điểm giải pháp $S_{\text{solution}}$ cuối cùng, từ đó x
 
 \subsubsection{Tính điểm biến thiên}
 
-Độ lệch điểm đánh giá sẽ được so sánh với \textit{ngưỡng điểm đánh giá} $T_{\text{evaluation}}$ để tính $\Delta R_{\text{evaluation}}$ theo các công thức khác nhau:
+Độ lệch điểm đánh giá sẽ được so sánh với \textit{ngưỡng điểm uy tín đánh giá} $T_{\text{evaluation}}$ để tính $\Delta R_{\text{evaluation}}$ theo các công thức khác nhau:
 
 \begin{itemize}
   \item Nếu $0 \leq D_{\text{evaluation}} \leq  T_{\text{evaluation}}$:
@@ -164,15 +212,31 @@ trong đó, $\beta \in [0, 1]$ là hằng số tỉ lệ toàn cục thể hiệ
 
 \subsubsection{Ghi nhận điểm đánh giá mới}
 
-Sau khi có điểm biến thiên, hệ thống sẽ ghi lại điểm đánh giá mới:
+Sau khi có điểm biến thiên, hệ thống sẽ ghi lại điểm uy tín đánh giá mới:
 \[R_{\text{evaluation}} = R_{\text{evaluation}} + \Delta R_{\text{evaluation}}\]
+
+\subsubsection{Bảng giá trị hằng số đề xuất}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Ký hiệu}        & \textbf{Giá trị đề xuất} \\ \hline
+    $T_{\text{evaluation}}$ & 60                       \\ \hline
+    $L_{\text{reward}}$     & 20                       \\ \hline
+    $L_{\text{penalty}}$    & 20                       \\ \hline
+    $\beta$                 & 1                        \\ \hline
+  \end{tabular}
+  \caption{Bảng giá trị hằng số cho hoạt động đánh giá giải pháp}
+  \label{tab:suggested-constant-values-for-evaluation}
+\end{table}
 
 \section{Cấu thành hồ sơ uy tín}
 
 \textbf{Uy tín chuyên môn} $R_{\text{domain}}$ của người dùng trong một lĩnh vực cụ thể được tính bằng tổng điểm uy tín thu được từ bốn loại hoạt động liên quan đến thử thách,
 đã được trình bày ở Mục 3.2, bao gồm: đóng góp thử thách, kiểm duyệt chất lượng thử thách, tham gia giải thử thách và chấm điểm giải pháp. Cụ thể:
 \[R_{\text{domain}} = R_{\text{contribution}} + R_{\text{moderation}} + R_{\text{participation}} + R_{\text{evaluation}} \]
-Mỗi thành phần trong công thức trên chỉ bao gồm điểm số phát sinh từ những thử thách thuộc cùng một lĩnh vực chuyên môn (ví dụ: chỉ tính các hoạt động trong lĩnh vực Cybersecurity nếu đang xét).
+Mỗi thành phần trong công thức trên chỉ bao gồm điểm số phát sinh từ những thử thách thuộc cùng một lĩnh vực chuyên môn (ví dụ: chỉ tính các hoạt động trong lĩnh vực An ninh mạng nếu đang xét).
 
 \textbf{Uy tín toàn cục} được tính bằng tổng điểm uy tín chuyên môn trong tất cả các lĩnh vực thử thách mà hệ thống hỗ trợ:
 \[R_{\text{global}} = R_{\text{domain}_1} + R_{\text{domain}_2} + ... + R_{\text{domain}_n}\]
