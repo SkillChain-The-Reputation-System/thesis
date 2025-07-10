@@ -366,8 +366,84 @@ Hợp đồng \textbf{ReputationManager} chịu trách nhiệm duy trì, cập n
   \item \textbf{ChallengeManager}: Cập nhật uy tín sau khi phiên kiểm duyệt thử thách hoàn tất
   \item \textbf{SolutionManager}: Cập nhật uy tín sau khi phiên đánh giá giải pháp kết thúc
 \end{itemize}
+% // TODO: ☑️ Giải thích về RoleManager nếu cần thiết
+\subsection{RoleManager}
 
-% // TODO: Giải thích về RoleManager nếu cần thiết
+Hợp đồng \textbf{RoleManager} có trách nhiệm quản lý các vai trò người dùng trong hệ thống. Hợp đồng này chịu trách nhiệm cấp phát, kiểm tra và thu hồi các vai trò dựa trên điểm uy tín chuyên môn của người dùng trong từng lĩnh vực.
+
+\subsubsection{Chức năng chính}
+
+\begin{itemize}
+  \item Quản lý cấp phát các vai trò trong hệ thống dựa vào điểm uy tín của người dùng trong từng lĩnh vực
+  \item Cho phép người dùng đủ điều kiện yêu cầu nâng cấp vai trò dựa trên điểm uy tín
+  \item Tự động kiểm tra và thu hồi vai trò khi điểm uy tín của người dùng giảm xuống dưới ngưỡng yêu cầu
+  \item Cung cấp các hàm tiện ích để kiểm tra vai trò và điều kiện đủ uy tín của người dùng
+\end{itemize}
+
+\subsubsection{Cấu trúc dữ liệu chính}
+
+\begin{itemize}
+  \item \texttt{role\_domain\_reputation\_requirements}: Ánh xạ hai tầng lưu trữ ngưỡng uy tín tối thiểu cho mỗi vai trò trong từng lĩnh vực
+  \item \texttt{CONTRIBUTOR\_ROLE, EVALUATOR\_ROLE, MODERATOR\_ROLE}: Các hằng số xác định các vai trò trong hệ thống
+  \item \texttt{domainRole}: Mã băm kết hợp giữa vai trò và lĩnh vực để tạo thành khóa vai trò theo lĩnh vực
+\end{itemize}
+
+\subsubsection{Các hàm chức năng chính}
+
+\paragraph{Quản lý cấu hình hệ thống}
+
+\begin{itemize}
+  \item \texttt{setReputationManagerAddress}: Cài đặt địa chỉ hợp đồng ReputationManager để tương tác
+  \item \texttt{updateRoleRequirement}: Cập nhật ngưỡng uy tín tối thiểu cho một vai trò trong một lĩnh vực cụ thể
+  \item \texttt{emergencyGrantRole}: Cho phép quản trị viên cấp vai trò mà không cần kiểm tra điểm uy tín trong trường hợp khẩn cấp
+\end{itemize}
+
+\paragraph{Quản lý vai trò người dùng}
+
+\begin{itemize}
+  \item \texttt{requestRole}: Cho phép người dùng đủ điều kiện yêu cầu nâng cấp vai trò của mình
+  \item \texttt{checkAndRevokeRole}: Kiểm tra và thu hồi vai trò nếu điểm uy tín không còn đáp ứng yêu cầu
+  \item \texttt{checkAndGrantRole}: Kiểm tra và cấp vai trò nếu điểm uy tín đáp ứng yêu cầu
+\end{itemize}
+
+\paragraph{Các hàm truy vấn và tiện ích}
+
+\begin{itemize}
+  \item \texttt{canGrantRole}: Kiểm tra xem một tài khoản có đủ điều kiện được cấp vai trò không
+  \item \texttt{shouldRevokeRole}: Kiểm tra xem một vai trò có nên bị thu hồi không
+  \item \texttt{getUserDomainStatus}: Lấy thông tin đầy đủ về trạng thái vai trò và uy tín của người dùng trong một lĩnh vực
+  \item \texttt{isContributor, isEvaluator, isModerator}: Kiểm tra nhanh các vai trò cụ thể
+\end{itemize}
+
+\subsubsection{Cơ chế quản lý vai trò theo lĩnh vực}
+
+Hệ thống SkillChain sử dụng cơ chế quản lý vai trò dựa trên lĩnh vực chuyên môn. Điều này cho phép một người dùng có thể có nhiều vai trò khác nhau trong các lĩnh vực khác nhau. Cơ chế này hoạt động như sau:
+
+\begin{itemize}
+  \item Mỗi vai trò (Contributor, Evaluator, Moderator) được kết hợp với một lĩnh vực (Domain) để tạo thành một khóa vai trò duy nhất:
+    \[ \text{domainRole} = \text{keccak256}(\text{role}, \text{domain}) \]
+  
+  \item Mỗi lĩnh vực có bộ ngưỡng uy tín riêng cho từng vai trò:
+    \begin{align}
+    \text{Contributor threshold} &= 50 \\
+    \text{Evaluator threshold} &= 100 \\
+    \text{Moderator threshold} &= 200
+    \end{align}
+  
+  \item Khi người dùng yêu cầu một vai trò trong một lĩnh vực, hệ thống kiểm tra điểm uy tín của họ trong lĩnh vực đó:
+    \[ \text{Can grant role} = \text{domain\_reputation} \geq \text{role\_threshold} \]
+\end{itemize}
+
+\subsubsection{Tương tác với hợp đồng khác}
+
+\begin{itemize}
+  \item \textbf{ReputationManager}: Truy vấn điểm uy tín của người dùng trong các lĩnh vực khác nhau
+  \item \textbf{ChallengeManager}: Sử dụng RoleManager để kiểm tra quyền đóng góp và kiểm duyệt thử thách
+  \item \textbf{SolutionManager}: Sử dụng RoleManager để kiểm tra quyền đánh giá giải pháp
+  \item \textbf{AccessControl (OpenZeppelin)}: Kế thừa cơ chế quản lý vai trò cơ bản
+\end{itemize}
+
+
 
 \subsection{ChallengeManager}
 
