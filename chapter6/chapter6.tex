@@ -1,0 +1,80 @@
+\chapter{Kết luận}
+
+\section{Mục tiêu của đề tài}
+
+Mục tiêu của đề tài là thiết kế và xây dựng một hệ thống đánh giá kỹ năng phi tập trung có tên SkillChain, ứng dụng công nghệ blockchain để lưu trữ và xác thực các hoạt động học tập, đóng góp và đánh giá trong môi trường học tập cộng đồng.
+Hệ thống cho phép người dùng tham gia giải các thử thách thực tế, nhận phản hồi từ các chuyên gia, đồng thời tích lũy chỉ số uy tín chuyên môn làm cơ sở cho việc phát triển năng lực cá nhân và tiếp cận các cơ hội nghề nghiệp.
+Ngoài ra, hệ thống còn hỗ trợ nhà tuyển dụng khai thác dữ liệu uy tín và quá trình học tập của ứng viên để phục vụ cho hoạt động tuyển dụng minh bạch và hiệu quả.
+
+\section{Phương pháp thực hiện}
+
+Để đạt được mục tiêu đề tài, chúng tôi đã áp dụng phương pháp thiết kế và triển khai hệ thống theo hướng kết hợp các công nghệ phi tập trung, lấy blockchain làm nền tảng lưu trữ minh bạch và không thể thay đổi. Cụ thể:
+\begin{itemize}
+  \item \textbf{Xác định yêu cầu và thiết kế mô hình hệ thống}: Dựa trên vấn đề thực tế về việc xác thực kỹ năng và hồ sơ cá nhân trong lĩnh vực Công nghệ thông tin, nhóm đã xây dựng một mô hình hệ thống uy tín phi tập trung.
+        Mô hình được phân tích và thiết kế theo hướng đa tác nhân, trong đó mỗi vai trò (người học, người đóng góp, người kiểm duyệt, người đánh giá và nhà tuyển dụng) đều có hành vi và đặc quyền riêng.
+  \item \textbf{Ứng dụng công nghệ phù hợp}:
+        \begin{itemize}
+          \item \textbf{Blockchain và Smart Contract} được sử dụng để lưu trữ các thông tin quan trọng như hồ sơ người dùng, thử thách, giải pháp, kết quả đánh giá, và chỉ số uy tín.
+          \item \textbf{Dịch vụ lưu trữ phi tập trung} được tích hợp để lưu nội dung dung lượng lớn như mô tả thử thách, giải pháp của người dùng, và thông tin hồ sơ mở rộng.
+          \item \textbf{Frontend và Backend} được phát triển với giao diện thân thiện, hỗ trợ đầy đủ các tác vụ cho người dùng tương tác, đồng thời tích hợp với hợp đồng thông minh để đồng bộ dữ liệu và hành vi.
+        \end{itemize}
+  \item \textbf{Mô hình hóa uy tín}: Đề tài xây dựng một hệ thống tính điểm uy tín theo từng vai trò và lĩnh vực chuyên môn, áp dụng các công thức tính điểm thưởng/phạt dựa trên độ chính xác, mức độ đóng góp và sự đồng thuận của cộng đồng. Uy tín được phân thành uy tín chuyên môn và uy tín toàn cục, lưu trữ minh bạch on-chain, và được sử dụng làm căn cứ phân quyền hành vi.
+  \item \textbf{Phát triển hệ thống minh họa}: Cuối cùng, chúng tôi đã hiện thực hóa mô hình dưới dạng một hệ thống hoạt động ở môi trường cục bộ, có đầy đủ các luồng đóng góp thử thách, kiểm duyệt, tham gia và đánh giá thử thách, cùng tính năng hỗ trợ tuyển dụng.
+\end{itemize}
+
+\section{Tóm tắt kết quả đạt được}
+
+Trong khuôn khổ đề tài, nhóm đã đề xuất và hiện thực hóa thành công một hệ thống ứng dụng phi tập trung mang tên SkillChain, hướng đến việc xác thực và tích lũy uy tín chuyên môn cho người học thông qua cơ chế đóng góp -- đánh giá -- kiểm duyệt cộng đồng.
+Các kết quả cụ thể đã đạt được gồm:
+\begin{itemize}
+  \item \textbf{Phát triển thành công hệ thống Smart Contract} gồm các hợp đồng quản lý thử thách, giải pháp, uy tín, chi phí và tuyển dụng, đảm bảo thực hiện đúng các quy trình logic phức tạp như đánh giá, kiểm duyệt và cập nhật uy tín người dùng.
+  \item \textbf{Thiết kế mô hình dữ liệu và vai trò} phù hợp với các đối tượng trong hệ thống: người học, người đóng góp, người kiểm duyệt, người đánh giá và nhà tuyển dụng. Các vai trò được kiểm soát bằng chỉ số uy tín và được phân quyền rõ ràng.
+  \item \textbf{Xây dựng giao diện người dùng} đầy đủ cho các tác vụ chính: tạo thử thách, kiểm duyệt thử thách, giải quyết thử thách, đánh giá giải pháp, đăng tuyển dụng và quản lý ứng viên.
+  \item \textbf{Tích hợp lưu trữ phi tập trung} để bảo đảm tính công khai và bất biến cho dữ liệu có dung lượng lớn, đồng thời kết hợp với dữ liệu on-chain để duy trì khả năng xác minh và truy xuất minh bạch.
+  \item \textbf{Xây dựng thành công một hệ thống mẫu} có khả năng hoạt động đầy đủ trong môi trường kiểm thử cục bộ, giúp kiểm chứng ý tưởng và cơ chế của hệ thống.
+\end{itemize}
+Các kết quả đạt được không chỉ chứng minh tính khả thi của mô hình đề xuất, mà còn mở ra tiềm năng áp dụng trong thực tiễn, nơi mà tính minh bạch, uy tín và khuyến khích đóng góp cộng đồng là yếu tố then chốt cho môi trường học tập và tuyển dụng phi tập trung.
+
+\section{Những hạn chế và giới hạn của đề tài}
+
+Mặc dù đề tài đã đạt được nhiều kết quả tích cực trong việc xây dựng một hệ thống nguyên mẫu hoạt động đầy đủ, vẫn còn tồn tại một số hạn chế và giới hạn như sau:
+\begin{itemize}
+  \item \textbf{Chưa hỗ trợ tra cứu hồ sơ người dùng khác}: Hệ thống hiện chưa cho phép người dùng tra cứu hồ sơ uy tín hoặc thông tin cá nhân của người dùng khác (ngoại trừ nhà tuyển dụng), hạn chế khả năng tương tác và kết nối cộng đồng.
+  \item \textbf{Chưa ràng buộc đăng ký thông tin cá nhân khi thực hiện hành động quan trọng}: Người dùng chưa hoàn tất đăng ký thông tin cá nhân vẫn có thể thực hiện một số tác vụ quan trọng nếu đạt yêu cầu về uy tín, ảnh hưởng đến tính minh bạch và kiểm soát.
+  \item \textbf{Mô tả thử thách chưa tối ưu hóa}:
+        \begin{itemize}
+          \item Thiếu hỗ trợ biểu thức toán học và ký hiệu đặc biệt trong phần mô tả, gây bất tiện cho việc trình bày thuật toán.
+          \item Thiếu hỗ trợ tải tập tin, buộc người dùng phải sử dụng liên kết ngoài, gây gián đoạn trải nghiệm.
+        \end{itemize}
+  \item \textbf{Thiếu giới hạn thời gian trong quá trình kiểm duyệt}: Hệ thống không quy định thời hạn nộp kết quả kiểm duyệt, dẫn đến nguy cơ trì hoãn hoặc bỏ dở quy trình.
+  \item \textbf{Không hỗ trợ phản hồi kiểm duyệt}: Người kiểm duyệt không thể để lại nhận xét hay góp ý cho người đóng góp, hạn chế tính tương tác hai chiều.
+  \item \textbf{Không gian trình bày giải pháp còn hạn chế}: Hiện tại chỉ hỗ trợ văn bản thuần túy, thiếu khả năng chèn công thức hoặc tệp đính kèm.
+  \item \textbf{Tiêu chí chấm điểm giải pháp còn đơn giản}: Việc chấm điểm chỉ dựa trên điểm số tổng quát, chưa phản ánh đầy đủ các khía cạnh đánh giá chi tiết.
+  \item \textbf{Không hỗ trợ phản hồi từ người đánh giá}: Người học không nhận được nhận xét cụ thể về giải pháp đã nộp, ảnh hưởng đến khả năng cải thiện kỹ năng.
+  \item \textbf{Thiếu giới hạn thời gian trong quá trình đánh giá}: Tương tự như kiểm duyệt, không có thời hạn đánh giá dẫn đến nguy cơ đình trệ toàn bộ quy trình.
+  \item \textbf{Chưa công khai thông tin người đánh giá}: Sau khi phiên đánh giá kết thúc, hệ thống chưa hiển thị ai đã tham gia và điểm số tương ứng của họ.
+  \item \textbf{Thiếu kiểm soát vai trò nhà tuyển dụng}: Bất kỳ người dùng nào có ví điện tử đều có thể truy cập không gian nhà tuyển dụng mà không có xác thực về uy tín.
+  \item \textbf{Thiếu tính năng bảo mật nâng cao}: Dữ liệu nhạy cảm như giải pháp, đánh giá và kiểm duyệt chưa được mã hóa hoặc kiểm soát truy cập đầy đủ, tiềm ẩn rủi ro an ninh thông tin.
+  \item \textbf{Phạm vi lĩnh vực chuyên môn còn hạn chế}: Các lĩnh vực chuyên môn trong hệ thống hiện vẫn mang tính khái quát, chưa phân tách đầy đủ các chuyên ngành nhỏ trong lĩnh vực Công nghệ thông tin.
+        Điều này có thể ảnh hưởng đến độ chính xác khi xác định uy tín chuyên môn và phân quyền vai trò tương ứng.
+\end{itemize}
+
+\section{Hướng phát triển tiếp theo}
+
+Dựa trên những kết quả đạt được và các hạn chế còn tồn tại, đề tài có thể được tiếp tục phát triển theo các hướng sau:
+
+\begin{itemize}
+  \item \textbf{Kiểm soát người dùng chưa đăng ký}: Bổ sung cơ chế giới hạn quyền thực hiện các hành vi quan trọng đối với người dùng chưa hoàn tất đăng ký thông tin cá nhân.
+  \item \textbf{Kiểm soát quyền truy cập không gian nhà tuyển dụng}: Xây dựng kênh xác thực riêng giữa nhà tuyển dụng và hệ thống, từ đó cho phép chỉ những địa chỉ ví đã được xét duyệt mới có quyền truy cập không gian này.
+  \item \textbf{Mở rộng danh mục lĩnh vực chuyên môn}: Phân tách các lĩnh vực hiện có thành các chuyên ngành cụ thể hơn (ví dụ: Hệ thống nhúng, An toàn phần mềm, DevOps), từ đó nâng cao độ chính xác trong đánh giá và phân quyền.
+  \item \textbf{Tối ưu hóa mô tả thử thách và giải pháp}: Bổ sung khả năng nhập công thức toán học, biểu đồ, và tải tập tin trực tiếp từ thiết bị để giúp người dùng trình bày đầy đủ và trực quan hơn.
+  \item \textbf{Phát triển không gian bình luận cho thử thách}: Mỗi thử thách nên có khu vực phản hồi công khai, nơi cộng đồng có thể thảo luận, đánh giá và chia sẻ trải nghiệm thực tế, góp phần phản ánh chất lượng thử thách.
+  \item \textbf{Tích hợp môi trường lập trình vào không gian giải pháp}: Hỗ trợ trình biên dịch theo nhiều ngôn ngữ lập trình phổ biến, giúp người học có thể viết, chạy thử, và hiển thị kết quả ngay trong giao diện hệ thống.
+  \item \textbf{Cơ chế phản hồi đánh giá và kiểm duyệt}: Mở rộng chức năng phản hồi từ người đánh giá hoặc kiểm duyệt để gửi nhận xét cụ thể đến người đóng góp hoặc người học, tăng cường tính minh bạch và tính hướng dẫn.
+  \item \textbf{Mở rộng tiêu chí đánh giá giải pháp}: Ngoài điểm số tổng quan, bổ sung các tiêu chí cụ thể như khả năng trình bày, mức độ sáng tạo, hành vi sao chép nội dung, nhằm phản ánh đa chiều hơn chất lượng giải pháp.
+  \item \textbf{Bổ sung thông tin chi tiết cho phiên đánh giá}: Cần mở rộng giao diện hiển thị phiên đánh giá nhằm cung cấp đầy đủ thông tin cho người giải và người đánh giá, bao gồm danh sách những người tham gia đánh giá, điểm số tương ứng, thời điểm nộp đánh giá và các thông tin liên quan khác.
+  \item \textbf{Bổ sung ràng buộc thời gian}: Đặt giới hạn thời gian cụ thể cho việc hoàn tất kiểm duyệt và đánh giá nhằm tránh tình trạng trì hoãn và giúp quy trình vận hành trơn tru hơn.
+  \item \textbf{Mở rộng khả năng tương tác cộng đồng}: Cho phép người dùng truy cập thông tin hồ sơ của người khác (nếu công khai), tìm kiếm người cố vấn và tham gia không gian cộng đồng để trao đổi và học hỏi lẫn nhau.
+  \item \textbf{Nâng cao bảo mật dữ liệu}: Áp dụng mã hóa cho dữ liệu nhạy cảm (on-chain và off-chain), đồng thời tăng cường kiểm soát quyền truy cập để đảm bảo an toàn thông tin cho người dùng.
+  \item \textbf{Phát triển ứng dụng di động}: Xây dựng phiên bản dành cho thiết bị di động để mở rộng khả năng tiếp cận hệ thống ở nhiều hoàn cảnh sử dụng khác nhau.
+\end{itemize}
