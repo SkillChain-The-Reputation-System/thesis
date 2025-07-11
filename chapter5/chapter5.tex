@@ -1,4 +1,100 @@
-\chapter{Phát triển giao diện người dùng}
+\chapter{Kết quả đạt được}
+
+\section{Các chức năng chính đã hoàn thiện}
+\subsection{Chức năng cho người dùng}
+
+Chúng tôi đã phát triển thành công các chức năng sau dành cho \textbf{người dùng phổ thông} (bao gồm người học, người đóng góp, người kiểm duyệt và người đánh giá):
+
+\begin{itemize}
+  \item Kết nối ví người dùng với hệ thống.
+  \item Đăng ký thông tin cá nhân khi lần đầu kết nối.
+  \item Xem và cập nhật thông tin cá nhân.
+  \item Truy cập hồ sơ uy tín, bao gồm uy tín toàn cục và uy tín chuyên môn theo từng lĩnh vực.
+  \item Theo dõi vai trò hiện có của bản thân trong từng lĩnh vực chuyên môn.
+  \item Duyệt danh sách các thử thách đang hoạt động trên hệ thống.
+  \item Tham gia thử thách nếu đáp ứng yêu cầu về số dư POL.
+  \item Xem danh sách thử thách đã và đang tham gia.
+  \item Làm việc trên giải pháp thử thách thông qua không gian cá nhân; hỗ trợ chỉnh sửa và lưu trữ tùy ý.
+  \item Nộp và gửi giải pháp cho hội đồng đánh giá.
+  \item Xem điểm đánh giá cuối cùng và thông tin liên quan sau khi phiên đánh giá kết thúc.
+  \item Duyệt danh sách các bài đăng tuyển dụng hiện hành và xem chi tiết từng bài.
+  \item Ứng tuyển vào bài đăng tuyển dụng; hệ thống hỗ trợ tính toán khả năng ứng tuyển dựa trên hồ sơ uy tín và yêu cầu từ nhà tuyển dụng.
+  \item Xem danh sách các đơn ứng tuyển kèm theo trạng thái; cho phép rút đơn nếu người dùng mong muốn.
+  \item Trong trường hợp được đưa vào danh sách rút gọn, người dùng có thể xem thông tin cuộc họp trực tuyến do nhà tuyển dụng tổ chức và tham gia nếu đã được lên lịch.
+\end{itemize}
+
+Tiếp theo là các chức năng đặc thù dành cho từng vai trò trong hệ thống:
+
+\subsubsection{Người đóng góp}
+
+\begin{itemize}
+  \item Tạo thử thách mới ở trạng thái nháp (chỉ được phép nếu uy tín chuyên môn đủ điều kiện theo lĩnh vực).
+  \item Làm việc trên thử thách nháp trong không gian chỉnh sửa cá nhân, có thể lưu lại tùy ý.
+  \item Gửi thử thách nháp đi kiểm duyệt, kèm theo yêu cầu ký gửi khoản treo thưởng.
+  \item Xem danh sách các thử thách đã tạo, cùng thông tin chi tiết và trạng thái hiện tại.
+  \item Xem kết quả kiểm duyệt sau khi phiên kiểm duyệt hoàn tất.
+\end{itemize}
+
+\subsubsection{Người kiểm duyệt}
+
+\begin{itemize}
+  \item Xem danh sách các thử thách đang chờ kiểm duyệt.
+  \item Tham gia kiểm duyệt thử thách nếu có đủ uy tín chuyên môn tương ứng.
+  \item Làm việc trong không gian kiểm duyệt, hệ thống cung cấp tiêu chí đánh giá rõ ràng và hỗ trợ lưu lại nội dung đánh giá.
+  \item Gửi kết quả kiểm duyệt cuối cùng để hệ thống tổng hợp.
+  \item Xem các thử thách đã và đang tham gia kiểm duyệt, và khi phiên kiểm duyệt hoàn tất, có thể xem kết quả tổng hợp và kết quả phân phối lượng treo thưởng.
+\end{itemize}
+
+\subsubsection{Người đánh giá}
+
+\begin{itemize}
+  \item Xem danh sách các giải pháp đang chờ đánh giá.
+  \item Tham gia đánh giá giải pháp nếu có đủ uy tín chuyên môn tương ứng.
+  \item Xem nội dung giải pháp và thực hiện chấm điểm theo quy định.
+  \item Gửi điểm đánh giá cuối cùng để hệ thống tổng hợp.
+  \item Xem các giải pháp đã và đang tham gia đánh giá, cùng điểm số và thông tin liên quan khi phiên đánh giá kết thúc.
+\end{itemize}
+
+\subsection{Chức năng dành cho nhà tuyển dụng}
+
+Chúng tôi đã phát triển thành công các chức năng sau dành cho \textbf{nhà tuyển dụng}:
+
+\begin{itemize}
+  \item Kết nối ví và truy cập vào không gian quản lý dành riêng cho nhà tuyển dụng.
+  \item Đăng ký thông tin cá nhân và thông tin công ty khi lần đầu kết nối.
+  \item Xem và cập nhật thông tin cá nhân cũng như thông tin công ty đang làm việc.
+  \item Ký gửi một lượng POL tối thiểu để được cấp quyền sử dụng chức năng tuyển dụng.
+  \item Tạo bài đăng tuyển dụng ở trạng thái nháp; hỗ trợ chỉnh sửa nội dung trước khi công khai.
+  \item Công khai bài đăng để người dùng hệ thống có thể ứng tuyển.
+  \item Quản lý trạng thái của từng bài đăng tuyển dụng.
+  \item Xem danh sách ứng viên ứng tuyển cho một bài đăng; có thể truy cập hồ sơ chi tiết và thay đổi trạng thái ứng viên (ví dụ: đưa vào danh sách rút gọn, từ chối, đã tuyển).
+  \item Lên lịch và tham gia các cuộc họp trực tuyến với ứng viên trong danh sách rút gọn; có thể cập nhật lịch nếu cuộc họp chưa diễn ra.
+  \item Theo dõi thống kê liên quan đến hoạt động tuyển dụng do hệ thống tự động tổng hợp và phân tích.
+\end{itemize}
+
+\subsection{Chức năng của hệ thống}
+
+Hệ thống SkillChain đã được triển khai với các chức năng cốt lõi sau:
+
+\begin{itemize}
+  \item Lưu trữ và cập nhật dữ liệu của người dùng và nhà tuyển dụng trên cả hai nền tảng \textit{on-chain} và \textit{off-chain}.
+  \item Đáp ứng các yêu cầu truy xuất dữ liệu từ người dùng trên cả \textit{on-chain} và \textit{off-chain}, đảm bảo độ chính xác và đồng bộ thông tin.
+  \item Kiểm soát quyền thực hiện các hành động quan trọng (chẳng hạn như tạo thử thách, tham gia kiểm duyệt, đánh giá giải pháp, đăng bài tuyển dụng) dựa trên hồ sơ uy tín chuyên môn của người dùng.
+  \item Thu thập và tổng hợp kết quả từ các phiên kiểm duyệt thử thách, từ đó:
+    \begin{itemize}
+      \item Tính toán điểm chất lượng cuối cùng của thử thách.
+      \item Cập nhật chỉ số uy tín cho người đóng góp và các kiểm duyệt viên.
+      \item Phân phối phần thưởng từ quỹ treo thưởng tới các kiểm duyệt viên.
+    \end{itemize}
+  \item Xử lý kết quả đánh giá giải pháp, bao gồm:
+    \begin{itemize}
+      \item Tính điểm cuối cùng của giải pháp dựa trên đánh giá có trọng số.
+      \item Cập nhật chỉ số uy tín cho người giải và người đánh giá.
+    \end{itemize}
+  \item Tự động tính toán chi phí tham gia thử thách và chuyển khoản phí đó tới người đóng góp thử thách tương ứng.
+  \item Tự động khấu trừ phí tuyển dụng từ nhà tuyển dụng trong trường hợp tuyển thành công một ứng viên.
+  \item Tổng hợp và phân tích dữ liệu phục vụ mục đích thống kê cho nhà tuyển dụng, hỗ trợ việc ra quyết định tuyển dụng trên nền tảng.
+\end{itemize}
 
 \section{Giao diện xây dựng uy tín}
 
