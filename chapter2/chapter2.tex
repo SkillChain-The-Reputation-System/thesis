@@ -8,20 +8,17 @@ Mô hình này mở rộng so với các mô hình trước bằng cách đưa r
 \subsection{Chiều cá nhân}
 
 Đây là mức độ cơ bản nhất của uy tín, dựa trên trải nghiệm trực tiếp giữa hai tác nhân. Khi hai tác nhân tương tác, mỗi bên ghi nhận \textit{kết quả} (outcomes) từ tương tác đó, bao gồm những gì đã được thỏa thuận và những gì thực sự xảy ra.
-Dựa vào những kết quả này, mỗi tác nhân hình thành \textit{ấn tượng cá nhân} (impressions), từ đó tính ra \textit{uy tín chủ quan} (subjective reputation). Bên cạnh đó, cũng sẽ một
+Dựa vào những kết quả này, mỗi tác nhân hình thành \textit{ấn tượng cá nhân} (impression), từ đó tính ra \textit{uy tín chủ quan} (subjective reputation). Bên cạnh đó, cũng sẽ một
 \textit{độ tin cậy} (reliability) đối với uy tín chủ quan này. Những ấn tượng gần thời điểm hiện tại hơn sẽ được ưu tiên cao hơn thông qua hàm trọng số thời gian.
 
-Từ đó, ReGreT định nghĩa cách tính uy tín trực tiếp của một tác nhân $a$ đối với tác nhân $b$ (chiều cá nhân) như sau:
+Từ đó, ReGreT định nghĩa cách tính uy tín trực tiếp của một tác nhân $a$ đối với tác nhân $b$ theo chiều cá nhân như sau:
 \[R_{a \rightarrow b}(subject)\]
 
 \subsection{Chiều xã hội}
 
-ReGreT mô hình hóa hiện tượng phổ biến trong xã hội con người: một cá nhân mang theo uy tín của nhóm mà họ thuộc về.
-Nếu không có đủ thông tin trực tiếp, ta có thể dựa vào uy tín nhóm để ước lượng hành vi của một tác nhân.
-Tương tự như cách một cá nhân có thể bị ảnh hưởng bởi uy tín của nhóm mà mình thuộc về, bản thân cá nhân đó cũng sẽ dựa vào \textit{trải nghiệm} (experiences)
-của những người trong chính nhóm của mình để bổ sung và củng cố hiểu biết cá nhân về một thực thể.
-Nói cách khác, những gì mà các thành viên trong nhóm từng trải qua với một thực thể cụ thể (hoặc với nhóm của thực thể đó) sẽ góp phần định hình
-và làm phong phú thêm nhận định của mỗi thành viên trong nhóm.
+ReGreT mô hình hóa hiện tượng phổ biến trong xã hội con người: một cá nhân mang theo uy tín của nhóm mà họ thuộc về. Nếu không có đủ thông tin trực tiếp, ta có thể dựa vào uy tín nhóm để ước lượng hành vi của một tác nhân.
+Tương tự như cách một cá nhân có thể bị ảnh hưởng bởi uy tín của nhóm mà mình thuộc về, bản thân cá nhân đó cũng sẽ dựa vào \textit{trải nghiệm} (experiences) của những người trong chính nhóm của mình để bổ sung và củng cố hiểu biết cá nhân về một thực thể.
+Nói cách khác, những gì mà các thành viên trong nhóm từng trải qua với một thực thể cụ thể (hoặc với nhóm của thực thể đó) sẽ góp phần định hình và làm phong phú thêm nhận định của mỗi thành viên trong nhóm.
 
 Do đó, để tính giá trị uy tín của mình đối với một tác nhân theo chiều xã hội, ReGreT mở rộng thêm ba nguồn thông tin mới. Bên cạnh tương tác trực tiếp với chính tác nhân, giờ đây phải xem xét thêm
 tương tác với các thành viên trong nhóm mà tác nhân đó thuộc về, thông tin mà nhóm của mình đối với tác nhân đó, và cuối cùng là thông tin mà nhóm của mình đối với nhóm của tác nhân đó.
@@ -34,8 +31,8 @@ Giả sử ta tính giá trị uy tín của một tác nhân $a$ thuộc về n
 
 Tiếp theo, sự tương tác của $a$ đối với các thành viên khác của nhóm $\mathcal{B}$ được biểu diễn như sau:
 \[R_{a \rightarrow \mathcal{B}}(subject)=\sum_{b_i \in \mathcal{B}} \omega^{ab_i} \cdot R_{a \rightarrow b_i}(subject)\]
-trong đó, $\sum_{b_i \in \mathcal{B}} \omega^{ab_i} = 1$. Vì đang trong trường hợp uy tín chủ quan, chúng ta cần
-phương thức để thể thiện độ tin cậy của uy tín này:
+trong đó, $\displaystyle\sum_{b_i \in \mathcal{B}} \omega^{ab_i} = 1$.
+Vì đang trong trường hợp uy tín chủ quan, chúng ta cần phương thức để thể thiện độ tin cậy của uy tín này:
 \[RL_{a \rightarrow \mathcal{B}}(subject)=\sum_{b_i \in \mathcal{B}} \omega^{ab_i} \cdot RL_{a \rightarrow b_i}(subject)\]
 
 \subsubsection{Trải nghiệm nhóm}
@@ -45,12 +42,12 @@ Một khi đã có được trải nghiệm của cá nhân $a$, ta sẽ xem xé
 Đầu tiên, ta tính uy tín chủ quan của nhóm $\mathcal{A}$ đối với tác nhân $b$ cùng với độ tin cậy của uy tín như sau:
 \[R_{\mathcal{A} \rightarrow b}(subject)=\sum_{a_i \in \mathcal{A}} \omega^{a_ib} \cdot R_{a_i \rightarrow b}(subject)\]
 \[RL_{\mathcal{A} \rightarrow b}(subject)=\sum_{a_i \in \mathcal{A}} \omega^{a_ib} \cdot RL_{a_i \rightarrow b}(subject)\]
-trong đó, $\sum_{a_i \in \mathcal{A}} \omega^{a_ib} = 1$.
+trong đó, $\displaystyle\sum_{a_i \in \mathcal{A}} \omega^{a_ib} = 1$.
 
 Tương tự, để biết được uy tín của nhóm $\mathcal{A}$ đối với nhóm $\mathcal{B}$, ta tính như sau:
 \[R_{\mathcal{A} \rightarrow \mathcal{B}}(subject)=\sum_{a_i \in \mathcal{A}} \omega^{a_i\mathcal{B}} \cdot R_{a_i \rightarrow \mathcal{B}}(subject)\]
 \[RL_{\mathcal{A} \rightarrow \mathcal{B}}(subject)=\sum_{a_i \in \mathcal{A}} \omega^{a_i\mathcal{B}} \cdot RL_{a_i \rightarrow \mathcal{B}}(subject)\]
-trong đó, $\sum_{a_i \in \mathcal{A}} \omega^{a_i\mathcal{B}} = 1$.
+trong đó, $\displaystyle\sum_{a_i \in \mathcal{A}} \omega^{a_i\mathcal{B}} = 1$.
 
 \subsubsection{Tổng hợp tất cả thông tin lại với nhau}
 
@@ -137,9 +134,9 @@ Từ các đánh giá này, một \textit{giá trị tin cậy cục bộ} (loca
 Ngoài ra, có thể biểu diễn giá trị này bằng cách lưu số lượng giao dịch hài lòng $sat(i, j)$ và không hài lòng $unsat(i, j)$, rồi tính:
 \[st_{ij} = sat(i, j) - unsat(i, j)\]
 
-\subsection{Chuẩn hóa giá trị tin cậy cục bộ}
+\subsubsection{Chuẩn hóa giá trị tin cậy cục bộ}
 
-Trước tiên, cần chuẩn hóa các giá trị tin cậy cục bộ $sat_{ij}$ để đảm bảo tính công bằng. Nếu không chuẩn hóa, một peer độc hại có thể đánh giá tích cực cho các peer độc hại khác và
+Trước tiên, cần chuẩn hóa các giá trị tin cậy cục bộ để đảm bảo tính công bằng. Nếu không chuẩn hóa, một peer độc hại có thể đánh giá tích cực cho các peer độc hại khác và
 đánh giá tiêu cực cho các peer có uy tín cao. Để chuẩn hóa, ta chỉ xét các đánh giá tích cực, và tính xác suất chọn mỗi peer $j$ khi được peer $i$ tin tưởng như sau:
 \[c_{ij} = \frac{max(s_{ij}, 0)}{\sum_{j} max(s_{ij}, 0)}\]
 Cách làm này đảm bảo các giá trị $c_{ij}$ nằm trong khoảng $[0, 1]$ và có thể được hiểu như một xác suất trong mô hình ngẫu nhiên
@@ -147,7 +144,7 @@ Cách làm này đảm bảo các giá trị $c_{ij}$ nằm trong khoảng $[0, 
 Tuy nhiên, có một số hạn chế: nếu $c_{ij} = c_{ik}$ , ta chỉ biết peer $j$ và $k$ được $i$ đánh giá ngang nhau, chứ không biết là tốt hay trung bình.
 Dù vậy, việc chuẩn hóa theo cách này giúp quá trình tính toán hiệu quả hơn và dễ dàng áp dụng mô hình xác suất.
 
-\subsection{Tổng hợp các giá trị tin cậy cục bộ}
+\subsubsection{Tổng hợp các giá trị tin cậy cục bộ}
 
 Sau khi chuẩn hóa, mục tiêu là tổng hợp các đánh giá cục bộ để thu được cái nhìn rộng hơn về độ tin cậy của từng peer.
 Điều này được thực hiện bằng cách áp dụng \textbf{transitive trust} (tạm dịch: niềm tin chuyển tiếp)
@@ -155,7 +152,7 @@ Sau khi chuẩn hóa, mục tiêu là tổng hợp các đánh giá cục bộ �
 
 Quá trình tổng hợp này dẫn đến một biểu thức dạng:
 \[t_{ik} = \sum_{j} c_{ij}c_{jk}\]
-trong đó, $t_{ik}$ thể hiện niềm tin của peer $i$ đối với $k$ sau khi hỏi bạn bè của nó ($j$), mỗi người bạn của $i$ lại đánh giá $k$ một cách riêng ($c_{jk}$).
+trong đó, $t_{ik}$ thể hiện niềm tin của peer $i$ đối với $k$ sau khi hỏi bạn bè của nó $j$, mỗi người bạn của $i$ lại đánh giá $k$ một cách riêng $c_{jk}$.
 Ta có thể biểu diễn biểu thức trên thành ma trận: nếu ta gọi $C$ là ma trận $[c_{ij}]$ và $\vec{t_i}$ là vector chứa các giá trị $t_{ik}$, khi đó ta có
 $\vec{t_i} = C^{T}\vec{c_i}$.
 
@@ -166,14 +163,16 @@ và mỗi phần tử của nó, $\vec{t_j}$, định lượng mức độ tin c
 \subsection{Giải thích về xác suất}
 
 Cách hiểu xác suất cung cấp một góc nhìn trực quan cho quá trình lan truyền uy tín trong mạng. Tưởng tượng có một tác nhân ngẫu nhiên đi lang thang trong mạng P2P
-để tìm peer đáng tin. Tại mỗi bước, khi đang đứng ở peer $i$, nó sẽ chuyển đến peer $j$ với xác suất là $c_{ij}$ -- tức là mức độ mà i tin tưởng j.
+để tìm peer đáng tin. Tại mỗi bước, khi đang đứng ở peer $i$, nó sẽ chuyển đến peer $j$ với xác suất là $c_{ij}$ -- tức là mức độ mà $i$ tin tưởng $j$.
 Quá trình này tạo thành một \textbf{xích Markov} \cite{markov-chain} với ma trận chuyển xác suất là ma trận tin cậy chuẩn hóa $C$.
 Sau nhiều bước di chuyển, tác nhân sẽ thường xuyên rơi vào những peer đáng tin hơn -- và xác suất dừng lại ở mỗi peer chính là mức độ danh tiếng toàn cục.
 
 Điều này giống như mô hình ``Random Surfer'' \cite{random-suffer-model-pagerank} trong PageRank:
 dù đi lung tung, người dùng sẽ thường ghé lại các trang web đáng tin và phổ biến hơn.
 
-\subsection{Phiên bản EigenTrust cơ bản}
+\subsection{Triển khai EigenTrust}
+
+\subsubsection{EigenTrust cơ bản}
 
 Trong phiên bản đơn giản nhất, ta giả sử có một máy chủ trung tâm lưu trữ tất cả giá trị $c_{ij}$, mục tiêu chính là tính được giá trị tin cậy toàn cục
 $\vec{t} = C^{T}\vec{e}$, với vector khởi đầu là $\vec{e}$ thể hiện phân bố xác suất đồng đều của toàn bộ $m$ peer, tức $e_i = 1/m$.
@@ -198,8 +197,8 @@ Ta định nghĩa tập hợp $P$ là các peer có uy tín sẵn (pre-trusted p
 \[
   p_i =
   \begin{cases}
-    1/|P|, & \text{nếu } i \in P \\
-    0,     & \text{ngược lại}
+    1/|P| & ,\text{nếu } i \in P \\
+    0     & ,\text{ngược lại}
   \end{cases}
 \]
 điều này giúp hội tụ nhanh hơn, cũng như loại bỏ được các peer độc hại.
@@ -210,8 +209,8 @@ Ta có thể diễu diễn lại các tính $c_{ij}$ như sau:
 \[
   c_{ij} =
   \begin{cases}
-    \frac{max(s_{ij}, 0)}{\sum_{j} max(s_{ij}, 0)}, & \text{nếu } \sum_{j} max(s_{ij}, 0) \neq 0 \\
-    p_j,     & \text{ngược lại}
+    \frac{max(s_{ij}, 0)}{\sum_{j} max(s_{ij}, 0)} & , \text{nếu } \sum_{j} max(s_{ij}, 0) \neq 0 \\
+    p_j                                            & , \text{ngược lại}
   \end{cases}
 \]
 
@@ -233,14 +232,14 @@ trong đó, $a$ là một hằng số nhỏ hơn 1. Việc này giúp ``kéo'' g
   \end{algorithmic}
 \end{algorithm}
 
-\subsection{EigenTrust phân tán}
+\subsubsection{EigenTrust phân tán}
 
 Ở đây, bài toán được mở rộng để không cần máy chủ trung tâm, mà mỗi peer tự tính toán uy tín của chính mình bằng thông tin từ những peer từng tương tác với nó.
 Yêu cầu đầu tiên của bài toán này là mỗi peer $i$ phải lưu trữ vector tin cậy cục bộ $\vec{c}_i$ và giá trị tin cậy toàn cục $t_i$ của chính nó.
 Mỗi peer có thể tính giá trị tin cậy toàn cục của mình như sau:
 \[t_i^{(k+1)} = (1 - a)(c_{1i}t_1^{(k)} + ... + c_{ni}t_n^{(k)}) + ap_i\]
 
-Từ đó, ta có được thuật toán EigenTrust phân tán cơ bản được thể hiện ở thuật toán \ref{alg:distributed-eigentrust-algorithm}. 
+Từ đó, ta có được thuật toán EigenTrust phân tán cơ bản được thể hiện ở thuật toán \ref{alg:distributed-eigentrust-algorithm}.
 Vì mỗi peer chỉ tương tác với một số peer nhỏ (không phải toàn mạng), việc tính toán và truyền tin cũng nhẹ nhàng và hiệu quả.
 Trong trường hợp một mạng lưới có nhiều peer hoạt động mạnh, ta có thể duy trì những lợi ích trên bằng cách giới hạn số lượng giá trị tin cậy cục bộ $c_{ij}$ mà mỗi peer
 có thể báo cáo.
@@ -267,8 +266,8 @@ có thể báo cáo.
 
 \section{Slashdot}
 
-\textbf{Slashdot} \cite{slashdot-web} là một trong những nền tảng trực tuyến lâu đời, nổi bật với mô hình vận hành như một diễn đàn công cộng thực sự -- nơi người dùng không chỉ đọc tin tức mà còn có thể bình luận, 
-thảo luận và tranh luận về các chủ đề liên quan đến công nghệ, phần mềm mã nguồn mở, khoa học, và xã hội kỹ thuật số. 
+\textbf{Slashdot} \cite{slashdot-web} là một trong những nền tảng trực tuyến lâu đời, nổi bật với mô hình vận hành như một diễn đàn công cộng thực sự -- nơi người dùng không chỉ đọc tin tức mà còn có thể bình luận,
+thảo luận và tranh luận về các chủ đề liên quan đến công nghệ, phần mềm mã nguồn mở, khoa học, và xã hội kỹ thuật số.
 Điều làm nên sự đặc biệt của Slashdot không nằm ở bản thân nội dung, mà ở cách mà cộng đồng và hệ thống kỹ thuật cùng phối hợp để duy trì trật tự, chất lượng, và tính dân chủ của các cuộc đối thoại.
 
 \subsection{Karma}

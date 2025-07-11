@@ -241,23 +241,23 @@ Hình~\ref{fig:system-architecture} minh họa kiến trúc tổng quát của h
 
 \subsection{Thành phần giao diện người dùng}
 
-Giao diện người dùng được phát triển bằng framework \textbf{NextJS} và triển khai trên nền tảng \textbf{Vercel}, hỗ trợ hiệu năng cao và dễ dàng mở rộng.
-Giao diện sử dụng \textbf{Tailwind CSS} để xây dựng UI hiện đại, tối ưu cho trải nghiệm người dùng. Toàn bộ tương tác của người dùng với hệ thống (tham gia thử thách, gửi giải pháp, truy xuất hồ sơ uy tín...) đều diễn ra thông qua lớp này.
+Giao diện người dùng được phát triển bằng framework \textbf{NextJS} \cite{nextjs-web} và triển khai trên nền tảng \textbf{Vercel} \cite{vercel-web}, hỗ trợ hiệu năng cao và dễ dàng mở rộng.
+Giao diện sử dụng \textbf{Tailwind CSS} \cite{tailwindcss-web} để xây dựng UI hiện đại, tối ưu cho trải nghiệm người dùng. Toàn bộ tương tác của người dùng với hệ thống (tham gia thử thách, gửi giải pháp, truy xuất hồ sơ uy tín...) đều diễn ra thông qua lớp này.
 
 \subsection{Tương tác với blockchain}
 
-Để frontend tương tác với blockchain, hệ thống sử dụng thư viện \textbf{Wagmi} kết hợp với \textbf{ConnectKit} giúp tích hợp ví tiền điện tử như MetaMask hoặc CoinBase.
+Để frontend tương tác với blockchain, hệ thống sử dụng thư viện \textbf{Wagmi} \cite{wagmi-web} kết hợp với \textbf{ConnectKit} \cite{connectkit-web} giúp tích hợp ví tiền điện tử như MetaMask hoặc CoinBase.
 Các chức năng như xác thực người dùng qua ví, gửi giao dịch on-chain, theo dõi sự kiện blockchain đều được xử lý tại đây.
 
 \subsection{Hợp đồng thông minh và hạ tầng blockchain}
 
-Các hợp đồng thông minh được phát triển bằng \textbf{Solidity}, biên dịch và triển khai thông qua \textbf{Hardhat}. Trong quá trình phát triển và thử nghiệm, hệ thống hỗ trợ triển khai trên mạng cục bộ và mạng thử nghiệm \textbf{Polygon Amoy}.
+Các hợp đồng thông minh được phát triển bằng \textbf{Solidity} \cite{solidity-web}, biên dịch và triển khai thông qua \textbf{Hardhat} \cite{hardhat-web}. Trong quá trình phát triển và thử nghiệm, hệ thống hỗ trợ triển khai trên mạng cục bộ và mạng thử nghiệm \textbf{Polygon Amoy}.
 Các chức năng chính của smart contract bao gồm: quản lý thử thách, giải pháp và thông tin tuyển dụng, quản lý thông tin cá nhân và hồ sơ uy tín của người dùng và nhà tuyển dụng, kiểm soát truy cập.
 
 \subsection{Các dịch vụ bên ngoài}
 
-Một số loại dữ liệu không phù hợp để lưu trực tiếp trên chuỗi như nội dung thử thách hoặc giải pháp sẽ được lưu trữ trên \textbf{Irys}, với CID được lưu lại trên blockchain để dễ dàng tham chiếu.
-Ngoài ra, hệ thống còn tích hợp \textbf{Jitsi Meet} để phục vụ việc tổ chức các buổi phỏng vấn trực tuyến giữa nhà tuyển dụng và ứng viên, đảm bảo tính riêng tư và tiện lợi.
+Một số loại dữ liệu không phù hợp để lưu trực tiếp trên chuỗi như nội dung thử thách hoặc giải pháp sẽ được lưu trữ trên \textbf{Irys} \cite{irys-web}, với CID được lưu lại trên blockchain để dễ dàng tham chiếu.
+Ngoài ra, hệ thống còn tích hợp \textbf{Jitsi Meet} \cite{jitsi-handbook-web} để phục vụ việc tổ chức các buổi phỏng vấn trực tuyến giữa nhà tuyển dụng và ứng viên, đảm bảo tính riêng tư và tiện lợi.
 
 \section{Mô hình dữ liệu}
 

@@ -21,6 +21,7 @@
 % Insert hyperlinks
 \usepackage{hyperref}
 
+% Support more flexible table
 \usepackage{tabularx}
 \usepackage{array}
 
@@ -39,7 +40,7 @@
 \usepackage{tikz}
 
 % Define commands for general information
-\newcommand{\thesisname}{Hệ thống uy tín xác thực hồ sơ và đánh giá kỹ năng}
+\newcommand{\thesisname}{Hệ thống uy tín phục vụ xác thực hồ sơ và đánh giá kỹ năng}
 \newcommand{\instructor}{PGS. TS. Nguyễn Đình Thúc}
 \newcommand{\studentone}{Nguyễn Hải Tuyên - 21127474}
 \newcommand{\studenttwo}{Trần Minh Đạt - 21127570}
@@ -51,6 +52,10 @@
 \include{otherChapter/thanks}
 
 \tableofcontents
+
+\listoffigures
+
+\listoftables
 
 \include{chapter1/chapter1}
 
@@ -68,7 +73,5 @@
 
 \bibliographystyle{ieeetr}
 \bibliography{reference}
-
-\include{otherChapter/appendix}
 
 \end{document}
