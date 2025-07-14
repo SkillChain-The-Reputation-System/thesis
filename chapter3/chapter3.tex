@@ -43,7 +43,7 @@ Các thành phần này được lưu trữ on-chain thông qua hợp đồng th
 
 \section{Cơ chế cập nhật uy tín}
 
-Trong hệ thống, có bốn hoạt động chính liên quan đến thử thách có ảnh hưởng trực tiếp đến điểm uy tín của người dùng: đóng góp thử thách, kiểm duyệt chất lượng thử thách, tham gia giải thử thách và chấm điểm giải pháp.
+Trong hệ thống, có bốn hoạt động chính liên quan đến thử thách có ảnh hưởng trực tiếp đến điểm uy tín của người dùng: đóng góp thử thách, kiểm duyệt chất lượng thử thách, tham gia giải thử thách và đánh giá giải pháp.
 Mỗi khi người dùng hoàn thành một trong các hoạt động trên, hệ thống sẽ tính toán một \textit{điểm biến thiên uy tín} $\Delta R$, từ đó điều chỉnh điểm uy tín chuyên môn trong lĩnh vực tương ứng và điểm uy tín toàn cục của người dùng.
 
 Mỗi hoạt động ảnh hưởng đến uy tín của người dùng đều đi kèm với một \textit{ngưỡng điểm uy tín} ký hiệu là $T$, là một hằng số nằm trong khoảng từ 0 đến 100.
@@ -112,9 +112,9 @@ Người kiểm duyệt thử thách sẽ có \textit{điểm uy tín kiểm duy
 \subsubsection{Độ lệch điểm chất lượng}
 
 Một người kiểm duyệt sẽ để lại \textit{điểm kiểm duyệt thử thách} $s_{\text{moderate}}$ cho một thử thách. Sau khi tổng hợp điểm cuối cùng từ nhóm người kiểm duyệt,
-ta sẽ có điểm chất lượng thử thách $S_{\text{challenge}}$ và độ khó cuối cùng, từ đó xác định được độ lệch điểm chất lượng $D_{\text{moderation}}$:
+ta sẽ có điểm chất lượng thử thách $Q_{\text{challenge}}$ và độ khó cuối cùng, từ đó xác định được độ lệch điểm chất lượng $D_{\text{moderation}}$:
 
-\[D_{\text{moderation}}=|S_{\text{challenge}}-s_{\text{moderate}}|\]
+\[D_{\text{moderation}}=|Q_{\text{challenge}}-s_{\text{moderate}}|\]
 
 \subsubsection{Tính điểm biến thiên}
 
@@ -160,9 +160,9 @@ Khi người dùng tạo ra \textit{giải pháp} dành cho một thử thách, 
 
 \begin{itemize}
   \item Nếu $0 \leq S_{\text{solution}} \leq  T_{\text{participation}}$:
-        \[\Delta R_{\text{participation}} = L_{\text{penalty}} * \alpha * \left( \frac{S_{\text{solution}}}{T_{\text{paticipation}}}-1 \right)\]
+        \[\Delta R_{\text{participation}} = L_{\text{penalty}} * \alpha * \left( \frac{S_{\text{solution}}}{T_{\text{participation}}}-1 \right)\]
   \item Nếu $T_{\text{participation}} < S_{\text{solution}} \leq 100$:
-        \[\Delta R_{{\text{participation}}} = L_{\text{reward}} * \alpha*W_{\text{difficulty}} * \frac{S_{\text{solution}} - T_{\text{paticipation}}}{100-T_{\text{paticipation}}} \]
+        \[\Delta R_{{\text{participation}}} = L_{\text{reward}} * \alpha*W_{\text{difficulty}} * \frac{S_{\text{solution}} - T_{\text{participation}}}{100-T_{\text{participation}}} \]
 \end{itemize}
 trong đó, $\alpha \in [0, 1]$ là hằng số tỉ lệ toàn cục thể hiện mức độ quan trọng của hoạt động tham gia thử thách.
 
@@ -254,8 +254,8 @@ Cụ thể, hệ thống sử dụng chỉ số uy tín chuyên môn để kiể
 \begin{itemize}
   \item Người dùng chỉ được phép tạo thử thách trong một lĩnh vực nếu đạt mức uy tín chuyên môn tối thiểu trong lĩnh vực đó. Điều này đảm bảo rằng người đóng góp có đủ năng lực chuyên môn để thiết kế thử thách phù hợp, thực tiễn và có chất lượng.
   \item Quyền tham gia kiểm duyệt chất lượng thử thách cũng chỉ được trao cho những người dùng có uy tín chuyên môn cao. Cơ chế này giúp ngăn chặn các đánh giá sai lệch, thiếu khách quan hoặc không đủ chuyên môn, từ đó giữ gìn chuẩn mực nội dung trên toàn hệ thống.
-  \item Trong bối cảnh tuyển dụng, các nhà tuyển dụng có thể tham khảo hồ sơ uy tín chuyên môn để đánh giá mức độ phù hợp của ứng viên đối với các vị trí yêu cầu kỹ năng cụ thể. Uy tín cao trong một lĩnh vực chuyên môn giúp ứng viên tăng khả năng được chú ý và đánh giá cao.
   \item Tương tự, quyền tham gia đánh giá các giải pháp trong một thử thách cũng bị giới hạn cho những người dùng có đủ uy tín chuyên môn, nhằm đảm bảo công bằng, tránh thiên vị và hạn chế hành vi phá hoại trong quá trình đánh giá.
+  \item Trong bối cảnh tuyển dụng, các nhà tuyển dụng có thể tham khảo hồ sơ uy tín chuyên môn để đánh giá mức độ phù hợp của ứng viên đối với các vị trí yêu cầu kỹ năng cụ thể. Uy tín cao trong một lĩnh vực chuyên môn giúp ứng viên tăng khả năng được chú ý và đánh giá cao.
 \end{itemize}
 
 \subsection{Uy tín toàn cục}
