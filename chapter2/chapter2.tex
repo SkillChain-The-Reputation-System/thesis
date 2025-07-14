@@ -3,7 +3,7 @@
 \section{ReGreT}
 
 \textbf{ReGreT} \cite{regret-reputation-system} là một mô hình đánh giá uy tín trong xã hội nhiều tác nhân (multi-agent society), được xây dựng nhằm mô phỏng cách con người hình thành và sử dụng danh tiếng trong các tương tác xã hội.
-Mô hình này mở rộng so với các mô hình trước bằng cách đưa ra ba chiều chính (dimension) của uy tín: chiều cá nhân, chiều xã hội, và chiều bản thể học (ontological).
+Mô hình đưa ra ba chiều chính (dimension) của uy tín: chiều cá nhân (individual), chiều xã hội (social), và chiều bản thể học (ontological).
 
 \subsection{Chiều cá nhân}
 
@@ -215,7 +215,7 @@ Ta có thể diễu diễn lại các tính $c_{ij}$ như sau:
 \]
 
 \textbf{Các peer độc hại hợp tác với nhau.} Có khả năng sẽ xuất hiện nhiều nhóm peer độc hại mà chúng biết lẫn nhau, bọn chúng sẽ đánh giá cao lẫn nhau và đánh giá thấp những peer có uy tín.
-Để ngăn chận điều này, ta trộn thêm $\vec{p}$ vào mỗi vòng lặp:
+Để ngăn chặn điều này, ta trộn thêm $\vec{p}$ vào mỗi vòng lặp:
 \[\vec{t}^{(k+1)} = (1 - a)C^{T}\vec{t}^{(k)} + a\vec{p}\]
 trong đó, $a$ là một hằng số nhỏ hơn 1. Việc này giúp ``kéo'' giá trị $\vec{c_i}$ của các peer về phía nhóm $P$ nhằm phá vòng lặp tin tưởng nội bộ của nhóm độc hại. Cuối cùng, ta hoàn thiện thuật toán EigenTrust cơ bản như sau:
 
