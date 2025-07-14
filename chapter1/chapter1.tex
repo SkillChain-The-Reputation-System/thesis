@@ -74,7 +74,7 @@ Từ ý tưởng rút ra từ các nghiên cứu và bài báo đã tiến hành
 \begin{itemize}
   \item Blockchain: sổ cái phi tập trung, có vai trò lưu trữ dữ liệu quan trọng trên chuỗi (on-chain) như thông tin người dùng, danh sách thử thách, danh sách giải pháp, chỉ số uy tín, quyền truy cập vào dữ liệu của người dùng,\dots Dữ liệu có thể chứa các tham chiếu (CID) của các dữ liệu lưu ngoài chuỗi (off-chain).
   \item Smart Contract: hợp đồng thông minh tương tác với blockchain để quản lý dữ liệu on-chain, đồng thời thực thi các tiến trình quan trọng như: tính toán chỉ số uy tín, cập nhật kết quả lưu trên chuỗi, thực hiện các biện pháp thưởng phạt theo quy ước.
-  \item dStorage: dịch vụ lưu trữ phi tập trung dùng để lưu trữ dữ liệu người dùng, nội dung của các \textit{thử thách}, các \textit{giải pháp} của nó, và các dữ liệu lớn cần lưu trữ ngoài chuỗi.
+  \item Decentralized Storage (DeStor): dịch vụ lưu trữ phi tập trung dùng để lưu trữ dữ liệu người dùng, nội dung của các \textit{thử thách}, các \textit{giải pháp} của nó, và các dữ liệu lớn cần lưu trữ off-chain.
 \end{itemize}
 
 \subsection{Các chủ thể tương tác}
@@ -101,24 +101,23 @@ Từ ý tưởng rút ra từ các nghiên cứu và bài báo đã tiến hành
     \item Chỉ số uy tín của người dùng trên hệ thống
     \item Lịch sử tham gia thử thách
   \end{itemize}
-  \item \textbf{Thông tin giao dịch}: phản ánh việc đóng góp và tham gia thử thách, đánh giá giải pháp, đăng bài tuyển dụng và ứng tuyển, và sự biến động về chỉ số uy tín.
+  \item \textbf{Thông tin giao dịch}: phản ánh việc đóng góp, kiểm duyệt và tham gia thử thách, đánh giá giải pháp, đăng bài tuyển dụng và ứng tuyển, và sự biến động về chỉ số uy tín.
 \end{itemize}
 
 \subsection{Kịch bản tương tác giữa các chủ thể}
 \begin{itemize}
   \item \textbf{Tạo thử thách}
         \begin{itemize}
-          \item Người đóng góp tạo và đăng tải các thử thách lên hệ thống. Nội dung của thử thách được lưu trữ và chia sẻ lên dStorage.
-          \item Mỗi thử thách phải thuộc về một loại thử thách nhất định (ví dụ: Khoa học máy tính, An ninh mạng, Phát triển phần mềm, v.v. )
-          \item Hệ thống lưu nội dung của thử thách ở dStorage. Smart Contract cập nhật danh sách các thử thách trên chuỗi chứa các CID tham chiếu đến nội dung của thử thách ở dStorage.
-          \item Các thử thách vừa tạo ở trạng thái chưa kiểm duyệt, cần phải thông qua ý kiến của những người kiểm duyệt.
-          \item Sau giai đoạn kiểm duyệt, nếu thử thách đạt mức độ và được hội đồng tán thành sẽ chuyển sang trạng thái đã kiểm duyệt. Những người cần xây dựng uy tín có thể tham gia vào thử thách.
+          \item Người đóng góp tạo và đăng tải các thử thách lên hệ thống, mỗi thử thách phải thuộc về một loại thử thách nhất định (ví dụ: Quản trị cơ sở dữ liệu, An ninh mạng, Phát triển phần mềm, v.v. ).
+          \item Hệ thống lưu nội dung của thử thách ở DeStor. Smart Contract cập nhật danh sách các thử thách trên chuỗi chứa các CID tham chiếu đến nội dung của thử thách ở DeStor.
+          \item Các thử thách vừa tạo ở trạng thái \textit{chờ kiểm duyệt}, cần phải thông qua ý kiến của những người kiểm duyệt.
+          \item Sau giai đoạn kiểm duyệt, nếu thử thách đạt được mức độ phù hợp và được hội đồng tán thành sẽ chuyển sang trạng thái \textit{được chấp nhận}. Những người học cần rèn luyện và chứng minh kỹ năng có thể tham gia vào thử thách.
         \end{itemize}
 
   \item \textbf{Kiểm duyệt thử thách}
         \begin{itemize}
-          \item Những người kiểm duyệt đọc nội dung của thử thách, kiểm tra chất lượng và mức độ phù hợp của thử thách. Sau đó, những người kiểm duyệt tiến hành bỏ phiếu về các thông tin như: phân loại của thử thách, độ khó, mức độ phù hợp \dots
-          \item Smart Contract tổng hợp đánh giá của những kiểm duyệt viên, dựa trên một công thức tính đã quy định sẵn để tổng hợp ra kết quả cuối cùng.
+          \item Những người kiểm duyệt đọc nội dung của thử thách, kiểm tra chất lượng và mức độ phù hợp của thử thách. Sau đó, những người kiểm duyệt tiến hành đề xuất về các thông tin như: độ khó, mức độ phù hợp \dots
+          \item Smart Contract tổng hợp đánh giá và đề xuất của những kiểm duyệt viên, dựa trên một công thức tính đã quy định sẵn để tổng hợp ra kết quả cuối cùng.
           \item Smart Contract cập nhật thông tin liên quan của thử thách đã lưu trên chuỗi.
         \end{itemize}
 
@@ -126,12 +125,12 @@ Từ ý tưởng rút ra từ các nghiên cứu và bài báo đã tiến hành
         \begin{itemize}
           \item Người học trả một khoản \textit{phí tham gia} nhất định cho người đóng góp để tham gia thử thách.
           \item Hệ thống tự động tạo một không gian làm việc nơi người học có thể tạo giải pháp của mình.
-          \item Người học thiết lập một phiên đánh giá với số lượng tối đa người đánh giá cố định có thể tham gia chấm điểm. Ngươi đánh giá có thể đánh giá bằng cách tham gia vào phiên.
+          \item Người học thiết lập một phiên đánh giá với số lượng tối đa người đánh giá cố định có thể tham gia chấm điểm. Người đánh giá có thể đánh giá bằng cách tham gia vào phiên.
           \item Sau khi hoàn thành đánh giá, mỗi người đánh giá sẽ nộp kết quả đánh giá.
-          \item Smart Contract thu thập tất cả điểm số từ người đánh giá, áp dụng thuật toán tính điểm để xác định số điểm cuối cùng.
+          \item Smart Contract thu thập tất cả kết quả đánh giá từ người đánh giá, áp dụng thuật toán tính điểm để xác định số điểm cuối cùng.
           \item Những người đánh giá có điểm số gần với kết quả chính xác nhất sẽ nhận thêm điểm uy tín cho bản thân. Người đánh giá có điểm số lệch xa với kết quả nhất (hoặc biên độ lệch vượt quá giới hạn đã quy định sẵn) sẽ bị trừ đi điểm uy tín.
           \item Smart Contract sau đó cập nhật kết quả lên blockchain để đảm bảo tính minh bạch và không thể chỉnh sửa.
-          \item Điểm số của giải pháp sẽ làm thay đổi chỉ số uy tín của người học trong một loại thử thách cụ thể.
+          \item Điểm số của giải pháp sẽ làm thay đổi chỉ số uy tín của người giải trong một loại thử thách cụ thể.
         \end{itemize}
 
   \item \textbf{Đăng bài tuyển dụng và ứng tuyển}
@@ -140,8 +139,8 @@ Từ ý tưởng rút ra từ các nghiên cứu và bài báo đã tiến hành
           \item Ứng viên tiến hành ứng tuyển vào các bài tuyển dụng.
           \item Nhà tuyển dụng lúc này có thể xem được chỉ số uy tín của ứng viên và có thể truy cập lịch sử tham gia thử thách.
           \item Smart Contract cập nhật dữ liệu quyền truy cập lưu trên chuỗi (nếu có).
-          \item Nhà tuyển dụng có thể lên lịch các cuộc họp trực tuyến để phỏng vấn ứng viên.
-          \item Đội ngũ tuyển dụng xem xét và quyết định tuyển dụng đối với người dùng. Nếu có, công ty cần trả một khoản \textit{phí tuyển dụng} cho hệ thống.
+          \item Nhà tuyển dụng có thể lên lịch các cuộc họp trực tuyến để phỏng vấn các ứng viên tiềm năng.
+          \item Đội ngũ tuyển dụng xem xét và quyết định tuyển dụng đối với người dùng. Nếu có, phía công ty cần trả một khoản \textit{phí tuyển dụng} cho hệ thống.
         \end{itemize}
 \end{itemize}
 
@@ -150,7 +149,7 @@ Từ ý tưởng rút ra từ các nghiên cứu và bài báo đã tiến hành
 
 \begin{itemize}
   \item \textbf{Đề xuất một mô hình hệ thống uy tín phi tập trung} ứng dụng công nghệ blockchain để xác thực kỹ năng và hồ sơ cá nhân một cách minh bạch, khách quan và không thể thay đổi. Mô hình này hướng đến việc xây dựng một chuẩn đánh giá năng lực mới trong lĩnh vực Công nghệ thông tin.
-  \item \textbf{Thiết kế kiến trúc hệ thống đầy đủ} với các thành phần chính như Smart Contract, blockchain, dStorage, cùng luồng tương tác rõ ràng giữa các chủ thể trong hệ thống như người dùng, người đóng góp, người kiểm duyệt, người đánh giá và nhà tuyển dụng.
+  \item \textbf{Thiết kế kiến trúc hệ thống đầy đủ} với các thành phần chính như Smart Contract, blockchain, DeStor, cùng luồng tương tác rõ ràng giữa các chủ thể trong hệ thống như người học, người đóng góp, người kiểm duyệt, người đánh giá và nhà tuyển dụng.
   \item \textbf{Xây dựng cơ chế đánh giá dựa trên cộng đồng} kết hợp với hệ thống tính điểm uy tín nhằm đảm bảo tính công bằng, chống gian lận và khuyến khích sự tham gia tích cực từ nhiều bên liên quan.
   \item \textbf{Triển khai một hệ thống minh họa} hoạt động được ở môi trường cục bộ, bao gồm giao diện người dùng, backend tích hợp Smart Contract, khả năng lưu trữ dữ liệu phi tập trung và cơ chế đánh giá thử thách.
   \item \textbf{Đóng góp vào hướng nghiên cứu về hệ thống đánh giá phi tập trung và quản lý danh tiếng}, mở ra khả năng mở rộng mô hình cho các lĩnh vực khác ngoài Công nghệ thông tin, phù hợp với xu hướng ứng dụng công nghệ blockchain trong quản lý dữ liệu và xác thực hồ sơ.
