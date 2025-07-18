@@ -8,7 +8,8 @@ Mô hình đưa ra ba chiều chính (dimension) của uy tín: chiều cá nhâ
 \subsection{Chiều cá nhân}
 
 Đây là mức độ cơ bản nhất của uy tín, dựa trên trải nghiệm trực tiếp giữa hai tác nhân. Khi hai tác nhân tương tác, mỗi bên ghi nhận \textit{kết quả} (outcomes) từ tương tác đó, bao gồm những gì đã được thỏa thuận và những gì thực sự xảy ra.
-Dựa vào những kết quả này, mỗi tác nhân hình thành \textit{ấn tượng cá nhân} (impression), từ đó tính ra \textit{uy tín chủ quan} (subjective reputation). Bên cạnh đó, cũng sẽ một
+Dựa vào những kết quả này, mỗi tác nhân hình thành \textit{ấn tượng cá nhân} (impression), từ đó tính ra \textit{uy tín chủ quan} (subjective reputation), dựa trên tập hợp các ấn tượng mà tác nhân $a$ từng ghi nhận về $b$.
+Bên cạnh đó, cũng sẽ một
 \textit{độ tin cậy} (reliability) đối với uy tín chủ quan này. Những ấn tượng gần thời điểm hiện tại hơn sẽ được ưu tiên cao hơn thông qua hàm trọng số thời gian.
 
 Từ đó, ReGreT định nghĩa cách tính uy tín trực tiếp của một tác nhân $a$ đối với tác nhân $b$ theo chiều cá nhân như sau:
@@ -20,7 +21,7 @@ ReGreT mô hình hóa hiện tượng phổ biến trong xã hội con người:
 Tương tự như cách một cá nhân có thể bị ảnh hưởng bởi uy tín của nhóm mà mình thuộc về, bản thân cá nhân đó cũng sẽ dựa vào \textit{trải nghiệm} (experiences) của những người trong chính nhóm của mình để bổ sung và củng cố hiểu biết cá nhân về một thực thể.
 Nói cách khác, những gì mà các thành viên trong nhóm từng trải qua với một thực thể cụ thể (hoặc với nhóm của thực thể đó) sẽ góp phần định hình và làm phong phú thêm nhận định của mỗi thành viên trong nhóm.
 
-Do đó, để tính giá trị uy tín của mình đối với một tác nhân theo chiều xã hội, ReGreT mở rộng thêm ba nguồn thông tin mới. Bên cạnh tương tác trực tiếp với chính tác nhân, giờ đây phải xem xét thêm
+Do đó, để tính giá trị uy tín của mình đối với một tác nhân theo chiều xã hội, ReGreT mở rộng thêm ba nguồn thông tin mới. Bên cạnh tương tác trực tiếp với chính tác nhân, đồng thời cần xem xét thêm
 tương tác với các thành viên trong nhóm mà tác nhân đó thuộc về, thông tin mà nhóm của mình đối với tác nhân đó, và cuối cùng là thông tin mà nhóm của mình đối với nhóm của tác nhân đó.
 
 \subsubsection{Trải nghiệm cá nhân}
@@ -97,6 +98,7 @@ ta có cấu trúc đồ thị bản thể như hình \ref{fig:good-seller-ontol
 
 Vì vậy, khi muốn tính một uy tín phức hợp theo chiều bản thể học, một tác nhân cần tính uy tín của từng khía cạnh liên quan.
 Mỗi khía cạnh này có thể lại là một nút trong một đồ thị con, nơi nó cũng được cấu thành từ các khía cạnh nhỏ hơn nữa.
+Đây là một cấu trúc phân cấp đệ quy -- điểm rất đặc trưng của mô hình này.
 
 Đối với những nút cuối cùng trong đồ thị (các khía cạnh cơ bản nhất của hành vi, gọi là \textit{atomic aspect}),
 thì uy tín của chúng được tính dựa trên chiều cá nhân và chiều xã hội.
@@ -108,7 +110,7 @@ các giá trị của các nút con của nó theo một công thức:
 trong đó, $OR_{a \rightarrow b}(j) = SR_{a \rightarrow b}(j)$ khi $j$ là một khía cạnh cơ bản.
 
 Đối với ví dụ ở hình \ref{fig:good-seller-ontological-structure}, ta có thể tính giá trị uy tín của $b$ (người bán hàng tốt)
-từ góc nhìn của $a$ bằng công thức:
+theo quan điểm của tác nhân $a$ bằng công thức:
 \begin{align*}
   OR_{a \rightarrow b}(good\ seller) =\  & 0.25 \cdot SR_{a \rightarrow b}(delivery\ date) + \\
                                          & 0.15 \cdot SR_{a \rightarrow b}(product\ price) + \\
@@ -120,6 +122,7 @@ từ góc nhìn của $a$ bằng công thức:
 Mạng chia sẻ tập tin ngang hàng (P2P) đang ngày càng trở nên phổ biến nhờ ưu điểm không cần máy chủ trung tâm, có khả năng mở rộng tốt và cung cấp nhiều dữ liệu đa dạng.
 Tuy nhiên, đặc tính ẩn danh và mở của P2P cũng khiến hệ thống này dễ bị lạm dụng, không ai chịu trách nhiệm rõ ràng cho nội dung mà họ chia sẻ. Kết quả là
 tệp tin giả mạo, virus, hoặc nội dung bị chỉnh sửa có thể được phát tán rộng rãi, các peer độc hại có thể dễ dàng lừa người dùng tải về nội dung sai.
+Trước những thách thức trên, một giải pháp hiệu quả là sử dụng cơ chế đánh giá danh tiếng giữa các peer trong mạng.
 
 \textbf{EigenTrust} \cite{eigentrust-algorithm-for-reputation-management-in-2p2-networks} được giới thiệu là một thuật toán giảm thiểu khả năng tải về các tập tin độc hại
 bằng cách gán mỗi peer một \textit{giá trị tin cậy toàn cục} (global trust value) duy nhất, dựa trên lịch sử tải lên của peer đó. Mỗi peer trong mạng cùng tham gia tính toán điểm tin cậy của nhau
@@ -141,7 +144,7 @@ Trước tiên, cần chuẩn hóa các giá trị tin cậy cục bộ để đ
 \[c_{ij} = \frac{max(s_{ij}, 0)}{\sum_{j} max(s_{ij}, 0)}\]
 Cách làm này đảm bảo các giá trị $c_{ij}$ nằm trong khoảng $[0, 1]$ và có thể được hiểu như một xác suất trong mô hình ngẫu nhiên
 (chú ý: nếu $\sum_{j} max(s_{ij}, 0) = 0$ thì $c_{ij}$ sẽ không xác định, vấn đề này sẽ được giải quyết sau đó).
-Tuy nhiên, có một số hạn chế: nếu $c_{ij} = c_{ik}$ , ta chỉ biết peer $j$ và $k$ được $i$ đánh giá ngang nhau, chứ không biết là tốt hay trung bình.
+Tuy nhiên, có một số hạn chế: nếu $c_{ij} = c_{ik}$ , ta chỉ biết mức độ tin tưởng của $i$ đối với $j$ và $k$ là như nhau, nhưng không rõ mức độ tuyệt đối đó là cao hay thấp.
 Dù vậy, việc chuẩn hóa theo cách này giúp quá trình tính toán hiệu quả hơn và dễ dàng áp dụng mô hình xác suất.
 
 \subsubsection{Tổng hợp các giá trị tin cậy cục bộ}
@@ -156,7 +159,8 @@ trong đó, $t_{ik}$ thể hiện niềm tin của peer $i$ đối với $k$ sau
 Ta có thể biểu diễn biểu thức trên thành ma trận: nếu ta gọi $C$ là ma trận $[c_{ij}]$ và $\vec{t_i}$ là vector chứa các giá trị $t_{ik}$, khi đó ta có
 $\vec{t_i} = C^{T}\vec{c_i}$.
 
-Ma trận trên có thể mở rộng khi peer $i$ hỏi thêm những người bạn của bạn mà $i$ đã hỏi ($(C^T)^2, (C^T)^3, ..., (C^T)^n$), và khi $n$ đủ lớn, vector $\vec{t_i}$ sẽ hội tụ về một vector
+Ý tưởng trên có thể được mở rộng bằng cách tiếp tục lan truyền niềm tin qua nhiều bước: từ bạn, đến bạn của bạn, đến bạn của bạn của bạn, v.v\dots
+Điều này tương ứng với việc nâng ma trận lên lũy thừa: $(C^T)^2, (C^T)^3, ..., (C^T)^n$, và khi $n$ đủ lớn, vector $\vec{t_i}$ sẽ hội tụ về một vector
 \textit{duy nhất cho mỗi peer} $i$ -- đó chính là vector riêng chính của ma trận tin cậy chuẩn hóa $C$. Nói cách khác, $\vec{t}$ là \textit{vector tin cậy toàn cục} (global trust vector) trong mô hình này,
 và mỗi phần tử của nó, $\vec{t_j}$, định lượng mức độ tin cậy của hệ thống nói chung đặt vào peer $j$.
 
@@ -167,8 +171,8 @@ Cách hiểu xác suất cung cấp một góc nhìn trực quan cho quá trình
 Quá trình này tạo thành một \textbf{xích Markov} \cite{markov-chain} với ma trận chuyển xác suất là ma trận tin cậy chuẩn hóa $C$.
 Sau nhiều bước di chuyển, tác nhân sẽ thường xuyên rơi vào những peer đáng tin hơn -- và xác suất dừng lại ở mỗi peer chính là mức độ danh tiếng toàn cục.
 
-Điều này giống như mô hình ``Random Surfer'' \cite{random-suffer-model-pagerank} trong PageRank:
-dù đi lung tung, người dùng sẽ thường ghé lại các trang web đáng tin và phổ biến hơn.
+Điều này giống như mô hình ``Random Surfer'' \cite{random-suffer-model-pagerank} trong PageRank: dù đi lung tung, người dùng sẽ thường ghé lại các trang web đáng tin và phổ biến hơn.
+Cách hiểu xác suất này cung cấp một nền tảng trực quan và toán học để giải thích sự hội tụ về danh tiếng trong mạng.
 
 \subsection{Triển khai EigenTrust}
 
@@ -204,8 +208,7 @@ Ta định nghĩa tập hợp $P$ là các peer có uy tín sẵn (pre-trusted p
 điều này giúp hội tụ nhanh hơn, cũng như loại bỏ được các peer độc hại.
 
 \textbf{Những peer không hoạt động.} Nếu peer $i$ chưa từng tương tác với ai, thì không thể tính được $c_{ij}$ (do không thể chia hết cho 0).
-Khi đó, ta sẽ sử dụng $p_j$ thay thế cho $c_{ij}$, tức là nếu peer $i$ không tương tác với ai, không tin tưởng ai thì sẽ chọn peer có uy tín sẵn.
-Ta có thể diễu diễn lại các tính $c_{ij}$ như sau:
+Khi đó, ta mặc định rằng peer $i$ tin tưởng các peer uy tín sẵn theo phân phối $p$, tức $c_{ij} = p_j$. Ta có thể diễu diễn lại các tính $c_{ij}$ như sau:
 \[
   c_{ij} =
   \begin{cases}
@@ -266,7 +269,7 @@ có thể báo cáo.
 
 \section{Slashdot}
 
-\textbf{Slashdot} \cite{slashdot-web} là một trong những nền tảng trực tuyến lâu đời, nổi bật với mô hình vận hành như một diễn đàn công cộng thực sự -- nơi người dùng không chỉ đọc tin tức mà còn có thể bình luận,
+\textbf{Slashdot} \cite{slashdot-web} là một trong những nền tảng cộng đồng trực tuyến đầu tiên, nổi bật với mô hình vận hành như một diễn đàn công cộng thực sự -- nơi người dùng không chỉ đọc tin tức mà còn có thể bình luận,
 thảo luận và tranh luận về các chủ đề liên quan đến công nghệ, phần mềm mã nguồn mở, khoa học, và xã hội kỹ thuật số.
 Điều làm nên sự đặc biệt của Slashdot không nằm ở bản thân nội dung, mà ở cách mà cộng đồng và hệ thống kỹ thuật cùng phối hợp để duy trì trật tự, chất lượng, và tính dân chủ của các cuộc đối thoại.
 
@@ -276,10 +279,9 @@ Trái tim của cơ chế tự điều chỉnh trên Slashdot là hệ thống \
 Karma không phải là một loại điểm số đơn thuần, mà là một dạng ``vốn xã hội kỹ thuật số''. Nó phản ánh việc người dùng có đưa ra những bình luận hữu ích, đóng góp xây dựng hay không.
 
 Người dùng sẽ tăng karma nếu bình luận của họ được đánh giá cao bởi những người kiểm duyệt tạm thời (moderators); hoặc nội dung họ cung cấp có chất lượng, mang lại thông tin mới, sâu sắc hoặc hữu ích.
-
 Ngược lại karma giảm đi khi người dùng đăng bình luận gây tranh cãi, xúc phạm, thiếu nội dung hoặc không liên quan; hoặc bị nhiều người đánh giá tiêu cực hoặc báo cáo vì hành vi không phù hợp.
 
-Điểm số karma không hiển thị công khai cụ thể, nhưng nó tác động rõ rệt đến trải nghiệm và quyền hạn của người dùng:
+Điểm karma không được hiển thị công khai dưới dạng con số cụ thể, nhưng nó tác động rõ rệt đến trải nghiệm và quyền hạn của người dùng:
 \begin{itemize}
   \item Mức karma cao: người dùng có thể được lựa chọn làm moderator, có ảnh hưởng xã hội cao, bình luận thường được ưu tiên hiển thị.
   \item Mức karma trung bình: người dùng có thể tham gia thảo luận, gửi bình luận, tương tác bình thường.
@@ -297,6 +299,20 @@ Người dùng có karma cao sẽ được chọn ngẫu nhiên làm moderator t
 
 Đặc biệt, người được trao quyền kiểm duyệt không phải quản trị viên cố định, mà luôn là người dùng bình thường được hệ thống chọn dựa trên mức karma --
 điều này tạo nên một cơ chế kiểm duyệt dân chủ và linh hoạt.
+
+\subsection{Cơ chế đánh giá lại kiểm duyệt (Meta-moderation)}
+
+Để đảm bảo tính công bằng và hạn chế việc lạm quyền từ các moderator, Slashdot triển khai cơ chế \textbf{meta-moderation} -- tức là kiểm duyệt các hành động kiểm duyệt.
+
+Người dùng có mức karma đủ cao có thể được chọn để đánh giá lại các hành động kiểm duyệt trước đó, cụ thể là:
+\begin{itemize}
+  \item Xem lại các bình luận đã được chấm điểm và gắn nhãn bởi một moderator khác (ẩn danh)
+  \item Đưa ra nhận định về việc hành động kiểm duyệt đó có công bằng, chính xác hay không
+\end{itemize}
+
+Hệ thống từ đó điều chỉnh lại mức độ tin cậy của các moderator trong tương lai. Những người thường xuyên kiểm duyệt thiếu công bằng, gắn nhãn sai hoặc thiên vị sẽ ít có khả năng được chọn làm moderator sau này.
+
+Cơ chế meta-moderation là một điểm độc đáo giúp Slashdot duy trì môi trường thảo luận dân chủ nhưng vẫn hiệu quả, nhờ vào sự giám sát chéo giữa các thành viên trong cộng đồng.
 
 \subsection{Phối hợp giữa cộng đồng và kỹ thuật}
 
