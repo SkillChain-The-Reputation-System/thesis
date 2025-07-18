@@ -199,7 +199,7 @@ Ngoài ra, người dùng cũng có thể truy cập tab \textbf{Account} để 
 \end{figure}
 
 Tại đây, người dùng có thể xem danh sách các thử thách đã đóng góp, cùng với thông tin về loại thử thách, trạng thái và mức treo thưởng.  
-Người dùng có thể xem chi tiết một thử thách bằng cách nhấn vào liên kết tên thử thách hoặc chọn ``View challenge'' từ nút ``Actions``.
+Người dùng có thể xem chi tiết một thử thách bằng cách nhấn vào liên kết tên thử thách hoặc chọn ``View challenge'' từ nút ``Actions''.
 
 \subsubsection{Tạo thử thách mới}
 
@@ -218,7 +218,7 @@ Nếu người dùng không đủ chỉ số uy tín chuyên môn tương ứng 
 
 \subsubsection{Chỉnh sửa thử thách}
 
-Để chỉnh sửa một thử thách đang ở trạng thái nháp, người dùng cần truy cập trang chi tiết của thử thách và nhấn nút ``Edit''.
+Để chỉnh sửa một thử thách đang ở trạng thái nháp, người dùng cần truy cập trang chi tiết của thử thách và chọn ``Edit Challenge'' tại nút ba chấm ở góc trên bên phải.
 
 \begin{figure}[H]
   \centering
@@ -234,11 +234,11 @@ Nếu người dùng không đủ chỉ số uy tín chuyên môn tương ứng 
   \label{fig:contribution-challenge-edit-page}
 \end{figure}
 
-Người dùng có thể chỉnh sửa nội dung thử thách tại đây và nhấn ``Save changes'' để lưu thay đổi.
+Người dùng có thể chỉnh sửa nội dung thử thách tại đây và nhấn nút ``Save changes'' để lưu thay đổi mà không cần xác nhận giao dịch.
 
 \subsubsection{Gửi thử thách cho kiểm duyệt}
 
-Để gửi thử thách đến bên kiểm duyệt, người dùng truy cập trang chi tiết của thử thách và nhấn nút ``Contribute''.  
+Để gửi thử thách đến bên kiểm duyệt, người dùng truy cập trang chi tiết của thử thách và chọn ``Contribute Challenge'' tại nút ba chấm ở góc trên bên phải.
 Hệ thống sẽ yêu cầu xác thực giao dịch thông qua ví tiền điện tử để chính thức chuyển thử thách sang trạng thái chờ kiểm duyệt.  
 Sau khi gửi đi, thử thách sẽ bị khóa và không còn có thể chỉnh sửa được nữa.
 
@@ -265,7 +265,7 @@ Nếu người dùng không đủ chỉ số uy tín chuyên môn tương ứng 
 \subsubsection{Thực hiện kiểm duyệt}
 
 Để bắt đầu kiểm duyệt, người dùng truy cập \textbf{Moderation} $\rightarrow$ \textbf{My Reviews} để xem danh sách các thử thách mà mình đã tham gia kiểm duyệt.  
-Sau đó, chọn thử thách tương ứng và nhấn nút ``Edit review''.
+Sau đó, chọn thử thách và nhấn ``Show Review'' tại nút ``Actions'' tương ứng.
 
 \begin{figure}[H]
   \centering
@@ -318,6 +318,13 @@ Tại đây, người dùng có thể xem chi tiết nội dung từng thử th�
   \includegraphics[width=0.99\textwidth, frame]{ui/explore-challenges-page.png}
   \caption{Trang danh sách thử thách đang hiện hành}
   \label{fig:explore-challenges-page}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/explore-challenge-detail.png}
+  \caption{Trang chi tiết một thử thách đang hiện hành}
+  \label{fig:explore-challenge-detail}
 \end{figure}
 
 \subsubsection{Thực hiện thử thách}
@@ -376,7 +383,7 @@ Tuy nhiên, nội dung chi tiết của giải pháp sẽ chưa được hiển 
 
 \subsubsection{Tham gia đánh giá giải pháp}
 
-Khi xem thông tin chi tiết của một giải pháp, người dùng có thể nhấn nút ``Evaluate Solution'' để đăng ký tham gia đánh giá.  
+Khi xem thông tin cơ bản của một giải pháp, người dùng có thể nhấn nút ``Evaluate Solution'' để đăng ký tham gia đánh giá.  
 Hệ thống sẽ yêu cầu xác thực giao dịch thông qua ví tiền điện tử để xác nhận quyền đánh giá.
 Nếu người dùng không đủ chỉ số uy tín chuyên môn phù hợp với loại thử thách, hệ thống sẽ hiển thị thông báo lỗi và không cho phép tiếp tục.
 
@@ -399,7 +406,7 @@ Tại đây, người đánh giá có thể xem nội dung chi tiết của gi�
   \label{fig:evaluated-by-me-page}
 \end{figure}
 
-Người dùng thực hiện đánh giá bằng cách điền nội dung nhận xét, chấm điểm theo thang điểm quy định và nhấn ``Submit'' để nộp kết quả.  
+Người dùng thực hiện đánh giá bằng cách chấm điểm theo thang điểm quy định và nhấn ``Submit'' để nộp kết quả.  
 Sau khi gửi đi, kết quả đánh giá sẽ được khóa và không thể chỉnh sửa.
 
 \begin{figure}[H]
@@ -414,7 +421,7 @@ Sau khi quá trình đánh giá hoàn tất, hệ thống sẽ công khai kết 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.99\textwidth, frame]{ui/evaluated-solution-page.png}
-  \caption{Giải pháp đã được đánh giá hoàn tất}
+  \caption{Thông tin về phiên đánh giá}
   \label{fig:evaluated-solution-page}
 \end{figure}
 
@@ -440,16 +447,17 @@ Tại không gian nhà tuyển dụng, người dùng truy cập tab \textbf{Acc
 \subsubsection{Đăng ký trở thành nhà tuyển dụng}
 
 Để sử dụng tính năng tuyển dụng, hệ thống yêu cầu người dùng ký gửi tối thiểu \textbf{1 POL}.  
-Để thực hiện, nhà tuyển dụng truy cập tab \textbf{Account Settings}, nhập số POL muốn gửi tại mục ``Recruiter Budget'' và nhấn nút ``Deposit''.  
-Sau đó, xác nhận giao dịch thông qua ví tiền điện tử.  
-Các chi phí phát sinh trong quá trình tuyển dụng sẽ tự động được khấu trừ từ khoản ký gửi này.
+Để thực hiện, nhà tuyển dụng truy cập tab \textbf{Account Settings}, nhấn nút ``Deposit Token'' tại mục ``Recruiter Budget'' để xuất hiện hộp thoại ký gửi.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.99\textwidth, frame]{ui/recruiter-account-settings-page.png}
-  \caption{Trang thiết lập tài khoản nhà tuyển dụng}
-  \label{fig:recruiter-account-settings-page}
+  \includegraphics[width=0.99\textwidth, frame]{ui/recruiter-deposit-dialog.png}
+  \caption{Hộp thoại ký gửi làm nhà tuyển dụng}
+  \label{fig:recruiter-deposit-dialog}
 \end{figure}
+
+Tại đây, nhà tuyển dụng cần nhập lượng POL muốn ký gửi và xác nhận giao dịch qua ví tiên điện tử để hoàn tất quá trình.
+Chi phí khi tuyển dụng thành công ứng viên sẽ tự động được khấu trừ từ khoản ký gửi này.
 
 \subsubsection{Quản lý hồ sơ nhà tuyển dụng}
 
@@ -533,7 +541,14 @@ Hệ thống cho phép chỉnh sửa nội dung trong mọi trạng thái bài �
 \subsubsection{Chuyển đổi trạng thái bài đăng}
 
 Tại trang chi tiết bài đăng, để thay đổi trạng thái (ví dụ: từ ``nháp'' sang ``đang mở''), nhà tuyển dụng nhấn biểu tượng ba chấm bên cạnh thông tin trạng thái trong phần ``Job Details'' và chọn trạng thái mong muốn.  
-Thao tác này yêu cầu xác nhận giao dịch qua ví điện tử.
+Sau đây sẽ xuất hiện hộp thoại xác nhận hành vi này, yêu cầu nhà tuyển dụng xác nhận giao dịch qua ví điện tử.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.99\textwidth, frame]{ui/confirm-publishing-job-post-dialog.png}
+  \caption{Hộp thoại xác nhận công khai bài đăng tuyển dụng}
+  \label{fig:confirm-publishing-job-post-dialog}
+\end{figure}
 
 \subsection{Quản lý thông tin ứng tuyển}
 
@@ -595,7 +610,6 @@ Hành động này yêu cầu xác nhận giao dịch qua ví điện tử.
 \subsubsection{Lên lịch một cuộc họp mới}
 
 Để lên lịch một cuộc họp mới, nhà tuyển dụng nhấn nút ``Schedule Meeting'' ở góc trên bên phải trang danh sách cuộc họp.
-
 Tại biểu mẫu lên lịch, nhà tuyển dụng thực hiện các bước:
 \begin{enumerate}
   \item Chọn vị trí công việc tương ứng.
@@ -605,8 +619,7 @@ Tại biểu mẫu lên lịch, nhà tuyển dụng thực hiện các bước:
 \end{enumerate}
 
 Sau khi hoàn tất, nhấn nút ``Schedule'' và xác nhận giao dịch qua ví điện tử để hoàn tất việc lên lịch.
-
-\textbf{Lưu ý:} Nhà tuyển dụng không thể lên lịch một cuộc họp mới cho cùng một ứng viên nếu đã có cuộc họp đang chờ với ứng viên đó.
+Lưu ý, không thể lên lịch một cuộc họp mới cho cùng một ứng viên nếu đã có cuộc họp đang chờ trước đó.
 
 \begin{figure}[H]
   \centering
@@ -617,13 +630,13 @@ Sau khi hoàn tất, nhấn nút ``Schedule'' và xác nhận giao dịch qua v�
 
 \subsubsection{Đổi lịch một cuộc họp}
 
-Đối với các cuộc họp ở trạng thái \textbf{đang chờ}, nhà tuyển dụng có thể thay đổi thời gian họp hoặc ghi chú bằng một trong hai cách:
+Đối với các cuộc họp ở trạng thái đang chờ, nhà tuyển dụng có thể thay đổi thời gian họp hoặc ghi chú bằng một trong hai cách:
 \begin{itemize}
   \item Từ danh sách cuộc họp, chọn ``Reschedule'' tại mục ``Actions''.
   \item Từ trang chi tiết cuộc họp, nhấn ``Reschedule'' tại biểu tượng ba chấm ở góc trên bên phải.
 \end{itemize}
 
-\textbf{Lưu ý:} Không thể thay đổi vị trí công việc hoặc ứng viên đã được chọn.
+Lưu ý, nhà tuyển dụng không thể thay đổi vị trí công việc hoặc ứng viên đã được chọn.
 
 \begin{figure}[H]
   \centering
