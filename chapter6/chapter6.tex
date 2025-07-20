@@ -41,6 +41,7 @@ Mặc dù đề tài đã đạt được nhiều kết quả tích cực trong 
 \subsection{Đối với hệ thống}
 \begin{itemize}
   \item \textbf{Thiếu giới hạn thời gian trong quá trình kiểm duyệt}: Hệ thống không quy định thời hạn nộp kết quả kiểm duyệt, dẫn đến nguy cơ trì hoãn hoặc bỏ dở quy trình.
+  \item \textbf{Bộ câu hỏi kiểm duyệt còn quá chung}: Hiện tại, bộ câu hỏi kiểm duyệt chưa được thiết kế riêng cho từng lĩnh vực chuyên môn, dẫn đến việc đánh giá thiếu chính xác hoặc không phản ánh đúng yêu cầu đặc thù của từng lĩnh vực.
   \item \textbf{Không hỗ trợ phản hồi kiểm duyệt}: Người kiểm duyệt không thể để lại nhận xét hay góp ý cho người đóng góp, hạn chế tính tương tác hai chiều.
   \item \textbf{Tiêu chí chấm điểm giải pháp còn đơn giản}: Việc chấm điểm chỉ dựa trên điểm số tổng quát, chưa phản ánh đầy đủ các khía cạnh đánh giá chi tiết.
   \item \textbf{Thiếu giới hạn thời gian trong quá trình đánh giá}: Tương tự như kiểm duyệt, không có thời hạn đánh giá dẫn đến nguy cơ đình trệ toàn bộ quy trình.
@@ -48,6 +49,8 @@ Mặc dù đề tài đã đạt được nhiều kết quả tích cực trong 
   \item \textbf{Thiếu tính năng bảo mật nâng cao}: Dữ liệu nhạy cảm như giải pháp, đánh giá và kiểm duyệt chưa được mã hóa hoặc kiểm soát truy cập đầy đủ, tiềm ẩn rủi ro an ninh thông tin.
   \item \textbf{Phạm vi lĩnh vực chuyên môn còn hạn chế}: Các lĩnh vực chuyên môn trong hệ thống hiện vẫn mang tính khái quát, chưa phân tách đầy đủ các chuyên ngành nhỏ trong lĩnh vực Công nghệ thông tin.
         Điều này có thể ảnh hưởng đến độ chính xác khi xác định uy tín chuyên môn và phân quyền vai trò tương ứng.
+  \item \textbf{Thiếu cơ chế kiểm soát danh tính trong kiểm duyệt và đánh giá}: Hệ thống chưa đảm bảo rằng những người tham gia kiểm duyệt hoặc đánh giá là những cá nhân khác nhau, dẫn đến khả năng một người dùng sử dụng nhiều ví điện tử để tham gia nhiều vai trò, làm giảm tính khách quan và độ tin cậy của kết quả.
+  \item \textbf{Chưa kiểm soát hành vi của người kiểm duyệt và người đánh giá}: Hệ thống chưa có cơ chế giám sát hoặc chế tài đối với các hành vi thiên vị, phá hoại hoặc không công bằng từ phía người kiểm duyệt và người đánh giá.
 \end{itemize}
 
 \subsection{Đối với giao diện người dùng}
@@ -65,7 +68,136 @@ Mặc dù đề tài đã đạt được nhiều kết quả tích cực trong 
 
 \section{Hướng phát triển tiếp theo}
 
-Dựa trên những kết quả đạt được và các hạn chế còn tồn tại, đề tài có thể được tiếp tục phát triển theo các hướng sau:
+Dựa trên những kết quả đạt được và các hạn chế còn tồn tại, đề tài có thể được tiếp tục phát triển theo các hướng sau.
+
+\subsection{Giới hạn lại chỉ số uy tín}
+
+Hiện tại, chỉ số uy tín chuyên môn hoặc uy tín toàn cục của một cá nhân có thể tăng không giới hạn, dẫn đến khó khăn trong việc phân loại mức độ uy tín giữa các người dùng -- đặc biệt là đối với những người kiểm duyệt có chỉ số uy tín vượt quá 200.
+
+Để khắc phục vấn đề này, chúng tôi đề xuất giới hạn chỉ số uy tín và điều chỉnh các ngưỡng phân quyền vai trò như sau:
+\begin{itemize}
+  \item Giới hạn chỉ số uy tín chuyên môn và toàn cục ở mức tối đa là 100 nhằm đảm bảo tính ổn định, dễ quản lý và dễ phân loại cấp bậc người dùng.
+  \item Các ngưỡng điểm uy tín để đạt được từng vai trò được điều chỉnh lại như bảng~\ref{tab:suggested-role-reputation-threshold-adjustment}.
+\end{itemize}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Vai trò} & $R_{\text{threshold}}$ \\ \hline
+    Người đóng góp   & 50                     \\ \hline
+    Người đánh giá   & 70                     \\ \hline
+    Người kiểm duyệt & 90                     \\ \hline
+  \end{tabular}
+  \caption{Bảng đề xuất điều chỉnh ngưỡng điểm uy tín theo vai trò}
+  \label{tab:suggested-role-reputation-threshold-adjustment}
+\end{table}
+
+\subsection{Xây dựng bộ câu hỏi kiểm duyệt và đánh giá cho từng lĩnh vực chuyên môn}
+
+Hiện tại, hệ thống chỉ áp dụng một bộ câu hỏi kiểm duyệt chung và thang điểm đánh giá là 100 cho tất cả các lĩnh vực chuyên môn. Tuy nhiên, mỗi lĩnh vực lại có những đặc thù riêng biệt về kiến thức, kỹ năng và tiêu chuẩn chất lượng.
+Việc sử dụng chung một bộ tiêu chí đánh giá cho mọi loại thử thách là chưa phù hợp, có thể làm giảm độ chính xác và khách quan trong quá trình kiểm duyệt và đánh giá.
+
+Do đó, chúng tôi đề xuất xây dựng các bộ câu hỏi kiểm duyệt và đánh giá chuyên biệt tương ứng với từng lĩnh vực chuyên môn. Mỗi bộ câu hỏi sẽ được thiết kế nhằm phản ánh đúng bản chất chuyên môn của lĩnh vực đó, đảm bảo tính toàn diện, công bằng và nhất quán trong quá trình đánh giá.
+Các bộ câu hỏi này sẽ được xây dựng và hiệu chỉnh bởi các chuyên gia có chuyên môn sâu trong từng lĩnh vực, đồng thời sẽ được rà soát, cập nhật định kỳ để đảm bảo tính thời sự và phù hợp với xu hướng công nghệ hiện nay.
+
+\subsection{Thiết lập hội đồng kiểm soát hành vi}
+
+Hiện tại, người kiểm duyệt và người đánh giá có thể thực hiện các hành vi ảnh hưởng trực tiếp đến kết quả thử thách và giải pháp mà không chịu bất kỳ sự giám sát nào, dẫn đến nguy cơ xuất hiện các hành vi không công bằng hoặc thiên vị.
+
+Để khắc phục vấn đề này, chúng tôi đề xuất thành lập các hội đồng kiểm soát hành vi riêng biệt cho từng lĩnh vực chuyên môn. Cụ thể, mỗi lĩnh vực sẽ có:
+\begin{itemize}
+  \item Một \textbf{hội đồng kiểm soát kiểm duyệt} để đánh giá hành vi của người kiểm duyệt.
+  \item Một \textbf{hội đồng kiểm soát đánh giá} để giám sát hành vi của người đánh giá.
+\end{itemize}
+
+\subsubsection{Cơ chế kiểm soát hành vi}
+
+Sau khi tất cả người kiểm duyệt hoặc người đánh giá nộp kết quả cho một thử thách hoặc giải pháp, hệ thống sẽ \textbf{ngẫu nhiên chọn một thành viên} từ hội đồng kiểm soát tương ứng để đánh giá hành vi trong phiên này.
+
+Thành viên được chọn sẽ xem xét toàn bộ nội dung đánh giá và xác định từng bài đánh giá là \textbf{``hợp lý''} hay \textbf{``không hợp lý''}, mà không xét ai ``đúng hơn''.
+Mục tiêu là phát hiện các đánh giá có dấu hiệu thiếu công bằng, sai lệch hoặc thiếu khách quan.
+Những bài đánh giá bị đánh giá là ``không hợp lý'' sẽ:
+\begin{itemize}
+  \item Bị loại khỏi quá trình tổng hợp kết quả.
+  \item Khiến người kiểm duyệt hoặc người đánh giá \textbf{giảm điểm uy tín}, riêng người kiểm duyệt cũng sẽ \textbf{không được thưởng}.
+\end{itemize}
+
+\subsubsection{Hình thức tuyển chọn thành viên hội đồng kiểm soát}
+
+Để đảm bảo quy mô và năng lực đánh giá, các hội đồng kiểm soát cần được mở rộng tương ứng với số lượng thử thách và giải pháp phát sinh. Cơ chế tuyển chọn thành viên hội đồng như sau:
+
+\begin{itemize}
+  \item Người kiểm duyệt hoặc người đánh giá có uy tín chuyên môn đạt ngưỡng tối thiểu sẽ được phép đăng ký tham gia hội đồng kiểm soát tương ứng với lĩnh vực chuyên môn.
+  \item Hội đồng hiện tại sẽ gửi bộ câu hỏi tuyển chọn chuyên biệt để người đăng ký trả lời.
+  \item Nếu câu trả lời vượt ngưỡng yêu cầu nhất định (ví dụ, câu trả lời được hơn 90\% thành viên hội đồng hiện tại chấp thuận), cá nhân đó sẽ được kết nạp vào hội đồng.
+\end{itemize}
+
+\textbf{Giai đoạn khởi tạo ban đầu:} Hệ thống sẽ mời một chuyên gia đảm nhiệm vai trò \textit{quản lý chuyên môn} cho mỗi lĩnh vực. Người này có nhiệm vụ lựa chọn từ 3--5 chuyên gia đáng tin cậy để hình thành các hội đồng kiểm soát đầu tiên.
+Quy trình này không dựa vào điểm uy tín trên hệ thống, mà dựa vào kinh nghiệm và đánh giá chuyên môn thực tế.
+
+\subsubsection{Quản lý bộ câu hỏi kiểm duyệt, đánh giá và tuyển chọn}
+
+Các hội đồng kiểm soát có nhiệm vụ xây dựng và duy trì:
+\begin{itemize}
+  \item Bộ câu hỏi dùng để kiểm duyệt thử thách và đánh giá giải pháp.
+  \item Bộ câu hỏi dùng để tuyển chọn thành viên mới vào hội đồng kiểm soát.
+\end{itemize}
+
+Tại mỗi phiên họp định kỳ:
+\begin{itemize}
+  \item Mỗi thành viên có thể đề xuất chỉnh sửa, bổ sung hoặc loại bỏ câu hỏi.
+  \item Mỗi đề xuất sẽ được hội đồng biểu quyết ngang phiếu.
+  \item Nếu tỷ lệ đồng thuận vượt ngưỡng yêu cầu nhất định (ví dụ: đề xuất chỉnh sửa câu hỏi K được 80\% thành viên hội đồng đồng ý), đề xuất sẽ được thông qua.
+\end{itemize}
+
+Trong giai đoạn đầu, các thành viên ban đầu đề xuất và biểu quyết để hình thành bộ câu hỏi đầu tiên. Bộ câu hỏi này là nền tảng cho các phiên rà soát và cập nhật về sau.
+
+\subsection{Thay đổi cơ chế phân phối token}
+
+Hiện tại, tất cả người kiểm duyệt trong một phiên kiểm duyệt chất lượng thử thách đều có cơ hội nhận phần thưởng, bất kể kết quả kiểm duyệt có hợp lý hay không.
+Tuy nhiên, sau khi đề xuất về việc thành lập hội đồng kiểm soát hành vi được đưa ra, cơ chế phân phối thưởng cần được điều chỉnh để đảm bảo công bằng và nâng cao chất lượng kiểm duyệt.
+Cụ thể:
+\begin{itemize}
+  \item Chỉ những người kiểm duyệt có bài đánh giá được hội đồng kiểm soát xác nhận là \textbf{``hợp lý''} mới được nhận thưởng.
+  \item \textbf{Người đại diện hội đồng kiểm soát}, người chịu trách nhiệm đánh giá hành vi trong phiên kiểm duyệt, sẽ được nhận một phần thưởng nhỏ từ quỹ thưởng chung.
+\end{itemize}
+
+Tỷ lệ phân phối được đề xuất như sau:
+\begin{itemize}
+  \item \textbf{10\%} tổng quỹ thưởng dành cho phiên kiểm duyệt sẽ được trao cho người đại diện hội đồng kiểm soát.
+  \item \textbf{90\%} còn lại sẽ được phân phối đều cho những người kiểm duyệt có bài đánh giá hợp lý.
+\end{itemize}
+
+\subsection{Khấu trừ lợi nhuận từ phí tham gia thử thách}
+
+Hiện tại, người đóng góp nhận toàn bộ phí tham gia thử thách từ người học. Tuy nhiên, để hỗ trợ các hoạt động duy trì nền tảng và khuyến khích sự tham gia của các thành viên có vai trò quan trọng trong quy trình kiểm duyệt, chúng tôi đề xuất cơ chế khấu trừ một phần lợi nhuận này như sau:
+\begin{itemize}
+  \item \textbf{10\%} dành cho \textbf{người đại diện hội đồng kiểm soát hành vi}.
+  \item \textbf{10\%} dành cho \textbf{những người kiểm duyệt có bài đánh giá hợp lý}, được phân phối theo cơ chế quỹ thưởng đã nêu ở mục trước.
+  \item \textbf{1\%} chuyển vào \textbf{quỹ chi phí vận hành hệ thống}.
+  \item \textbf{79\%} còn lại sẽ được chuyển cho \textbf{người đóng góp}.
+\end{itemize}
+Cơ chế phân phối này nhằm đảm bảo hệ sinh thái vận hành công bằng, minh bạch và có động lực lâu dài cho các thành phần cốt lõi của nền tảng.
+
+\subsection{Chọn ra những người kiểm duyệt hoặc người đánh giá}
+
+Hiện tại, hệ thống cho phép người kiểm duyệt và người đánh giá có thể chủ động tham gia vào thử thách hoặc giải pháp mong muốn nếu đạt đủ điểm uy tín. 
+Điều này dẫn đến khả năng một người dùng có thể sử dụng nhiều ví điện tử để tham gia, làm giảm tính khách quan và độ tin cậy của kết quả cũng như trục lợi từ quỹ treo thưởng.
+
+Do đó, chúng tôi đề xuất cơ chế \textbf{chọn ngẫu nhiên 3 người kiểm duyệt hoặc người đánh giá} có uy tín chuyên môn phù hợp với lĩnh vực chuyên môn của thử thách hoặc giải pháp. 
+Cơ chế này không chỉ đảm bảo tính công bằng mà còn tránh tình trạng người dùng chủ động chọn thử thách để thao túng kết quả.
+
+Bên cạnh đó, hệ thống cũng sẽ triển khai một số kỹ thuật kiểm soát hành vi nhằm \textbf{phát hiện người dùng sử dụng nhiều ví điện tử}, chẳng hạn như:
+\begin{itemize}
+  \item Yêu cầu người dùng liên kết các ví phụ với một ví chính thông qua chữ ký xác thực.
+  \item Phân tích hành vi và lịch sử tương tác của các ví để phát hiện các mẫu hành vi trùng lặp.
+  \item Áp dụng giới hạn số lượng ví có thể liên kết với một danh tính.
+\end{itemize}
+
+Những biện pháp này giúp đảm bảo việc chọn ngẫu nhiên không vô tình chọn nhiều địa chỉ thuộc cùng một cá nhân, từ đó duy trì tính khách quan và độ tin cậy của hệ thống.
+
+\subsection{Một số hướng phát triển khác}
 
 \begin{itemize}
   \item \textbf{Kiểm soát người dùng chưa đăng ký}: Bổ sung cơ chế giới hạn quyền thực hiện các hành vi quan trọng đối với người dùng chưa hoàn tất đăng ký thông tin cá nhân.
@@ -75,8 +207,6 @@ Dựa trên những kết quả đạt được và các hạn chế còn tồn 
   \item \textbf{Phát triển không gian bình luận cho thử thách}: Mỗi thử thách nên có khu vực phản hồi công khai, nơi cộng đồng có thể thảo luận, đánh giá và chia sẻ trải nghiệm thực tế, góp phần phản ánh chất lượng thử thách.
   \item \textbf{Tích hợp môi trường lập trình vào không gian giải pháp}: Hỗ trợ trình biên dịch theo nhiều ngôn ngữ lập trình phổ biến, giúp người học có thể viết, chạy thử, và hiển thị kết quả ngay trong giao diện hệ thống.
   \item \textbf{Cơ chế phản hồi đánh giá và kiểm duyệt}: Mở rộng chức năng phản hồi từ người đánh giá hoặc kiểm duyệt để gửi nhận xét cụ thể đến người đóng góp hoặc người học, tăng cường tính minh bạch và tính hướng dẫn.
-  \item \textbf{Mở rộng tiêu chí đánh giá giải pháp}: Ngoài điểm số tổng quan, bổ sung các tiêu chí cụ thể như khả năng trình bày, mức độ sáng tạo, hành vi sao chép nội dung, nhằm phản ánh đa chiều hơn chất lượng giải pháp.
-  \item \textbf{Bổ sung thông tin chi tiết cho phiên đánh giá}: Cần mở rộng giao diện hiển thị phiên đánh giá nhằm cung cấp đầy đủ thông tin cho người giải và người đánh giá, bao gồm danh sách những người tham gia đánh giá, điểm số tương ứng, thời điểm nộp đánh giá và các thông tin liên quan khác.
   \item \textbf{Bổ sung ràng buộc thời gian}: Đặt giới hạn thời gian cụ thể cho việc hoàn tất kiểm duyệt và đánh giá nhằm tránh tình trạng trì hoãn và giúp quy trình vận hành trơn tru hơn.
   \item \textbf{Mở rộng khả năng tương tác cộng đồng}: Cho phép người dùng truy cập thông tin hồ sơ của người khác (nếu công khai), tìm kiếm người cố vấn và tham gia không gian cộng đồng để trao đổi và học hỏi lẫn nhau.
   \item \textbf{Nâng cao bảo mật dữ liệu}: Áp dụng mã hóa cho dữ liệu nhạy cảm (on-chain và off-chain), đồng thời tăng cường kiểm soát quyền truy cập để đảm bảo an toàn thông tin cho người dùng.
