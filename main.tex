@@ -2,7 +2,7 @@
 \setcounter{secnumdepth}{3}
 
 % Configure the page layout
-\usepackage[a4paper,right=25mm,left=25mm,top=20mm,bottom=20mm]{geometry}
+\usepackage[a4paper,right=25mm,left=35mm,top=20mm,bottom=20mm, twoside]{geometry}
 
 % Set font family
 \usepackage[T1]{fontenc}
@@ -48,7 +48,25 @@
 
 \include{title/title}
 
+\clearpage
+\thispagestyle{empty}
+\hfill
+\clearpage
+
+\include{otherChapter/abstract}
+
+\clearpage
+\thispagestyle{empty}
+\hfill
+\clearpage
+
+\setcounter{page}{5}
+
 \include{otherChapter/thanks}
+
+\clearpage
+\hfill
+\clearpage
 
 \tableofcontents
 
