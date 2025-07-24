@@ -139,21 +139,18 @@ Ngoài ra, có thể biểu diễn giá trị này bằng cách lưu số lượ
 
 \subsubsection{Chuẩn hóa giá trị tin cậy cục bộ}
 
-Trước tiên, cần chuẩn hóa các giá trị tin cậy cục bộ để đảm bảo tính công bằng. Nếu không chuẩn hóa, một peer độc hại có thể đánh giá tích cực cho các peer độc hại khác và
-đánh giá tiêu cực cho các peer có uy tín cao. Để chuẩn hóa, ta chỉ xét các đánh giá tích cực, và tính xác suất chọn mỗi peer $j$ khi được peer $i$ tin tưởng như sau:
+Trước tiên, cần chuẩn hóa các giá trị tin cậy cục bộ để đảm bảo tính công bằng. Để chuẩn hóa, ta chỉ xét các đánh giá tích cực, và tính xác suất chọn mỗi peer $j$ khi được peer $i$ tin tưởng như sau:
 \[c_{ij} = \frac{max(s_{ij}, 0)}{\sum_{j} max(s_{ij}, 0)}\]
 Cách làm này đảm bảo các giá trị $c_{ij}$ nằm trong khoảng $[0, 1]$ và có thể được hiểu như một xác suất trong mô hình ngẫu nhiên
 (chú ý: nếu $\sum_{j} max(s_{ij}, 0) = 0$ thì $c_{ij}$ sẽ không xác định, vấn đề này sẽ được giải quyết sau đó).
 Tuy nhiên, có một số hạn chế: nếu $c_{ij} = c_{ik}$ , ta chỉ biết mức độ tin tưởng của $i$ đối với $j$ và $k$ là như nhau, nhưng không rõ mức độ tuyệt đối đó là cao hay thấp.
-Dù vậy, việc chuẩn hóa theo cách này giúp quá trình tính toán hiệu quả hơn và dễ dàng áp dụng mô hình xác suất.
+Dù vậy, việc chuẩn hóa giúp quá trình tính toán hiệu quả hơn và dễ dàng áp dụng mô hình xác suất.
 
 \subsubsection{Tổng hợp các giá trị tin cậy cục bộ}
 
 Sau khi chuẩn hóa, mục tiêu là tổng hợp các đánh giá cục bộ để thu được cái nhìn rộng hơn về độ tin cậy của từng peer.
 Điều này được thực hiện bằng cách áp dụng \textbf{transitive trust} (tạm dịch: niềm tin chuyển tiếp)
--- nghĩa là peer $i$ sẽ hỏi ý kiến những người mà nó tin tưởng, và kết hợp đánh giá của họ với trọng số tương ứng.
-
-Quá trình tổng hợp này dẫn đến một biểu thức dạng:
+-- nghĩa là peer $i$ sẽ hỏi ý kiến những người mà nó tin tưởng, và kết hợp đánh giá của họ với trọng số tương ứng. Quá trình tổng hợp này dẫn đến một biểu thức dạng:
 \[t_{ik} = \sum_{j} c_{ij}c_{jk}\]
 trong đó, $t_{ik}$ thể hiện niềm tin của peer $i$ đối với $k$ sau khi hỏi bạn bè của nó $j$, mỗi người bạn của $i$ lại đánh giá $k$ một cách riêng $c_{jk}$.
 Ta có thể biểu diễn biểu thức trên thành ma trận: nếu ta gọi $C$ là ma trận $[c_{ij}]$ và $\vec{t_i}$ là vector chứa các giá trị $t_{ik}$, khi đó ta có

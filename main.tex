@@ -2,7 +2,16 @@
 \setcounter{secnumdepth}{3}
 
 % Configure the page layout
-\usepackage[a4paper,right=25mm,left=35mm,top=20mm,bottom=20mm, twoside]{geometry}
+\usepackage[
+  a4paper,
+  right=25mm,
+  left=25mm,
+  inner=35mm,
+  outer=20mm,
+  top=20mm,
+  bottom=20mm, 
+  twoside
+]{geometry}
 
 % Set font family
 \usepackage[T1]{fontenc}
@@ -44,29 +53,40 @@
 \newcommand{\studentone}{Nguyễn Hải Tuyên - 21127474}
 \newcommand{\studenttwo}{Trần Minh Đạt - 21127570}
 
+% Blank page without page number
+\newcommand{\blankpage}{
+  \clearpage
+  \thispagestyle{empty}
+  \hfill
+  \clearpage
+}
+
+% Blank page with page number
+\newcommand{\emptypage}{
+  \clearpage
+  \hfill
+  \clearpage
+}
+
 \begin{document}
 
 \include{title/title}
 
-\clearpage
-\thispagestyle{empty}
-\hfill
-\clearpage
+\blankpage
+
+\include{otherChapter/extra-title}
+
+\blankpage
 
 \include{otherChapter/abstract}
 
-\clearpage
-\thispagestyle{empty}
-\hfill
-\clearpage
+\blankpage
 
-\setcounter{page}{5}
+\setcounter{page}{7}
 
 \include{otherChapter/thanks}
 
-\clearpage
-\hfill
-\clearpage
+\emptypage
 
 \tableofcontents
 
@@ -78,7 +98,11 @@
 
 \include{chapter2/chapter2}
 
+\emptypage
+
 \include{chapter3/chapter3}
+
+\emptypage
 
 \include{chapter4/chapter4}
 

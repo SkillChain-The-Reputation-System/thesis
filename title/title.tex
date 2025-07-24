@@ -1,9 +1,11 @@
+\newgeometry{top=20mm,bottom=20mm}
+
 \begin{titlepage}
   \begin{center}
     % Draw border with a small margin using TikZ
     \begin{tikzpicture}[remember picture, overlay]
       \draw[line width=2pt]
-      ([xshift=25mm,yshift=-15mm]current page.north west)
+      ([xshift=15mm,yshift=-15mm]current page.north west)
       rectangle
       ([xshift=-15mm,yshift=15mm]current page.south east);
     \end{tikzpicture}
@@ -30,3 +32,5 @@
     \textit{Tp. Hồ Chí Minh, tháng 7 năm 2025}
   \end{center}
 \end{titlepage}
+
+\restoregeometry
