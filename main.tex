@@ -44,6 +44,8 @@
 % Support for algorithm
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+% \usepackage{etoolbox}
+% \AtBeginEnvironment{algorithm}{\fontsize{9pt}{11pt}\selectfont}
 
 % Define line spacing
 \usepackage{setspace}
@@ -51,6 +53,13 @@
 
 % Create graphic elements in LaTeX
 \usepackage{tikz}
+
+\usepackage{caption}
+
+\captionsetup{
+  font = {small, small},
+}
+\captionsetup[algorithm]{labelfont=bf, name=Thuật toán, font=small}
 
 % Define commands for general information
 \newcommand{\thesisname}{Hệ thống uy tín phục vụ xác thực hồ sơ và đánh giá kỹ năng}
@@ -88,6 +97,8 @@
 
 \blankpage
 
+\fontsize{12pt}{15pt}\selectfont
+
 \include{otherChapter/abstract}
 
 \blankpage
@@ -100,11 +111,15 @@
 
 \include{otherChapter/outline}
 
+\emptypage
+
 \tableofcontents
 
 \listoffigures
 
 \listoftables
+
+\emptypage
 
 \include{chapter1/chapter1}
 
@@ -118,11 +133,13 @@
 
 \include{chapter4/chapter4}
 
-\include{chapter5/chapter5}
-
 \emptypage
 
+\include{chapter5/chapter5}
+
 \include{chapter6/chapter6}
+
+\emptypage
 
 \bibliographystyle{ieeetr}
 \bibliography{reference}

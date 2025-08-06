@@ -80,17 +80,17 @@ ta có cấu trúc đồ thị bản thể như hình \ref{fig:good-seller-ontol
 \begin{figure}[H]
   \centering
   \begin{tikzpicture}
-    \node[draw, rectangle, minimum width=3.5cm, minimum height=1cm, font=\small] at (5,0) (goodseller) {good seller};
-    \node[draw, rectangle, minimum width=3.5cm, minimum height=1cm, font=\small] at (0,-3) (deliverydate) {delivery date};
-    \node[draw, rectangle, minimum width=3.5cm, minimum height=1cm, font=\small] at (5,-3) (productprize) {product price};
-    \node[draw, rectangle, minimum width=3.5cm, minimum height=1cm, font=\small] at (10,-3) (productquality) {product quality};
+    \node[draw, rectangle, minimum width=3.5cm, minimum height=1cm, font=\footnotesize] at (5,0) (goodseller) {good seller};
+    \node[draw, rectangle, minimum width=3.5cm, minimum height=1cm, font=\footnotesize] at (0,-3) (deliverydate) {delivery date};
+    \node[draw, rectangle, minimum width=3.5cm, minimum height=1cm, font=\footnotesize] at (5,-3) (productprize) {product price};
+    \node[draw, rectangle, minimum width=3.5cm, minimum height=1cm, font=\footnotesize] at (10,-3) (productquality) {product quality};
 
     \filldraw[black] (5,-1) circle (2pt);
 
     \draw[thick] (goodseller.south) -- (5,-1);
-    \draw[thick] (deliverydate.north) -- (5,-1) node[midway, above] {0.25};
-    \draw[thick] (productprize.north) -- (5,-1) node[midway, right] {0.15};
-    \draw[thick] (productquality.north) -- (5,-1) node[midway, above] {0.6};
+    \draw[thick, font=\small] (deliverydate.north) -- (5,-1) node[midway, above] {0.25};
+    \draw[thick, font=\small] (productprize.north) -- (5,-1) node[midway, right] {0.15};
+    \draw[thick, font=\small] (productquality.north) -- (5,-1) node[midway, above] {0.6};
   \end{tikzpicture}
   \caption{Cấu trúc đồ thị bản thể cho ``một người bán hàng tốt''}
   \label{fig:good-seller-ontological-structure}
@@ -99,7 +99,6 @@ ta có cấu trúc đồ thị bản thể như hình \ref{fig:good-seller-ontol
 Vì vậy, khi muốn tính một uy tín phức hợp theo chiều bản thể học, một tác nhân cần tính uy tín của từng khía cạnh liên quan.
 Mỗi khía cạnh này có thể lại là một nút trong một đồ thị con, nơi nó cũng được cấu thành từ các khía cạnh nhỏ hơn nữa.
 Đây là một cấu trúc phân cấp đệ quy -- điểm rất đặc trưng của mô hình này.
-
 Đối với những nút cuối cùng trong đồ thị (các khía cạnh cơ bản nhất của hành vi, gọi là \textit{atomic aspect}),
 thì uy tín của chúng được tính dựa trên chiều cá nhân và chiều xã hội.
 
@@ -110,7 +109,7 @@ các giá trị của các nút con của nó theo một công thức:
 trong đó, $OR_{a \rightarrow b}(j) = SR_{a \rightarrow b}(j)$ khi $j$ là một khía cạnh cơ bản.
 
 Đối với ví dụ ở hình \ref{fig:good-seller-ontological-structure}, ta có thể tính giá trị uy tín của $b$ (người bán hàng tốt)
-theo quan điểm của tác nhân $a$ bằng công thức:
+theo góc nhìn của tác nhân $a$ bằng công thức:
 \begin{align*}
   OR_{a \rightarrow b}(good\ seller) =\  & 0.25 \cdot SR_{a \rightarrow b}(delivery\ date) + \\
                                          & 0.15 \cdot SR_{a \rightarrow b}(product\ price) + \\
@@ -139,18 +138,21 @@ Ngoài ra, có thể biểu diễn giá trị này bằng cách lưu số lượ
 
 \subsubsection{Chuẩn hóa giá trị tin cậy cục bộ}
 
-Trước tiên, cần chuẩn hóa các giá trị tin cậy cục bộ để đảm bảo tính công bằng. Để chuẩn hóa, ta chỉ xét các đánh giá tích cực, và tính xác suất chọn mỗi peer $j$ khi được peer $i$ tin tưởng như sau:
+Trước tiên, cần chuẩn hóa các giá trị tin cậy cục bộ để đảm bảo tính công bằng. Nếu không chuẩn hóa, một peer độc hại có thể đánh giá tích cực cho các peer độc hại khác và
+đánh giá tiêu cực cho các peer có uy tín cao. Để chuẩn hóa, ta chỉ xét các đánh giá tích cực, và tính xác suất chọn mỗi peer $j$ khi được peer $i$ tin tưởng như sau:
 \[c_{ij} = \frac{max(s_{ij}, 0)}{\sum_{j} max(s_{ij}, 0)}\]
 Cách làm này đảm bảo các giá trị $c_{ij}$ nằm trong khoảng $[0, 1]$ và có thể được hiểu như một xác suất trong mô hình ngẫu nhiên
 (chú ý: nếu $\sum_{j} max(s_{ij}, 0) = 0$ thì $c_{ij}$ sẽ không xác định, vấn đề này sẽ được giải quyết sau đó).
 Tuy nhiên, có một số hạn chế: nếu $c_{ij} = c_{ik}$ , ta chỉ biết mức độ tin tưởng của $i$ đối với $j$ và $k$ là như nhau, nhưng không rõ mức độ tuyệt đối đó là cao hay thấp.
-Dù vậy, việc chuẩn hóa giúp quá trình tính toán hiệu quả hơn và dễ dàng áp dụng mô hình xác suất.
+Dù vậy, việc chuẩn hóa theo cách này giúp quá trình tính toán hiệu quả hơn và dễ dàng áp dụng mô hình xác suất.
 
 \subsubsection{Tổng hợp các giá trị tin cậy cục bộ}
 
 Sau khi chuẩn hóa, mục tiêu là tổng hợp các đánh giá cục bộ để thu được cái nhìn rộng hơn về độ tin cậy của từng peer.
 Điều này được thực hiện bằng cách áp dụng \textbf{transitive trust} (tạm dịch: niềm tin chuyển tiếp)
--- nghĩa là peer $i$ sẽ hỏi ý kiến những người mà nó tin tưởng, và kết hợp đánh giá của họ với trọng số tương ứng. Quá trình tổng hợp này dẫn đến một biểu thức dạng:
+-- nghĩa là peer $i$ sẽ hỏi ý kiến những người mà nó tin tưởng, và kết hợp đánh giá của họ với trọng số tương ứng.
+
+Quá trình tổng hợp này dẫn đến một biểu thức dạng:
 \[t_{ik} = \sum_{j} c_{ij}c_{jk}\]
 trong đó, $t_{ik}$ thể hiện niềm tin của peer $i$ đối với $k$ sau khi hỏi bạn bè của nó $j$, mỗi người bạn của $i$ lại đánh giá $k$ một cách riêng $c_{jk}$.
 Ta có thể biểu diễn biểu thức trên thành ma trận: nếu ta gọi $C$ là ma trận $[c_{ij}]$ và $\vec{t_i}$ là vector chứa các giá trị $t_{ik}$, khi đó ta có
@@ -183,6 +185,7 @@ Chi tiết tại thuật toán \ref{alg:simple-eigentrust-algorithm}.
   \caption{Thuật toán EigenTrust đơn giản}
   \label{alg:simple-eigentrust-algorithm}
   \begin{algorithmic}
+    \small
     \State $\vec{t}^{(0)} = \vec{e}$
     \Repeat
     \State $\vec{t}^{(k+1)} = C^{T}\vec{t}^{(k)}$
@@ -204,8 +207,8 @@ Ta định nghĩa tập hợp $P$ là các peer có uy tín sẵn (pre-trusted p
 \]
 điều này giúp hội tụ nhanh hơn, cũng như loại bỏ được các peer độc hại.
 
-\textbf{Những peer không hoạt động.} Nếu peer $i$ chưa từng tương tác với ai, thì không thể tính được $c_{ij}$ (do không thể chia hết cho 0).
-Khi đó, ta mặc định rằng peer $i$ tin tưởng các peer uy tín sẵn theo phân phối $p$, tức $c_{ij} = p_j$. Ta có thể diễu diễn lại các tính $c_{ij}$ như sau:
+\textbf{Những peer không hoạt động.} Nếu peer $i$ chưa từng tương tác với ai, thì không thể tính được $c_{ij}$.
+Khi đó, ta mặc định rằng peer $i$ tin tưởng các peer uy tín sẵn theo phân phối $p$, tức $c_{ij} = p_j$. Ta có thể diễu diễn lại cách tính $c_{ij}$ như sau:
 \[
   c_{ij} =
   \begin{cases}
@@ -223,6 +226,7 @@ trong đó, $a$ là một hằng số nhỏ hơn 1. Việc này giúp ``kéo'' g
   \caption{Thuật toán EigenTrust cơ bản}
   \label{alg:basic-eigentrust-algorithm}
   \begin{algorithmic}
+    \small
     \State $\vec{t}^{(0)} = \vec{p}$
     \Repeat
     \State $\vec{t}^{(k+1)} = C^{T}\vec{t}^{(k)}$
@@ -248,6 +252,7 @@ có thể báo cáo.
   \caption{Thuật toán EigenTrust phân tán}
   \label{alg:distributed-eigentrust-algorithm}
   \begin{algorithmic}
+    \small
     \State $\textbf{Definitions}$
     \State \hspace{1em}- $A_i$: set of peers which have downloaded files from peer $i$
     \State \hspace{1em}- $B_i$: set of peers from which peer $i$ has downloaded files
