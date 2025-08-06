@@ -244,8 +244,8 @@ Sau khi có điểm biến thiên, hệ thống sẽ ghi lại điểm uy tín �
 \[R_{\text{domain}} = R_{\text{contribution}} + R_{\text{moderation}} + R_{\text{participation}} + R_{\text{evaluation}} \]
 Mỗi thành phần trong công thức trên chỉ bao gồm điểm số phát sinh từ những thử thách thuộc cùng một lĩnh vực chuyên môn (ví dụ: chỉ tính các hoạt động trong lĩnh vực An ninh mạng nếu đang xét).
 
-\textbf{Uy tín toàn cục} được tính bằng tổng điểm uy tín chuyên môn trong tất cả các lĩnh vực thử thách mà hệ thống hỗ trợ:
-\[R_{\text{global}} = R_{\text{domain}_1} + R_{\text{domain}_2} + ... + R_{\text{domain}_n}\]
+\textbf{Uy tín toàn cục} được tính bằng tổng điểm trung bình uy tín chuyên môn trong tất cả các lĩnh vực thử thách mà hệ thống hỗ trợ:
+\[R_{\text{global}} = \frac{1}{n}\sum_{i=1}^{n} R_{\text{domain}_i}\]
 trong đó, $n$ là tổng số lĩnh vực chuyên môn được định nghĩa trong hệ thống.
 
 \section{Vai trò của hồ sơ uy tín}

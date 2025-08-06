@@ -180,62 +180,63 @@ Hình~\ref{fig:system-architecture} minh họa kiến trúc tổng quát của h
 
 \begin{figure}[H]
   \centering
-  \begin{tikzpicture}
-    \tikzset{
-      pics/cylinder/.style={
-          code={
-              \draw[thick] (0,0) ellipse (1.3 and 0.3);
+  % \begin{tikzpicture}
+  %   \tikzset{
+  %     pics/cylinder/.style={
+  %         code={
+  %             \draw[thick] (0,0) ellipse (1.3 and 0.3);
 
-              \draw[thick] (-1.3,0) -- (-1.3,-1.2);
-              \draw[thick] (1.3,0) -- (1.3,-1.2);
+  %             \draw[thick] (-1.3,0) -- (-1.3,-1.2);
+  %             \draw[thick] (1.3,0) -- (1.3,-1.2);
 
-              \draw[thick] (-1.3,-1.2) arc (180:360:1.3 and 0.3);
+  %             \draw[thick] (-1.3,-1.2) arc (180:360:1.3 and 0.3);
 
-              \node at (0,-0.85) {\footnotesize Vercel Hosting};
-            }
-        }
-    }
-    \node[draw, thick, rectangle, minimum width=2cm, minimum height=1cm, font=\footnotesize] (user) at (0, 0) {User};
-    \pic (vercel) at (0, -2) {cylinder};
-    \node (vercel_north) at (0, -1.85) {};
-    \node (vercel_south) at (0, -3.3) {};
+  %             \node at (0,-0.85) {\footnotesize Vercel Hosting};
+  %           }
+  %       }
+  %   }
+  %   \node[draw, thick, rectangle, minimum width=2cm, minimum height=1cm, font=\footnotesize] (user) at (0, 0) {User};
+  %   \pic (vercel) at (0, -2) {cylinder};
+  %   \node (vercel_north) at (0, -1.85) {};
+  %   \node (vercel_south) at (0, -3.3) {};
 
-    \node[draw, thick, rectangle, minimum width=2.7cm, minimum height=1cm, font=\footnotesize] (nextjs) at (0, -5.5) {NextJS App};
-    \node[draw, thick, rectangle, minimum width=3cm, minimum height=1cm, font=\footnotesize] (tailwindcss) at (4.5, -4.5) {Tailwind CSS};
+  %   \node[draw, thick, rectangle, minimum width=2.7cm, minimum height=1cm, font=\footnotesize] (nextjs) at (0, -5.5) {NextJS App};
+  %   \node[draw, thick, rectangle, minimum width=3cm, minimum height=1cm, font=\footnotesize] (tailwindcss) at (4.5, -4.5) {Tailwind CSS};
 
-    \node[draw, thick, rectangle, minimum width=5.8cm, minimum height=2.3cm, font=\footnotesize] (externalservice) at (4.9, -8) {};
-    \node[font=\footnotesize] at ([yshift=-0.4cm]externalservice.north) {External Services};
-    \node[draw, thick, rectangle, minimum width=2.5cm, minimum height=1cm, font=\footnotesize] (jitsimeet) at ([xshift=1.65cm, yshift=-0.15cm]externalservice.west) {Jitsi Meet};
-    \node[draw, thick, rectangle, minimum width=2cm, minimum height=1cm, font=\footnotesize] (irys) at ([xshift=-1.5cm, yshift=-0.15cm]externalservice.east) {Irys};
+  %   \node[draw, thick, rectangle, minimum width=5.8cm, minimum height=2.3cm, font=\footnotesize] (externalservice) at (4.9, -8) {};
+  %   \node[font=\footnotesize] at ([yshift=-0.4cm]externalservice.north) {External Services};
+  %   \node[draw, thick, rectangle, minimum width=2.5cm, minimum height=1cm, font=\footnotesize] (jitsimeet) at ([xshift=1.65cm, yshift=-0.15cm]externalservice.west) {Jitsi Meet};
+  %   \node[draw, thick, rectangle, minimum width=2cm, minimum height=1cm, font=\footnotesize] (irys) at ([xshift=-1.5cm, yshift=-0.15cm]externalservice.east) {Irys};
 
-    \node[draw, thick, rectangle, minimum width=5cm, minimum height=4.5cm, font=\footnotesize] (devinfrastructure) at (-5, -5) {};
-    \node[font=\footnotesize] at ([yshift=-0.4cm]devinfrastructure.north) {Development Infrastructure};
-    \node[draw, thick, rectangle, minimum width=2.5cm, minimum height=1cm, font=\footnotesize] (nodejs) at ([yshift=-1.5cm]devinfrastructure.north) {NodeJS};
-    \node[draw, thick, rectangle, minimum width=2.5cm, minimum height=1cm, font=\footnotesize] (hardhat) at ([yshift=1cm]devinfrastructure.south) {Hardhat};
+  %   \node[draw, thick, rectangle, minimum width=5cm, minimum height=4.5cm, font=\footnotesize] (devinfrastructure) at (-5, -5) {};
+  %   \node[font=\footnotesize] at ([yshift=-0.4cm]devinfrastructure.north) {Development Infrastructure};
+  %   \node[draw, thick, rectangle, minimum width=2.5cm, minimum height=1cm, font=\footnotesize] (nodejs) at ([yshift=-1.5cm]devinfrastructure.north) {NodeJS};
+  %   \node[draw, thick, rectangle, minimum width=2.5cm, minimum height=1cm, font=\footnotesize] (hardhat) at ([yshift=1cm]devinfrastructure.south) {Hardhat};
 
-    \node[draw, thick, rectangle, minimum width=6.2cm, minimum height=2.3cm, font=\footnotesize] (network) at (-5, -12) {};
-    \node[font=\footnotesize] at ([yshift=-0.4cm]network.north) {Blockchain Networks};
-    \node[draw, thick, rectangle, minimum width=2.7cm, minimum height=1cm, font=\footnotesize] (amoytestnet) at ([xshift=1.65cm, yshift=-0.2cm]network.west) {Polygon Amoy};
-    \node[draw, thick, rectangle, minimum width=2.5cm, minimum height=1cm, font=\footnotesize] (localhost) at ([xshift=-1.65cm, yshift=-0.2cm]network.east) {Local Host};
+  %   \node[draw, thick, rectangle, minimum width=6.2cm, minimum height=2.3cm, font=\footnotesize] (network) at (-5, -12) {};
+  %   \node[font=\footnotesize] at ([yshift=-0.4cm]network.north) {Blockchain Networks};
+  %   \node[draw, thick, rectangle, minimum width=2.7cm, minimum height=1cm, font=\footnotesize] (amoytestnet) at ([xshift=1.65cm, yshift=-0.2cm]network.west) {Polygon Amoy};
+  %   \node[draw, thick, rectangle, minimum width=2.5cm, minimum height=1cm, font=\footnotesize] (localhost) at ([xshift=-1.65cm, yshift=-0.2cm]network.east) {Local Host};
 
-    \node[draw, thick, rectangle, minimum width=3.5cm, minimum height=1cm, font=\footnotesize] (smartcontracts) at (-5, -9) {Smart Contracts};
-    \node[draw, thick, rectangle, minimum width=2cm, minimum height=1cm, font=\footnotesize] (wagmi) at (0, -9) {Wagmi};
-    \node[draw, thick, rectangle, minimum width=2.7cm, minimum height=1cm, font=\footnotesize] (connectkit) at (1.2, -12) {ConnectKit};
-    \node[draw, thick, rectangle, minimum width=3cm, minimum height=1cm, font=\footnotesize] (cryptowallet) at (5.5, -12) {Crypto Wallets};
+  %   \node[draw, thick, rectangle, minimum width=3.5cm, minimum height=1cm, font=\footnotesize] (smartcontracts) at (-5, -9) {Smart Contracts};
+  %   \node[draw, thick, rectangle, minimum width=2cm, minimum height=1cm, font=\footnotesize] (wagmi) at (0, -9) {Wagmi};
+  %   \node[draw, thick, rectangle, minimum width=2.7cm, minimum height=1cm, font=\footnotesize] (connectkit) at (1.2, -12) {ConnectKit};
+  %   \node[draw, thick, rectangle, minimum width=3cm, minimum height=1cm, font=\footnotesize] (cryptowallet) at (5.5, -12) {Crypto Wallets};
 
-    \draw[-latex, thick] (user.south) -- (vercel_north);
-    \draw[-latex, thick] (vercel_south) -- (nextjs.north);
-    \draw[-latex, thick] ([yshift=0.1cm]nextjs.east) -- (tailwindcss.west);
-    \draw[-latex, thick] ([yshift=0.2cm]nextjs.south east) -- ([xshift=-2cm]externalservice.north);
-    \draw[-latex, thick] (nextjs.south) -- (wagmi.north);
-    \draw[-latex, thick] (wagmi.south) -- (connectkit.north);
-    \draw[-latex, thick] (connectkit.east) -- (cryptowallet.west);
-    \draw[-latex, thick] (nodejs.south) -- (hardhat.north);
-    \draw[-latex, thick] (wagmi.west) -- (smartcontracts.east);
-    \draw[-latex, thick] (devinfrastructure.south) -- (smartcontracts.north);
-    \draw[-latex, thick] (smartcontracts.south) -- (network.north);
-  \end{tikzpicture}
-  \caption{Sơ đồ kiến trúc hệ thống}
+  %   \draw[-latex, thick] (user.south) -- (vercel_north);
+  %   \draw[-latex, thick] (vercel_south) -- (nextjs.north);
+  %   \draw[-latex, thick] ([yshift=0.1cm]nextjs.east) -- (tailwindcss.west);
+  %   \draw[-latex, thick] ([yshift=0.2cm]nextjs.south east) -- ([xshift=-2cm]externalservice.north);
+  %   \draw[-latex, thick] (nextjs.south) -- (wagmi.north);
+  %   \draw[-latex, thick] (wagmi.south) -- (connectkit.north);
+  %   \draw[-latex, thick] (connectkit.east) -- (cryptowallet.west);
+  %   \draw[-latex, thick] (nodejs.south) -- (hardhat.north);
+  %   \draw[-latex, thick] (wagmi.west) -- (smartcontracts.east);
+  %   \draw[-latex, thick] (devinfrastructure.south) -- (smartcontracts.north);
+  %   \draw[-latex, thick] (smartcontracts.south) -- (network.north);
+  % \end{tikzpicture}
+  \includegraphics[width=0.95\textwidth]{overall-architecture.png}
+  \caption{Sơ đồ kiến trúc tổng quan}
   \label{fig:system-architecture}
 \end{figure}
 
