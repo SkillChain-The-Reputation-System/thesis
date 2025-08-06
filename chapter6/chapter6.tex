@@ -70,29 +70,6 @@ Mặc dù đề tài đã đạt được nhiều kết quả tích cực trong 
 
 Dựa trên những kết quả đạt được và các hạn chế còn tồn tại, đề tài có thể được tiếp tục phát triển theo các hướng sau.
 
-\subsection{Giới hạn lại chỉ số uy tín}
-
-Hiện tại, chỉ số uy tín chuyên môn hoặc uy tín toàn cục của một cá nhân có thể tăng không giới hạn, dẫn đến khó khăn trong việc phân loại mức độ uy tín giữa các người dùng -- đặc biệt là đối với những người kiểm duyệt có chỉ số uy tín vượt quá 200.
-
-Để khắc phục vấn đề này, chúng tôi đề xuất giới hạn chỉ số uy tín và điều chỉnh các ngưỡng phân quyền vai trò như sau:
-\begin{itemize}
-  \item Giới hạn chỉ số uy tín chuyên môn và toàn cục ở mức tối đa là 100 nhằm đảm bảo tính ổn định, dễ quản lý và dễ phân loại cấp bậc người dùng.
-  \item Các ngưỡng điểm uy tín để đạt được từng vai trò được điều chỉnh lại như bảng~\ref{tab:suggested-role-reputation-threshold-adjustment}.
-\end{itemize}
-
-\begin{table}[H]
-  \centering
-  \begin{tabular}{|c|c|}
-    \hline
-    \textbf{Vai trò} & $R_{\text{threshold}}$ \\ \hline
-    Người đóng góp   & 50                     \\ \hline
-    Người đánh giá   & 70                     \\ \hline
-    Người kiểm duyệt & 90                     \\ \hline
-  \end{tabular}
-  \caption{Bảng đề xuất điều chỉnh ngưỡng điểm uy tín theo vai trò}
-  \label{tab:suggested-role-reputation-threshold-adjustment}
-\end{table}
-
 \subsection{Xây dựng bộ câu hỏi kiểm duyệt và đánh giá cho từng lĩnh vực chuyên môn}
 
 Hiện tại, hệ thống chỉ áp dụng một bộ câu hỏi kiểm duyệt chung và thang điểm đánh giá là 100 cho tất cả các lĩnh vực chuyên môn. Tuy nhiên, mỗi lĩnh vực lại có những đặc thù riêng biệt về kiến thức, kỹ năng và tiêu chuẩn chất lượng.
