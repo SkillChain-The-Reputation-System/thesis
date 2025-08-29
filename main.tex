@@ -1,72 +1,69 @@
+% ===================== PREAMBLE =====================
+% -------------- DOCUMENT CONFIGURATION -------------
 \documentclass[14pt, a4paper]{extreport}
-\setcounter{secnumdepth}{3}
+% Physical layout
+% \usepackage[
+%   a4paper,
+%   right=20mm,
+%   left=35mm,
+%   top=30mm,
+%   bottom=35mm, 
+%   twoside
+% ]{geometry}
 
-% Configure the page layout
+% Digital layout
 \usepackage[
   a4paper,
   right=25mm,
   left=25mm,
-  % inner=35mm,
-  % outer=20mm,
-  top=20mm,
-  bottom=20mm, 
-  twoside
+  top=30mm,
+  bottom=35mm, 
 ]{geometry}
-
 % Set font family
 \usepackage[T1]{fontenc}
 \usepackage{charter}
-
 % Vietnamese language support
 \usepackage[vietnamese]{babel}
-
 % Insert images
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage[export]{adjustbox}
 \graphicspath{{images/}}
-
 % Insert hyperlinks
 \usepackage{hyperref}
-
 % Support more flexible table
 \usepackage{tabularx}
 \usepackage{array}
 \usepackage{longtable}
 \usepackage{makecell, cellspace, caption}
-
 % Support enumeration and itemization
 \usepackage{enumitem}
-
 % Provides advanced math environments and features
 \usepackage{amsmath}
-
 % Support for algorithm
 \usepackage{algorithm}
 \usepackage{algpseudocode}
-% \usepackage{etoolbox}
-% \AtBeginEnvironment{algorithm}{\fontsize{9pt}{11pt}\selectfont}
-
-% Define line spacing
+% Define line spacing (1.5)
 \usepackage{setspace}
 \onehalfspacing
-
 % Create graphic elements in LaTeX
 \usepackage{tikz}
-
+% Advanced caption customization
 \usepackage{caption}
+\captionsetup[algorithm]{labelfont=bf, name=Thuật toán}
+% Set section numbering depth
+\setcounter{secnumdepth}{3}
 
-\captionsetup{
-  font = {small, small},
-}
-\captionsetup[algorithm]{labelfont=bf, name=Thuật toán, font=small}
-
-% Define commands for general information
+% -------------- DEFINE NEW COMMANDS -------------
+% General information
 \newcommand{\thesisname}{Hệ thống uy tín phục vụ xác thực hồ sơ và đánh giá kỹ năng}
-\newcommand{\instructor}{PGS. TS. Nguyễn Đình Thúc}
-\newcommand{\studentone}{Nguyễn Hải Tuyên - 21127474}
-\newcommand{\studenttwo}{Trần Minh Đạt - 21127570}
-
+\newcommand{\advisorname}{Nguyễn Đình Thúc}
+\newcommand{\advisortitle}{PGS. TS.}
+\newcommand{\advisorfulltitle}{\advisortitle{} \advisorname}
+\newcommand{\studentonename}{Nguyễn Hải Tuyên}
+\newcommand{\studentoneid}{21127474}
+\newcommand{\studenttwoname}{Trần Minh Đạt}
+\newcommand{\studenttwoid}{21127570}
 % Blank page without page number
 \newcommand{\blankpage}{
   \clearpage
@@ -74,73 +71,59 @@
   \hfill
   \clearpage
 }
-
 % Blank page with page number
 \newcommand{\emptypage}{
   \clearpage
   \hfill
   \clearpage
 }
-
-% Define column types for tables
+% Column types for tables
 \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
+% ================= DOCUMENT CONTENT =================
 \begin{document}
+% No page numbering
+\pagenumbering{gobble}
 
-\include{title/title}
+\include{otherChapter/cover}
+\include{otherChapter/title}
+\include{otherChapter/assurance}
+% Add assessment report from advisor and reviewer here
 
-\blankpage
-
-\include{otherChapter/extra-title}
-
-\blankpage
-
-\fontsize{12pt}{15pt}\selectfont
-
-\include{otherChapter/abstract}
-
-\blankpage
-
-\setcounter{page}{7}
+% Roman page numbering
+\pagenumbering{roman}
+\setcounter{page}{1}
 
 \include{otherChapter/thanks}
 
-\emptypage
+% No page numbering at outline
+\pagenumbering{gobble}
 
 \include{otherChapter/outline}
 
-\emptypage
+% Continue roman page numbering
+\pagenumbering{roman}
+\setcounter{page}{19}
 
 \tableofcontents
-
 \listoffigures
-
 \listoftables
+\include{otherChapter/abstract}
 
-\emptypage
+% Arabic page numbering
+\pagenumbering{arabic}
+\setcounter{page}{1}
 
 \include{chapter1/chapter1}
-
 \include{chapter2/chapter2}
-
-\emptypage
-
 \include{chapter3/chapter3}
-
-\emptypage
-
 \include{chapter4/chapter4}
-
-\emptypage
-
 \include{chapter5/chapter5}
-
 \include{chapter6/chapter6}
 
-\emptypage
-
+% References
 \bibliographystyle{ieeetr}
 \bibliography{reference}
 
