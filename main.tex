@@ -51,6 +51,8 @@
 % Advanced caption customization
 \usepackage{caption}
 \captionsetup[algorithm]{labelfont=bf, name=Thuật toán}
+% Insert pdf pages
+\usepackage{pdfpages}
 % Set section numbering depth
 \setcounter{secnumdepth}{3}
 
@@ -90,7 +92,8 @@
 \include{otherChapter/cover}
 \include{otherChapter/title}
 \include{otherChapter/assurance}
-% Add assessment report from advisor and reviewer here
+\includepdf[pages=-]{assessment/advisor}
+\includepdf[pages=-]{assessment/reviewer}
 
 % Roman page numbering
 \pagenumbering{roman}
