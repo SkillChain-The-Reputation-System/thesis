@@ -196,7 +196,7 @@ Chi tiết tại thuật toán \ref{alg:simple-eigentrust-algorithm}.
 
 Tuy nhiên, có ba vấn đề thực tiễn mà thuật toán \ref{alg:simple-eigentrust-algorithm} không thể xử lý: nhóm peer có uy tín sẵn, những peer không hoạt động, và các peer độc hại hợp tác với nhau.
 
-\textbf{Nhóm peer có uy tín sẵn.} Một hệ thống mạng P2P chỉ có một vài peer là có uy tín cao, thường là những người đầu tiên tham gia hệ thống, chẳng hạn như những nhà phát triển hay những người dùng truy cập sớm.
+\textbf{Nhóm peer có uy tín sẵn.} Một hệ thống mạng P2P chỉ có một vài peer là có uy tín cao, thường là những người đầu tiên tham gia hệ thống.
 Ta định nghĩa tập hợp $P$ là các peer có uy tín sẵn (pre-trusted peers) và $\vec{p}$ là vector khởi đầu thay cho $\vec{e}$, với:
 \[
   p_i =
@@ -205,7 +205,6 @@ Ta định nghĩa tập hợp $P$ là các peer có uy tín sẵn (pre-trusted p
     0     & ,\text{ngược lại}
   \end{cases}
 \]
-điều này giúp hội tụ nhanh hơn, cũng như loại bỏ được các peer độc hại.
 
 \textbf{Những peer không hoạt động.} Nếu peer $i$ chưa từng tương tác với ai, thì không thể tính được $c_{ij}$.
 Khi đó, ta mặc định rằng peer $i$ tin tưởng các peer uy tín sẵn theo phân phối $p$, tức $c_{ij} = p_j$. Ta có thể diễu diễn lại cách tính $c_{ij}$ như sau:
@@ -245,8 +244,6 @@ Mỗi peer có thể tính giá trị tin cậy toàn cục của mình như sau
 
 Từ đó, ta có được thuật toán EigenTrust phân tán cơ bản được thể hiện ở thuật toán \ref{alg:distributed-eigentrust-algorithm}.
 Vì mỗi peer chỉ tương tác với một số peer nhỏ (không phải toàn mạng), việc tính toán và truyền tin cũng nhẹ nhàng và hiệu quả.
-Trong trường hợp một mạng lưới có nhiều peer hoạt động mạnh, ta có thể duy trì những lợi ích trên bằng cách giới hạn số lượng giá trị tin cậy cục bộ $c_{ij}$ mà mỗi peer
-có thể báo cáo.
 
 \begin{algorithm}
   \caption{Thuật toán EigenTrust phân tán}
