@@ -7,8 +7,7 @@
 %   right=20mm,
 %   left=35mm,
 %   top=30mm,
-%   bottom=35mm, 
-%   twoside
+%   bottom=35mm,
 % ]{geometry}
 
 % Digital layout
@@ -92,8 +91,7 @@
 \include{otherChapter/cover}
 \include{otherChapter/title}
 % \blankpage
-\include{otherChapter/assurance}
-% \blankpage
+% \include{otherChapter/assurance}
 \includepdf[pages=-]{assessment/advisor}
 \includepdf[pages=-]{assessment/reviewer}
 
@@ -106,7 +104,8 @@
 % No page numbering at outline
 \pagenumbering{gobble}
 % outline from pages 13-32
-\includepdf[pages=-]{otherChapter/outline}
+\includepdf[pages=-]{otherChapter/online_outline}
+% \includepdf[pages=-]{otherChapter/physical_outline}
 
 % Continue roman page numbering
 \pagenumbering{roman}
